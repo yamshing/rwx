@@ -1,3 +1,3 @@
 # rwx
-ruby wrapper for wxwidget
-test
+wxwidget wrapper for ruby 
+ 
