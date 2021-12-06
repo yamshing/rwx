@@ -1,0 +1,3 @@
+[submodule "omusubin"]
+	path = omusubin
+	url = https://github.com/yamshing/omusubin.git
