@@ -1,4 +1,10 @@
 
+ifeq ($(OS),Windows_NT)
+	SYS = "win"
+else
+	SYS = "linux"
+endif
+ 
 OMUSUBIN_DIR="omusubin/src/class"
 CLASS_DIR="src/class"
 RWX_BIN_NAME = "rwx"
@@ -19,34 +25,13 @@ WINRUBYLIB = -L/z/c/Users/shingo/lib/lib -lx64-msvcrt-ruby300-static -I/z/c/User
 WININCLUDE = -I.  -I./class   -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/lib/wx/include/msw-unicode-static-3.1 -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/include
 WINLIB = 
  
-OS = $(shell uname)
- 
-  
 wx:
-	echo $(OS);
+ifeq ($(SYS),"win")
+	echo 'win'
+	#rm $(RWX_BIN_NAME).exe || true 
+	#g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
+else
 	rm $(RWX_BIN_NAME) || true;
-	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB);
+	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 
 	 
-	#------------------------------
-	# EXECUTE FILE
-	#./a.out notebook_test.rb
-	# 
-	#------------------------------
-	# EXECUTE OMUSUBIN EXE
-	#./omusubin.out  /home/shingo/source_code/git/shingo/playground/cpp/librwx/omusubin.conf
-	#chmod +x  a.out_omusubin.exe || true
-	 
-#winlib:
-#	
-#	rm /z/source_code/git/win_ruby_300/ruby-3_0_2/librwx/librwx.o || true
-#	cd /z/source_code/git/win_ruby_300/ruby-3_0_2; make install -j 4;
-#	cp /z/source_code/git/win_ruby_300/ruby-3_0_2/libx64-msvcrt-ruby300-static.a /z/c/Users/shingo/lib/lib
-#	
-#winwx:
-#	rm a.exe || true 
-#	rm a.exe_omusubin.exe || true 
-#	#$(MAKE) winlib
-#	g++ -g0 -O3 -s -o a.exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
-#	./omusubin.exe  /z/source_code/git/shingo/playground/cpp/librwx/omusubin_win.conf
-	 
-	 
+endif
