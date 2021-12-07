@@ -20,16 +20,17 @@ LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
  
 #-mwindows not work with ruby 
 
-WINWXLIB = -LC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/lib    -lwx_mswu_core-3.1  -lwx_baseu-3.1        -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio    -D__WXMSW__
-WINRUBYLIB = -L/z/c/Users/shingo/lib/lib -lx64-msvcrt-ruby300-static -I/z/c/Users/shingo/lib/include/ruby-3.0.0 -I/z/c/Users/shingo/lib/include/ruby-3.0.0/x64-mingw32   -lm -lgmp  -lz -lws2_32 -lshell32 -limagehlp -liphlpapi
-WININCLUDE = -I.  -I./class   -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/lib/wx/include/msw-unicode-static-3.1 -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/include
+#WINWXLIB = -LC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/lib    -lwx_mswu_core-3.1  -lwx_baseu-3.1        -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio    -D__WXMSW__
+WINWXLIB = -L./lib/wxwidget/lib    -lwx_mswu_core-3.1  -lwx_baseu-3.1     -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio    -D__WXMSW__
+WINRUBYLIB = -L./lib/rwx/lib -lx64-msvcrt-ruby300-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x64-mingw32   -lm -lgmp  -lz -lws2_32 -lshell32 -limagehlp -liphlpapi
+WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./lib/wxwidget/lib/wx/include/msw-unicode-static-3.1 -I./lib/wxwidget/include/wx-3.1 
 WINLIB = 
  
 wx:
 ifeq ($(SYS),"win")
 	echo 'win'
-	#rm $(RWX_BIN_NAME).exe || true 
-	#g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
+	rm $(RWX_BIN_NAME).exe || true 
+	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
 else
 	rm $(RWX_BIN_NAME) || true;
 	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 
