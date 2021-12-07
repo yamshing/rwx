@@ -1,12 +1,6 @@
 module Rwx
-	 
-	
-	 
 	class Frame
 		def on_init 
-			 
-			
-			 
 		end
 	end
 	 
