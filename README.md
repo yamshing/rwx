@@ -16,3 +16,7 @@ after setup
 make wx 
  
 to compile rwx binary
+
+# Documentations
+
+[Get Started](doc/get_started.md)
