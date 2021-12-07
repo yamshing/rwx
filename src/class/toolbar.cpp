@@ -9,7 +9,8 @@ void Toolbar::Call(int nargs, VALUE *args)
 	if (func_name_str == "add_tool") {
 		 
 		std::cout << "nargs (in toolbar.cpp) " << nargs << std::endl;
-		wxBitmap icon = wxBitmap("assets/save.bmp");
+		//wxBitmap icon = wxBitmap("assets/save.bmp");
+		wxBitmap icon = wxNullBitmap;
 		 
 		VALUE hash = args[1];
 		VALUE type = rb_hash_aref(hash, ID2SYM(rb_intern("type")));
