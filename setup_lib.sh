@@ -72,7 +72,8 @@ fi
 
 cd $WXWIDGET_DIR_NAME;
 #./configure --prefix=$WXWIDGET_LIB_DIR --disable-shared --disable-debug;
-./configure --prefix=$WXWIDGET_LIB_DIR --disable-shared;
+#./configure --prefix=$WXWIDGET_LIB_DIR --disable-shared;
+./configure --prefix=$WXWIDGET_LIB_DIR --disable-shared --enable-unicode --enable-debug;
 make -j 4 install;
  
 cd ..;
