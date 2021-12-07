@@ -19,10 +19,13 @@ WINRUBYLIB = -L/z/c/Users/shingo/lib/lib -lx64-msvcrt-ruby300-static -I/z/c/User
 WININCLUDE = -I.  -I./class   -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/lib/wx/include/msw-unicode-static-3.1 -IC:/msys64/home/shingo/workspace/wxWidgets-3.1.5/include
 WINLIB = 
  
+OS = $(shell uname)
+ 
   
 wx:
-	rm $(RWX_BIN_NAME) || true 
-	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB) 
+	echo $(OS);
+	rm $(RWX_BIN_NAME) || true;
+	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB);
 	 
 	#------------------------------
 	# EXECUTE FILE
