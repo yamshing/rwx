@@ -1,14 +1,31 @@
-#!/bin/sh
+#!/bin/bash
+ 
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     machine=Linux;;
+    Darwin*)    machine=Mac;;
+    CYGWIN*)    machine=Cygwin;;
+    MINGW*)     machine=MinGw;;
+    *)          machine="UNKNOWN:${unameOut}"
+esac
+ 
+
+LIB_DIR="lib"
+ZIP_DIR="zip"
+ 
+if [ "$machine" == "MinGw" ]; then
+LIB_DIR="winlib"
+ZIP_DIR="winzip"
+fi
+ 
 
 ROOT_DIR=`pwd`
 echo $ROOT_DIR
-LIB_DIR="lib"
 ABS_LIB_DIR="$ROOT_DIR/$LIB_DIR"
  
 WXWIDGET_LIB_DIR="$ABS_LIB_DIR/wxwidget"
 RWX_LIB_DIR="$ABS_LIB_DIR/rwx"
  
-ZIP_DIR="zip"
  
 RUBY_ZIP_NAME="ruby_302"
 CATCH_ZIP_NAME="catch"
