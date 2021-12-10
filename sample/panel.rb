@@ -7,17 +7,25 @@ module Rwx
 			row_1_sizer.add(label_1)
 			out_sizer.add(row_1_sizer)
 
-			row_3_sizer = Sizer.new('box', 'horizontal')
+			row_2_sizer = Sizer.new('box', 'horizontal')
 			button_1 = Button.new(self, label:'Click Here',cb_inst:self, cb_name:'on_button_click' )
 			button_2 = Button.new(self, label:'ボタン２', cb_inst:self, cb_name:'on_button_click' )
-			row_3_sizer.add_spacer(20)
-			row_3_sizer.add(button_1)
-			row_3_sizer.add_spacer(20)
-			row_3_sizer.add(button_2)
+			row_2_sizer.add_spacer(20)
+			row_2_sizer.add(button_1)
+			row_2_sizer.add_spacer(20)
+			row_2_sizer.add(button_2)
 			 
+			out_sizer.add_spacer(20)
+			out_sizer.add(row_2_sizer)
+
+			row_3_sizer = Sizer.new('box', 'horizontal')
+			row_3_sizer.add_spacer(10)
+			radio = RadioBox.new(self, label:'radio',cb_inst:self, cb_name:'on_button_click','content':['a','b','c'] )
+			row_3_sizer.add(radio)
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_3_sizer)
 			add_sizer(out_sizer)
+			 
 			 
 		end
 		def on_button_click
