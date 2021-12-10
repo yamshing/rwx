@@ -24,8 +24,21 @@ module Rwx
 			row_3_sizer.add(radio)
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_3_sizer)
-			add_sizer(out_sizer)
 			 
+			row_4_sizer = Sizer.new('box', 'horizontal')
+			row_4_sizer.add_spacer(10)
+			 
+			check_1 = CheckBox.new(self, label:'チェック',cb_inst:self, cb_name:'on_button_click' )
+			row_4_sizer.add(check_1)
+			row_4_sizer.add_spacer(10)
+			 
+			check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
+			row_4_sizer.add(check_2)
+			out_sizer.add_spacer(20)
+	
+			out_sizer.add(row_4_sizer)
+			 
+			add_sizer(out_sizer)
 			 
 		end
 		def on_button_click
