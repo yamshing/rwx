@@ -25,18 +25,30 @@ module Rwx
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_3_sizer)
 			 
-			row_4_sizer = Sizer.new('box', 'horizontal')
-			row_4_sizer.add_spacer(10)
-			 
-			check_1 = CheckBox.new(self, label:'チェック',cb_inst:self, cb_name:'on_button_click' )
-			row_4_sizer.add(check_1)
-			row_4_sizer.add_spacer(10)
-			 
-			check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
-			row_4_sizer.add(check_2)
 			out_sizer.add_spacer(20)
-	
+			 
+			row_4_sizer = Sizer.new('box', 'horizontal')
+				row_4_sizer.add_spacer(10)
+				check_1 = CheckBox.new(self, label:'チェック',cb_inst:self, cb_name:'on_button_click' )
+				row_4_sizer.add(check_1)
+				row_4_sizer.add_spacer(10)
+				check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
+				row_4_sizer.add(check_2)
 			out_sizer.add(row_4_sizer)
+			 
+			out_sizer.add_spacer(20)
+			 
+			row_5_sizer = Sizer.new('box', 'horizontal')
+				row_5_sizer.add_spacer(10)
+				label = StaticText.new(self, 'インプット')
+				row_5_sizer.add(label)
+				 
+				text_ctrl = TextCtrl.new(self, '123')
+				row_5_sizer.add(text_ctrl)
+				 
+			out_sizer.add(row_5_sizer)
+	
+			 
 			 
 			add_sizer(out_sizer)
 			 
