@@ -27,20 +27,29 @@ CheckBox::CheckBox(int nargs, VALUE *args)
 	++StaticFunc::ALL_EVENT_ID;
 	 
 }
-void CheckBox::Call(int nargs, VALUE *args)
+ 
+VALUE CheckBox::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
-	std::string func_name_str = std::string(StringValuePtr(func_name));
-	if (func_name_str == "get_value") {
-		std::cout << "get value call (in check_box.cpp) "  << std::endl;
-	}
+	VALUE result = Qfalse;
 	 
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	 
+	if (func_name_str == "get_value") {
+		bool checked = m_checkbox->GetValue();
+		if (checked) {
+			result = Qtrue;
+		}else{
+			result = Qfalse;
+		}
+	}
+	return result;
 }
+ 
  
 
 /*void Button::OnClick(wxCommandEvent& event)
 {
-	 
 	int id = event.GetId();
 	std::cout << "button click (in button.cpp) " << id << std::endl;
 	 
@@ -51,6 +60,5 @@ void CheckBox::Call(int nargs, VALUE *args)
 	StaticFunc::ValueToString(callback_name, callback_name_str);
 	ID callback_def_id = rb_intern(callback_name_str.c_str());
 	rb_funcall(callback_inst, callback_def_id,0);
-	 
 }
 */

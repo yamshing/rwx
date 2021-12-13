@@ -22,11 +22,10 @@ VALUE librwx_RadioBox;
 VALUE librwx_CheckBox;
  
  
-void(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
+VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
  
-void set_app_pointer(void(*cb)(VALUE, char* , int, VALUE*))
+void set_app_pointer(VALUE(*cb)(VALUE, char* , int, VALUE*))
 {
-	printf("set app !!! \n\n\n\n");
 	global_app_callback_ptr = cb;
 }
  
@@ -67,18 +66,14 @@ static VALUE librwx_##target (int argc, VALUE *argv, VALUE self, char* func_name
 	for (int i = 1; i < argc + 1; ++i) {\
 		arg_arr[i] = argv[i - 1];\
 	}\
-	global_app_callback_ptr(self, #target, argc + 1, arg_arr);\
+	VALUE result = global_app_callback_ptr(self, #target, argc + 1, arg_arr);\
+	return result;\
 }\
  
 #define FUNC_TO_GENERIC(target,name) \
 static VALUE librwx_##target##_##name (int argc, VALUE *argv, VALUE self)\
 {\
-	librwx_##target##_call(argc, argv, self, #name );\
-	bool a = true;\
-	VALUE x;\
-	x = Qtrue;\
-	VALUE y = INT2NUM(20);\
-	return y;\
+	return librwx_##target##_call(argc, argv, self, #name );\
 }\
 
 INITIALIZE(text_ctrl)

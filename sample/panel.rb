@@ -29,16 +29,12 @@ module Rwx
 			 
 			row_4_sizer = Sizer.new('box', 'horizontal')
 				row_4_sizer.add_spacer(10)
-				check_1 = CheckBox.new(self, label:'チェック',cb_inst:self, cb_name:'on_button_click' )
+				@check_1 = CheckBox.new(self, label:'チェック1',cb_inst:self, cb_name:'on_button_click' )
+				row_4_sizer.add(@check_1)
 				 
-				result = check_1.get_value()
-				 
-				p "result = #{result} "
-				 
-				row_4_sizer.add(check_1)
 				row_4_sizer.add_spacer(10)
-				check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
-				row_4_sizer.add(check_2)
+				@check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
+				row_4_sizer.add(@check_2)
 			out_sizer.add(row_4_sizer)
 			 
 			out_sizer.add_spacer(20)
@@ -67,9 +63,15 @@ module Rwx
 			add_sizer(out_sizer)
 			 
 		end
+		 
 		def on_button_click
-			p "button click"
+			result = @check_1.get_value()
+			result2 = @check_2.get_value()
+			p "result = #{result}"
+			p "result2 = #{result2}"
+			 
 		end
+		 
 	end
 	 
 	class Frame

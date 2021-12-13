@@ -1,7 +1,7 @@
 #ifndef STATIC_FUNC_H
 #define STATIC_FUNC_H 
 extern "C"{ 
-	void set_app_pointer(void(*cb)(VALUE, char* , int, VALUE*));
+	void set_app_pointer(VALUE(*cb)(VALUE, char* , int, VALUE*));
 }
  
 #include <sstream>
@@ -196,7 +196,7 @@ struct StaticFunc
 			VALUE parent = args[0];
 			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 			Panel* panel_p = new Panel(parent_p, nargs, args);
-			std::cout << "init panel (in static_func.h) "  << std::endl; 
+			//std::cout << "init panel (in static_func.h) "  << std::endl; 
 			rb_p(target);
 			app_p -> SetObjectToMap(target, panel_p);
 			panel_p->CallOnInit(target);
@@ -265,7 +265,7 @@ struct StaticFunc
 			CheckBox* checkbox_p = new CheckBox(nargs, args);
 			app_p -> SetObjectToMap(target, checkbox_p);
 			 
-			std::cout << "checkbox init (in static_func.h) "  << std::endl;
+			//std::cout << "checkbox init (in static_func.h) "  << std::endl;
 			 
 		}
 		 
@@ -273,12 +273,14 @@ struct StaticFunc
 	
 	 
 	 
-	static void app_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
+	static VALUE app_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		std::cout << "func_name_str (in static_func.h) " << func_name_str << ',' << func_name << std::endl;
+		//std::cout << "func_name_str (in static_func.h) " << func_name_str << ',' << func_name << std::endl;
+		 
+		VALUE result = Qtrue;
 		 
 		if (func_name_str == "init_app") {
 			app_p->SetRwxApp(target);
@@ -293,12 +295,12 @@ struct StaticFunc
 		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox"){
 			input_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "checkbox_call" ) {
-			 
-			std::cout << "checkcall (in static_func.h) " << func_name << std::endl;
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
-			checkbox_p->Call(nargs, args);
-			 
+			result = checkbox_p->Call(nargs, args);
 		}
+		 
+		return result;
+		 
 	}
 	 
 	 
