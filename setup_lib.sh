@@ -102,7 +102,10 @@ cd ..;
 cp ../$LIBRWX_DIR_NAME/ruby/common.mk ./$RUBY_DIR_NAME/
 cp ../$LIBRWX_DIR_NAME/ruby/inits.c ./$RUBY_DIR_NAME/
 cp ../$LIBRWX_DIR_NAME/ruby/revision.h ./$RUBY_DIR_NAME/
-cp -R ../$LIBRWX_DIR_NAME/ruby/librwx ./$RUBY_DIR_NAME/
+#cp -R ../$LIBRWX_DIR_NAME/ruby/librwx ./$RUBY_DIR_NAME/
+mkdir ./$RUBY_DIR_NAME/librwx
+ln -fs ../../../$LIBRWX_DIR_NAME/ruby/librwx/librwx.c ./$RUBY_DIR_NAME/librwx/librwx.c
+ 
  
 cd $RUBY_DIR_NAME;
 ./autogen.sh;

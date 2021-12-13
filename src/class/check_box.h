@@ -23,6 +23,9 @@ class CheckBox :public wxObject
 			m_checkbox = checkbox;
 		};
 		 
+		void Call(int nargs, VALUE *args);
+		 
+		 
 };
 	
 #endif

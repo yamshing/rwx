@@ -278,7 +278,7 @@ struct StaticFunc
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		//std::cout << "func_name_str (in static_func.h) " << func_name_str << std::endl;
+		std::cout << "func_name_str (in static_func.h) " << func_name_str << ',' << func_name << std::endl;
 		 
 		if (func_name_str == "init_app") {
 			app_p->SetRwxApp(target);
@@ -292,6 +292,12 @@ struct StaticFunc
 			panel_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox"){
 			input_callback(target, func_name, nargs, args);
+		}else if (func_name_str == "checkbox_call" ) {
+			 
+			std::cout << "checkcall (in static_func.h) " << func_name << std::endl;
+			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
+			checkbox_p->Call(nargs, args);
+			 
 		}
 	}
 	 

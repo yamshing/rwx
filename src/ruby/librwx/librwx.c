@@ -100,6 +100,8 @@ GENERIC_CALL(panel_call)
 GENERIC_CALL(sizer_call)
 GENERIC_CALL(notebook_call)
 GENERIC_CALL(canvas_call)
+
+GENERIC_CALL(checkbox_call)
 	 
  
 FUNC_TO_GENERIC(frame,set_size)
@@ -117,6 +119,8 @@ FUNC_TO_GENERIC(sizer,add_spacer)
 FUNC_TO_GENERIC(notebook,add)
 	 
 FUNC_TO_GENERIC(canvas,refresh)
+	 
+FUNC_TO_GENERIC(checkbox,get_value)
 	 
 
 void
@@ -182,6 +186,7 @@ Init_LibRwx(void)
 	 
 	librwx_CheckBox  = rb_define_class_under(librwx_Namespace, "CheckBox", rb_cObject);
 	rb_define_method(librwx_CheckBox, "initialize", librwx_checkbox_initialize, -1);
+	rb_define_method(librwx_CheckBox, "get_value", librwx_checkbox_get_value, -1);
 	
 	librwx_Notebook  = rb_define_class_under(librwx_Namespace, "Notebook", rb_cObject);
 	rb_define_method(librwx_Notebook, "initialize", librwx_notebook_initialize, -1);
