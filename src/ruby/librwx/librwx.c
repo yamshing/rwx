@@ -74,6 +74,11 @@ static VALUE librwx_##target (int argc, VALUE *argv, VALUE self, char* func_name
 static VALUE librwx_##target##_##name (int argc, VALUE *argv, VALUE self)\
 {\
 	librwx_##target##_call(argc, argv, self, #name );\
+	bool a = true;\
+	VALUE x;\
+	x = Qtrue;\
+	VALUE y = INT2NUM(20);\
+	return y;\
 }\
 
 INITIALIZE(text_ctrl)

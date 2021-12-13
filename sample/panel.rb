@@ -31,7 +31,9 @@ module Rwx
 				row_4_sizer.add_spacer(10)
 				check_1 = CheckBox.new(self, label:'チェック',cb_inst:self, cb_name:'on_button_click' )
 				 
-				check_1.get_value()
+				result = check_1.get_value()
+				 
+				p "result = #{result} "
 				 
 				row_4_sizer.add(check_1)
 				row_4_sizer.add_spacer(10)
