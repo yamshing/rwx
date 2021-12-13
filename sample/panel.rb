@@ -44,8 +44,8 @@ module Rwx
 				label = StaticText.new(self, 'インプット')
 				row_5_sizer.add(label)
 				 
-				text_ctrl = TextCtrl.new(self, '123')
-				row_5_sizer.add(text_ctrl)
+				@text_ctrl_1 = TextCtrl.new(self, '123')
+				row_5_sizer.add(@text_ctrl_1)
 				 
 			out_sizer.add(row_5_sizer)
 			 
@@ -54,8 +54,8 @@ module Rwx
 				label = StaticText.new(self, 'インプット')
 				row_6_sizer.add(label)
 				 
-				text_ctrl = TextCtrl.new(self, '555')
-				row_6_sizer.add(text_ctrl)
+				@text_ctrl_2 = TextCtrl.new(self, '555')
+				row_6_sizer.add(@text_ctrl_2)
 				 
 			out_sizer.add(row_6_sizer)
 			 
@@ -67,8 +67,13 @@ module Rwx
 		def on_button_click
 			result = @check_1.get_value()
 			result2 = @check_2.get_value()
+			 
 			p "result = #{result}"
 			p "result2 = #{result2}"
+			 
+			text_ctrl_result = @text_ctrl_1.get_value()
+			 
+			p "text ctrl result #{text_ctrl_result}"
 			 
 		end
 		 

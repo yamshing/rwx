@@ -17,7 +17,7 @@ class TextCtrl: public wxTextCtrl
 		 
 		virtual ~TextCtrl (){};
 		 
-		void Call(int nargs, VALUE *args);
+		VALUE Call(int nargs, VALUE *args);
 		 
 		wxTextCtrl* GetTextCtrlP(){
 			return m_text_ctrl_p;

@@ -236,10 +236,13 @@ struct StaticFunc
 			 
 		}
 	}
-	static void input_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
+	static VALUE input_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
+		 
+		VALUE result = Qtrue;
+		 
 		if (check_class_name(target,"Rwx::StaticText") && func_name_str == "init_static_text"){
 			 
 			StaticText* static_text_p = new StaticText(nargs, args);
@@ -250,6 +253,11 @@ struct StaticFunc
 			TextCtrl* text_ctrl_p = new TextCtrl(nargs, args);
 			app_p -> SetObjectToMap(target, text_ctrl_p);
 
+		}else if (check_class_name(target,"Rwx::TextCtrl") && func_name_str == "text_ctrl_call"){
+			 
+			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
+			result = text_ctrl_p->Call(nargs, args);
+			 
 		}else if (check_class_name(target,"Rwx::Button") && func_name_str == "init_button"){
 			 
 			Button* button_p = new Button(nargs, args);
@@ -292,8 +300,8 @@ struct StaticFunc
 			canvas_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_splitter" || func_name_str == "notebook_call"|| func_name_str == "init_notebook" || func_name_str == "splitter_call" ||  func_name_str == "init_panel" || func_name_str == "panel_call" || func_name_str == "init_sizer" || func_name_str == "sizer_call"){
 			panel_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox"){
-			input_callback(target, func_name, nargs, args);
+		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox" || func_name_str == "text_ctrl_call" ){
+			result = input_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "checkbox_call" ) {
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
 			result = checkbox_p->Call(nargs, args);

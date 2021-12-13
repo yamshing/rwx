@@ -17,15 +17,28 @@ TextCtrl::TextCtrl(int nargs, VALUE *args)
 }
 
 
-void TextCtrl::Call(int nargs, VALUE *args)
+VALUE TextCtrl::Call(int nargs, VALUE *args)
 {
 	 
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
 	App* app_p = static_cast<App*>(wxTheApp);
-	if (func_name_str == "test") {
+	VALUE result = Qfalse;
+	 
+	if (func_name_str == "get_value") {
+		 
+		wxString value_wxstr = m_text_ctrl_p->GetValue();
+		std::string value_str = std::string(value_wxstr);
+		 
+		std::cout << "value_str (in text_ctrl.cpp) " << value_str << std::endl;
+		 
+		VALUE res_str =  rb_str_new_cstr(value_str.c_str());
+		 
+		result = res_str;
 		 
 	}
+	 
+	return result;
 	 
 }
  
