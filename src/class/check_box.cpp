@@ -46,19 +46,3 @@ VALUE CheckBox::Call(int nargs, VALUE *args)
 	return result;
 }
  
- 
-
-/*void Button::OnClick(wxCommandEvent& event)
-{
-	int id = event.GetId();
-	std::cout << "button click (in button.cpp) " << id << std::endl;
-	 
-	VALUE callback_inst = m_menu_callback_inst_map[id];
-	VALUE callback_name = m_menu_callback_name_map[id];
-	 
-	std::string callback_name_str;
-	StaticFunc::ValueToString(callback_name, callback_name_str);
-	ID callback_def_id = rb_intern(callback_name_str.c_str());
-	rb_funcall(callback_inst, callback_def_id,0);
-}
-*/

@@ -302,9 +302,13 @@ struct StaticFunc
 			panel_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox" || func_name_str == "text_ctrl_call" ){
 			result = input_callback(target, func_name, nargs, args);
+			 
 		}else if (func_name_str == "checkbox_call" ) {
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
 			result = checkbox_p->Call(nargs, args);
+		}else if (func_name_str == "radiobox_call" ) {
+			RadioBox* radiobox_p = static_cast<RadioBox*>(app_p->GetObjectFromMap(target));
+			result = radiobox_p->Call(nargs, args);
 		}
 		 
 		return result;

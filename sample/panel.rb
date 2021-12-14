@@ -20,8 +20,9 @@ module Rwx
 
 			row_3_sizer = Sizer.new('box', 'horizontal')
 			row_3_sizer.add_spacer(10)
-			radio = RadioBox.new(self, label:'radio',cb_inst:self, cb_name:'on_button_click','content':['a','b','c'] )
-			row_3_sizer.add(radio)
+			 
+			@radio = RadioBox.new(self, label:'radio',cb_inst:self, cb_name:'on_button_click','content':['a','b','c'] )
+			row_3_sizer.add(@radio)
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_3_sizer)
 			 
@@ -68,14 +69,12 @@ module Rwx
 			result = @check_1.get_value()
 			result2 = @check_2.get_value()
 			 
-			p "result = #{result}"
-			p "result2 = #{result2}"
-			 
 			text_ctrl_result = @text_ctrl_1.get_value()
 			 
 			@text_ctrl_2.set_value(text_ctrl_result)
 			 
-			p "text ctrl result #{text_ctrl_result}"
+			radio_selected = @radio.get_selection()
+			 
 			 
 		end
 		 

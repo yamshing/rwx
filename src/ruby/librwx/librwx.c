@@ -103,27 +103,27 @@ GENERIC_CALL(canvas_call)
 GENERIC_CALL(checkbox_call)
 	 
 GENERIC_CALL(text_ctrl_call)
+GENERIC_CALL(radiobox_call)
 	 
- 
+	 
 FUNC_TO_GENERIC(frame,set_size)
 FUNC_TO_GENERIC(dc,set_brush)
 FUNC_TO_GENERIC(dc,set_pen)
 FUNC_TO_GENERIC(dc,draw_circle)
-	 
 FUNC_TO_GENERIC(toolbar,add_tool)
 FUNC_TO_GENERIC(splitter,split)
-
 FUNC_TO_GENERIC(panel,add_sizer)
 FUNC_TO_GENERIC(sizer,add)
 FUNC_TO_GENERIC(sizer,add_spacer)
-	 
 FUNC_TO_GENERIC(notebook,add)
-	 
 FUNC_TO_GENERIC(canvas,refresh)
-	 
 FUNC_TO_GENERIC(checkbox,get_value)
 FUNC_TO_GENERIC(text_ctrl,get_value)
 FUNC_TO_GENERIC(text_ctrl,set_value)
+
+FUNC_TO_GENERIC(radiobox,get_selection)
+
+
 
 void
 Init_LibRwx(void)
@@ -187,6 +187,7 @@ Init_LibRwx(void)
 	 
 	librwx_RadioBox  = rb_define_class_under(librwx_Namespace, "RadioBox", rb_cObject);
 	rb_define_method(librwx_RadioBox, "initialize", librwx_radiobox_initialize, -1);
+	rb_define_method(librwx_RadioBox, "get_selection", librwx_radiobox_get_selection, -1);
 	 
 	librwx_CheckBox  = rb_define_class_under(librwx_Namespace, "CheckBox", rb_cObject);
 	rb_define_method(librwx_CheckBox, "initialize", librwx_checkbox_initialize, -1);

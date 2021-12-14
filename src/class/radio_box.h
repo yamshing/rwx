@@ -21,6 +21,7 @@ class RadioBox :public wxObject
 		void SetRadioBox(wxRadioBox* radio){
 			m_radio = radio;
 		};
+		VALUE Call(int nargs, VALUE *args);
 		 
 };
 	

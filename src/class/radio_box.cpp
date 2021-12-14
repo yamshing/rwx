@@ -40,22 +40,18 @@ RadioBox::RadioBox(int nargs, VALUE *args)
 	++StaticFunc::ALL_EVENT_ID;
 
 }
-
-
-/*void Button::OnClick(wxCommandEvent& event)
+VALUE RadioBox::Call(int nargs, VALUE *args)
 {
+	VALUE func_name = args[0];
+	VALUE result = INT2NUM(-1);
 	 
-	int id = event.GetId();
-	std::cout << "button click (in button.cpp) " << id << std::endl;
+	std::string func_name_str = std::string(StringValuePtr(func_name));
 	 
-	VALUE callback_inst = m_menu_callback_inst_map[id];
-	VALUE callback_name = m_menu_callback_name_map[id];
-	 
-	std::string callback_name_str;
-	StaticFunc::ValueToString(callback_name, callback_name_str);
-	ID callback_def_id = rb_intern(callback_name_str.c_str());
-	rb_funcall(callback_inst, callback_def_id,0);
-	 
+	if (func_name_str == "get_selection") {
+		int radio_selected = m_radio->GetSelection();
+		result = INT2NUM(radio_selected);
+	}
+	return result;
 }
-*/
+
 
