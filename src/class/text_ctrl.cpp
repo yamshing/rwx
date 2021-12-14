@@ -36,6 +36,17 @@ VALUE TextCtrl::Call(int nargs, VALUE *args)
 		 
 		result = res_str;
 		 
+	}else if (func_name_str == "set_value") {
+		 
+		VALUE val_to_set = args[1];
+		std::string val_to_set_str;
+		StaticFunc::ValueToString(val_to_set, val_to_set_str);
+		 
+		std::cout << "set val (in text_ctrl.cpp) " << val_to_set_str << std::endl;
+		 
+		wxString val_to_set_wxstr = wxString::FromUTF8(val_to_set_str);
+		m_text_ctrl_p->SetValue(val_to_set_wxstr);
+		 
 	}
 	 
 	return result;

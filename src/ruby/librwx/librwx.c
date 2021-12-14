@@ -123,6 +123,7 @@ FUNC_TO_GENERIC(canvas,refresh)
 	 
 FUNC_TO_GENERIC(checkbox,get_value)
 FUNC_TO_GENERIC(text_ctrl,get_value)
+FUNC_TO_GENERIC(text_ctrl,set_value)
 
 void
 Init_LibRwx(void)
@@ -179,6 +180,7 @@ Init_LibRwx(void)
 	librwx_TextCtrl  = rb_define_class_under(librwx_Namespace, "TextCtrl", rb_cObject);
 	rb_define_method(librwx_TextCtrl, "initialize", librwx_text_ctrl_initialize, -1);
 	rb_define_method(librwx_TextCtrl, "get_value", librwx_text_ctrl_get_value, -1);
+	rb_define_method(librwx_TextCtrl, "set_value", librwx_text_ctrl_set_value, -1);
 
 	librwx_Button  = rb_define_class_under(librwx_Namespace, "Button", rb_cObject);
 	rb_define_method(librwx_Button, "initialize", librwx_button_initialize, -1);

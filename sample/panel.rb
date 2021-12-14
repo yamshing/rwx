@@ -73,6 +73,8 @@ module Rwx
 			 
 			text_ctrl_result = @text_ctrl_1.get_value()
 			 
+			@text_ctrl_2.set_value(text_ctrl_result)
+			 
 			p "text ctrl result #{text_ctrl_result}"
 			 
 		end
