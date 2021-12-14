@@ -2,6 +2,7 @@
 #include "text_ctrl.h"
 #include "app.h"
 #include "static_func.h"
+#include "string_util.h"
  
 
 TextCtrl::TextCtrl(int nargs, VALUE *args)
@@ -28,11 +29,10 @@ VALUE TextCtrl::Call(int nargs, VALUE *args)
 	if (func_name_str == "get_value") {
 		 
 		wxString value_wxstr = m_text_ctrl_p->GetValue();
-		std::string value_str = std::string(value_wxstr);
+		std::string value_str;
+		StringUtil::WxStringToStdString(value_wxstr, &value_str);
 		 
-		std::cout << "value_str (in text_ctrl.cpp) " << value_str << std::endl;
-		 
-		VALUE res_str =  rb_str_new_cstr(value_str.c_str());
+		VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
 		 
 		result = res_str;
 		 
