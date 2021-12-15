@@ -20,6 +20,7 @@ VALUE librwx_Notebook;
  
 VALUE librwx_RadioBox;
 VALUE librwx_CheckBox;
+VALUE librwx_ListBox;
  
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
@@ -90,6 +91,8 @@ INITIALIZE(button)
 INITIALIZE(radiobox)
 INITIALIZE(checkbox)
 INITIALIZE(notebook)
+	 
+INITIALIZE(listbox)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -201,6 +204,9 @@ Init_LibRwx(void)
 	librwx_Notebook  = rb_define_class_under(librwx_Namespace, "Notebook", rb_cObject);
 	rb_define_method(librwx_Notebook, "initialize", librwx_notebook_initialize, -1);
 	rb_define_method(librwx_Notebook, "add", librwx_notebook_add, -1);
+	 
+	librwx_ListBox  = rb_define_class_under(librwx_Namespace, "ListBox", rb_cObject);
+	rb_define_method(librwx_ListBox, "initialize", librwx_listbox_initialize, -1);
 	 
 }
 
