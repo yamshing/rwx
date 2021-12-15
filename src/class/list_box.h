@@ -9,6 +9,10 @@ class ListBox :public wxObject
 public:
 	ListBox(int nargs, VALUE *args);
 	virtual ~ListBox (){};
+	wxListBox* GetListBox(){
+		return m_listbox;
+	};
+	 
 private:
 	wxListBox* m_listbox;
 	 

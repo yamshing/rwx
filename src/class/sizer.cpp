@@ -84,9 +84,16 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(check_child_p->GetCheckBox());
 			return;
 		}
-	
 		 
-
+		ListBox* list_child_p = dynamic_cast<ListBox*>(app_p->GetObjectFromMap(child));
+		if (list_child_p) {
+			m_sizer -> Add(list_child_p->GetListBox());
+			return;
+		}
+		 
+		std::cout << "PLEASE ADD GETOBJECT IN SIZER.CPP "  << std::endl;
+		 
+		 
 	}else if (func_name_str == "add_spacer") {
 		 
 		int space = NUM2INT(args[1]);
