@@ -68,6 +68,14 @@ module Rwx
 				row_7_sizer.add(@list_box)
 			out_sizer.add(row_7_sizer)
 			 
+			row_8_sizer = Sizer.new('box', 'horizontal')
+				row_8_sizer.add_spacer(10)
+				label = StaticText.new(self, 'リストコントロール')
+				row_8_sizer.add(label)
+				@list_ctrl = ListCtrl.new(self);
+				row_8_sizer.add(@list_ctrl)
+			out_sizer.add(row_8_sizer)
+			 
 			add_sizer(out_sizer)
 			 
 		end

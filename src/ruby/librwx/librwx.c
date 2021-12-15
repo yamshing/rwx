@@ -22,6 +22,8 @@ VALUE librwx_RadioBox;
 VALUE librwx_CheckBox;
 VALUE librwx_ListBox;
  
+VALUE librwx_ListCtrl;
+ 
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
  
@@ -93,6 +95,7 @@ INITIALIZE(checkbox)
 INITIALIZE(notebook)
 	 
 INITIALIZE(listbox)
+INITIALIZE(listctrl)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -207,6 +210,10 @@ Init_LibRwx(void)
 	 
 	librwx_ListBox  = rb_define_class_under(librwx_Namespace, "ListBox", rb_cObject);
 	rb_define_method(librwx_ListBox, "initialize", librwx_listbox_initialize, -1);
+	 
+	librwx_ListCtrl  = rb_define_class_under(librwx_Namespace, "ListCtrl", rb_cObject);
+	rb_define_method(librwx_ListCtrl, "initialize", librwx_listctrl_initialize, -1);
+	
 	 
 }
 

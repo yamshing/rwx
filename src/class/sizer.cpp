@@ -90,6 +90,12 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(list_child_p->GetListBox());
 			return;
 		}
+		ListCtrl* listctrl_child_p = dynamic_cast<ListCtrl*>(app_p->GetObjectFromMap(child));
+		if (listctrl_child_p) {
+			m_sizer -> Add(listctrl_child_p->GetListCtrl());
+			return;
+		}
+	
 		 
 		std::cout << "PLEASE ADD GETOBJECT IN SIZER.CPP "  << std::endl;
 		 

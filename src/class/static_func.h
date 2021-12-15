@@ -22,6 +22,7 @@ extern "C"{
 #include "check_box.h"
 #include "notebook.h"
 #include "list_box.h"
+#include "list_ctrl.h"
  
 #include <wx/wx.h> 
 
@@ -282,6 +283,10 @@ struct StaticFunc
 			app_p -> SetObjectToMap(target, listbox_p);
 			std::cout << "init and set list box (in static_func.h) " <<  std::endl;
 			 
+		}else if (check_class_name(target,"Rwx::ListCtrl") && func_name_str == "init_listctrl"){
+			ListCtrl* listctrl_p = new ListCtrl(nargs, args);
+			app_p -> SetObjectToMap(target, listctrl_p);
+			 
 		}
 		 
 	}
@@ -307,7 +312,7 @@ struct StaticFunc
 			canvas_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_splitter" || func_name_str == "notebook_call"|| func_name_str == "init_notebook" || func_name_str == "splitter_call" ||  func_name_str == "init_panel" || func_name_str == "panel_call" || func_name_str == "init_sizer" || func_name_str == "sizer_call"){
 			panel_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox" || func_name_str == "text_ctrl_call" || func_name_str == "init_listbox"  ){
+		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox" || func_name_str == "text_ctrl_call" || func_name_str == "init_listbox" || func_name_str == "init_listctrl"  ){
 			result = input_callback(target, func_name, nargs, args);
 			 
 		}else if (func_name_str == "checkbox_call" ) {
