@@ -42,6 +42,15 @@ VALUE CheckBox::Call(int nargs, VALUE *args)
 		}else{
 			result = Qfalse;
 		}
+	}else if (func_name_str == "set_value") {
+		VALUE check_val = args[1];
+		bool check_bool = RTEST(check_val);
+		 
+		m_checkbox->SetValue(check_bool);
+		 
+		 
+		//std::cout << "check_bool (in check_box.cpp) " << check_bool << std::endl;
+		 
 	}
 	return result;
 }

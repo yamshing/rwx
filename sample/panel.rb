@@ -80,6 +80,7 @@ module Rwx
 		def on_button_2_click
 			 
 			@radio.set_selection(2)
+			@check_1.set_value(true)
 			 
 		end
 		 
