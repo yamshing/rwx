@@ -9,7 +9,7 @@ module Rwx
 
 			row_2_sizer = Sizer.new('box', 'horizontal')
 			button_1 = Button.new(self, label:'Click Here',cb_inst:self, cb_name:'on_button_click' )
-			button_2 = Button.new(self, label:'ボタン２', cb_inst:self, cb_name:'on_button_click' )
+			button_2 = Button.new(self, label:'ボタン２', cb_inst:self, cb_name:'on_button_2_click' )
 			row_2_sizer.add_spacer(20)
 			row_2_sizer.add(button_1)
 			row_2_sizer.add_spacer(20)
@@ -21,7 +21,7 @@ module Rwx
 			row_3_sizer = Sizer.new('box', 'horizontal')
 			row_3_sizer.add_spacer(10)
 			 
-			@radio = RadioBox.new(self, label:'radio',cb_inst:self, cb_name:'on_button_click','content':['a','b','c'] )
+			@radio = RadioBox.new(self, label:'radio','content':['a','b','c'] )
 			row_3_sizer.add(@radio)
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_3_sizer)
@@ -30,11 +30,11 @@ module Rwx
 			 
 			row_4_sizer = Sizer.new('box', 'horizontal')
 				row_4_sizer.add_spacer(10)
-				@check_1 = CheckBox.new(self, label:'チェック1',cb_inst:self, cb_name:'on_button_click' )
+				@check_1 = CheckBox.new(self, label:'チェック1')
 				row_4_sizer.add(@check_1)
 				 
 				row_4_sizer.add_spacer(10)
-				@check_2 = CheckBox.new(self, label:'チェック2',cb_inst:self, cb_name:'on_button_click' )
+				@check_2 = CheckBox.new(self, label:'チェック2')
 				row_4_sizer.add(@check_2)
 			out_sizer.add(row_4_sizer)
 			 
@@ -75,6 +75,11 @@ module Rwx
 			 
 			radio_selected = @radio.get_selection()
 			 
+		end
+		 
+		def on_button_2_click
+			 
+			@radio.set_selection(2)
 			 
 		end
 		 

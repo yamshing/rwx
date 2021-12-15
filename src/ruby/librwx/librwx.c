@@ -122,6 +122,7 @@ FUNC_TO_GENERIC(text_ctrl,get_value)
 FUNC_TO_GENERIC(text_ctrl,set_value)
 
 FUNC_TO_GENERIC(radiobox,get_selection)
+FUNC_TO_GENERIC(radiobox,set_selection)
 
 
 
@@ -188,6 +189,7 @@ Init_LibRwx(void)
 	librwx_RadioBox  = rb_define_class_under(librwx_Namespace, "RadioBox", rb_cObject);
 	rb_define_method(librwx_RadioBox, "initialize", librwx_radiobox_initialize, -1);
 	rb_define_method(librwx_RadioBox, "get_selection", librwx_radiobox_get_selection, -1);
+	rb_define_method(librwx_RadioBox, "set_selection", librwx_radiobox_set_selection, -1);
 	 
 	librwx_CheckBox  = rb_define_class_under(librwx_Namespace, "CheckBox", rb_cObject);
 	rb_define_method(librwx_CheckBox, "initialize", librwx_checkbox_initialize, -1);

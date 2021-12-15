@@ -50,6 +50,15 @@ VALUE RadioBox::Call(int nargs, VALUE *args)
 	if (func_name_str == "get_selection") {
 		int radio_selected = m_radio->GetSelection();
 		result = INT2NUM(radio_selected);
+
+	}else if (func_name_str == "set_selection") {
+		 
+		VALUE select_index_val = args[1];
+		int select_index_int = NUM2INT(select_index_val);
+		m_radio->SetSelection(select_index_int);
+		 
+		std::cout << "select_index_int (in radio_box.cpp) " << select_index_int << std::endl;
+		 
 	}
 	return result;
 }
