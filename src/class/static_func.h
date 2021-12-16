@@ -23,6 +23,7 @@ extern "C"{
 #include "notebook.h"
 #include "list_box.h"
 #include "list_ctrl.h"
+#include "treelist.h"
  
 #include <wx/wx.h> 
 
@@ -289,6 +290,8 @@ struct StaticFunc
 			 
 		}else if (check_class_name(target,"Rwx::TreeList") && func_name_str == "init_treelist"){
 			 
+			TreeList* treelist_p = new TreeList(nargs, args);
+			app_p -> SetObjectToMap(target, treelist_p);
 			std::cout << "treelist (in static_func.h) "  << std::endl;
 			 
 		}

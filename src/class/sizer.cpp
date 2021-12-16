@@ -95,7 +95,11 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(listctrl_child_p->GetListCtrl());
 			return;
 		}
-	
+		TreeList* treelist_child_p = dynamic_cast<TreeList*>(app_p->GetObjectFromMap(child));
+		if (treelist_child_p) {
+			m_sizer -> Add(treelist_child_p->GetTreeListCtrl());
+			return;
+		}
 		 
 		std::cout << "PLEASE ADD GETOBJECT IN SIZER.CPP "  << std::endl;
 		 
