@@ -1,6 +1,8 @@
 #include "treelist.h"
 #include "static_func.h"
  
+
+
 void TreeList::InitImageList()
 {
     wxSize iconSize = wxArtProvider::GetSizeHint(wxART_LIST);
@@ -33,10 +35,13 @@ TreeList::TreeList(int nargs, VALUE *args)
 	
 	App* app_p = static_cast<App*>(wxTheApp);
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+	InitImageList();
 	 
 	m_treelist_ctrl = new wxTreeListCtrl(parent_p, StaticFunc::ALL_EVENT_ID,
 													 wxDefaultPosition, wxDefaultSize, wxTL_DEFAULT_STYLE 
 													 );
+	m_treelist_ctrl->SetImageList(m_imageList);
+	 
 	m_treelist_ctrl->AppendColumn("Component",
 			wxCOL_WIDTH_AUTOSIZE,
 			wxALIGN_LEFT,
@@ -75,6 +80,9 @@ TreeList::TreeList(int nargs, VALUE *args)
 	ADD_ITEM(Samples, root, "", "");
 			ADD_ITEM(minimal, Samples, "1", "7 KiB");
 			ADD_ITEM(widgets, Samples, "28", "419 KiB");
+	m_treelist_ctrl->SetItemComparator(&m_comparator);
+
+	++StaticFunc::ALL_EVENT_ID;
 	 
 }
 

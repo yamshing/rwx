@@ -1,20 +1,10 @@
 module Rwx
-	class Panel
-		def on_init 
-			out_sizer = Sizer.new('box', 'vertical')
-			row_1_sizer = Sizer.new('box', 'horizontal')
-			 
-			@treelist = TreeList.new(self)
-			row_1_sizer.add(@treelist)
-			 
-			out_sizer.add(row_1_sizer)
-			add_sizer(out_sizer)
-		end
-	end
 	 
 	class Frame
 		def on_init 
-			@panel = Panel.new(self)
+
+			@treelist = TreeList.new(self)
+			 
 		end
 	end
 	 
