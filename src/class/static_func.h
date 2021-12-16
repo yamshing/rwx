@@ -287,6 +287,10 @@ struct StaticFunc
 			ListCtrl* listctrl_p = new ListCtrl(nargs, args);
 			app_p -> SetObjectToMap(target, listctrl_p);
 			 
+		}else if (check_class_name(target,"Rwx::TreeList") && func_name_str == "init_treelist"){
+			 
+			std::cout << "treelist (in static_func.h) "  << std::endl;
+			 
 		}
 		 
 	}
@@ -312,7 +316,15 @@ struct StaticFunc
 			canvas_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_splitter" || func_name_str == "notebook_call"|| func_name_str == "init_notebook" || func_name_str == "splitter_call" ||  func_name_str == "init_panel" || func_name_str == "panel_call" || func_name_str == "init_sizer" || func_name_str == "sizer_call"){
 			panel_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "init_static_text" || func_name_str == "init_text_ctrl" || func_name_str == "init_button"  || func_name_str == "init_radiobox" || func_name_str == "init_checkbox" || func_name_str == "text_ctrl_call" || func_name_str == "init_listbox" || func_name_str == "init_listctrl"  ){
+		}else if (func_name_str == "init_static_text" 
+				|| func_name_str == "init_text_ctrl" 
+				|| func_name_str == "init_button"  
+				|| func_name_str == "init_radiobox" 
+				|| func_name_str == "init_checkbox" 
+				|| func_name_str == "text_ctrl_call" 
+				|| func_name_str == "init_listbox" 
+				|| func_name_str == "init_treelist" 
+				|| func_name_str == "init_listctrl"  ){
 			result = input_callback(target, func_name, nargs, args);
 			 
 		}else if (func_name_str == "checkbox_call" ) {
