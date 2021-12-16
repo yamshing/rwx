@@ -72,7 +72,20 @@ module Rwx
 				row_8_sizer.add_spacer(10)
 				label = StaticText.new(self, 'リストコントロール')
 				row_8_sizer.add(label)
-				@list_ctrl = ListCtrl.new(self);
+				list_content = [
+					['山田太郎','abc-ABC-あいうえお'],
+					['木村次郎','abc-ABC-カキクケコ'],
+					['木村一郎','abc-ABC-カキクケコ'],
+					['山田太郎','abc-ABC-あいうえお'],
+					['木村次郎','abc-ABC-カキクケコ'],
+					['木村一郎','abc-ABC-カキクケコ'],
+					['山田太郎','abc-ABC-あいうえお'],
+					['木村次郎','abc-ABC-カキクケコ'],
+					['木村一郎','abc-ABC-カキクケコ'],
+				]
+				 
+				@list_ctrl = ListCtrl.new(self, 'header':['氏名','キー'], 'content':list_content);
+				 
 				row_8_sizer.add(@list_ctrl)
 			out_sizer.add(row_8_sizer)
 			 
