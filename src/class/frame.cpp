@@ -39,6 +39,16 @@ void Frame::Call(int nargs, VALUE *args)
 		int h = NUM2INT(args[2]);
 		SetSize(wxSize(w,h));
 		 
+	}else if (func_name_str == "set_sizer") {
+		 
+		App* app_p = static_cast<App*>(wxTheApp);
+		std::cout << "set sizer (in frame.cpp) "  << std::endl;
+		VALUE sizer_val = args[1];
+		std::cout << "sizer_val (in frame.cpp) " << sizer_val << std::endl;
+		Sizer* sizer_p = dynamic_cast<Sizer*>(app_p->GetObjectFromMap(sizer_val));
+		wxSizer* wxsizer_p = sizer_p->GetSizer();
+		SetSizer(wxsizer_p);
+		 
 	}
 	 
 }

@@ -79,6 +79,7 @@ struct StaticFunc
 			 
 		}else if (func_name_str == "frame_call"){
 			 
+			std::cout << "framecall (in static_func.h) "  << std::endl;
 			Frame* frame_p = app_p->GetFrameP();
 			frame_p->Call(nargs, args);
 		}
