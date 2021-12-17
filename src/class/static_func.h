@@ -24,6 +24,7 @@ extern "C"{
 #include "list_box.h"
 #include "list_ctrl.h"
 #include "treelist.h"
+#include "auimanager.h"
  
 #include <wx/wx.h> 
 
@@ -298,6 +299,10 @@ struct StaticFunc
 		}else if (check_class_name(target,"Rwx::AuiManager") && func_name_str == "init_auimanager"){
 			 
 			std::cout << "auimanager init (in static_func.h) "  << std::endl;
+			AuiManager* auimanager_p = new AuiManager(nargs, args);
+			app_p -> SetObjectToMap(target, auimanager_p);
+			 
+			 
 		}
 		 
 	}
