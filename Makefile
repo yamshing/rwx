@@ -11,7 +11,7 @@ RWX_BIN_NAME = "rwx"
  
 SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DIR)/notebook.cpp $(CLASS_DIR)/radio_box.cpp $(CLASS_DIR)/check_box.cpp $(CLASS_DIR)/button.cpp $(CLASS_DIR)/text_ctrl.cpp $(CLASS_DIR)/static_text.cpp $(CLASS_DIR)/sizer.cpp $(CLASS_DIR)/panel.cpp $(CLASS_DIR)/splitter.cpp $(CLASS_DIR)/toolbar.cpp $(CLASS_DIR)/dc.cpp $(CLASS_DIR)/canvas.cpp $(CLASS_DIR)/frame.cpp $(CLASS_DIR)/menubar.cpp $(CLASS_DIR)/list_box.cpp  $(CLASS_DIR)/list_ctrl.cpp  $(CLASS_DIR)/treelist.cpp $(CLASS_DIR)/auimanager.cpp
 
-WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx
+WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx
  
 RUBYLIB = -L./lib/rwx/lib -lruby-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x86_64-linux
 INCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/include/wx-3.1

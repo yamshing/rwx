@@ -4,7 +4,7 @@
 #include "wx/wx.h"
 #include "wx/artprov.h"
 #include "wx/aui/aui.h"
- 
+#include "wx/aui/framemanager.h"
 #include "ruby.h"
 
 class AuiManager :public wxObject
