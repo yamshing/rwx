@@ -140,8 +140,14 @@ struct StaticFunc
 			//long style = wxTB_NOICONS | wxTB_TEXT | wxTB_VERTICAL | wxTB_DOCKABLE;
 			 
 			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT;
+			wxToolBar* wx_toolbar_p = frame_p->CreateToolBar(style, wxID_ANY);
+
+			/*
+			// for aui toolbar
+			long style = wxTB_FLAT | wxTB_NODIVIDER;
+			wxToolBar* wx_toolbar_p = new wxToolBar(frame_p,wxID_ANY,wxDefaultPosition,wxDefaultSize,wxTB_FLAT|wxTB_NODIVIDER);
+			*/
 			 
-			wxToolBarBase* wx_toolbar_p = frame_p->CreateToolBar(style, 1);
 			toolbar_p->SetWxToolbarP(wx_toolbar_p);
 			 
 			 

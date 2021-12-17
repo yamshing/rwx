@@ -8,7 +8,7 @@ class Toolbar :public wxObject
 {
 private:
 	 
-	wxToolBarBase* m_wx_toolbar_p;
+	wxToolBar* m_wx_toolbar_p;
 	void OnMenu(wxCommandEvent& event);
 	void OnCombo(wxCommandEvent& event);
 	void OnDropMenu(wxCommandEvent& event);
@@ -29,8 +29,12 @@ public:
 	virtual ~Toolbar (){};
 	void Call(int nargs, VALUE *args);
 	 
-	void SetWxToolbarP(wxToolBarBase* wx_toolbar_p){
+	void SetWxToolbarP(wxToolBar* wx_toolbar_p){
 		m_wx_toolbar_p = wx_toolbar_p;
+	};
+
+	wxToolBar* GetWxToolbarP(){
+		return m_wx_toolbar_p;
 	};
 	 
 };
