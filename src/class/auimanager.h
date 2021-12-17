@@ -19,6 +19,8 @@ public:
 		return m_aui_manager;
 	};
 	 
+	VALUE Call(int nargs, VALUE *args);
+	 
 };
 
 

@@ -36,3 +36,15 @@ AuiManager::AuiManager(int nargs, VALUE *args)
 	 
 	 
 }
+VALUE AuiManager::Call(int nargs, VALUE *args)
+{
+	VALUE func_name = args[0];
+	VALUE result = Qfalse;
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	 
+	if (func_name_str == "add_pane") {
+		VALUE option = args[1];
+	}
+	 
+	return result;
+}

@@ -115,6 +115,8 @@ GENERIC_CALL(checkbox_call)
 	 
 GENERIC_CALL(text_ctrl_call)
 GENERIC_CALL(radiobox_call)
+
+GENERIC_CALL(auimanager_call)
 	 
 	 
 FUNC_TO_GENERIC(frame,set_size)
@@ -138,6 +140,8 @@ FUNC_TO_GENERIC(text_ctrl,set_value)
 
 FUNC_TO_GENERIC(radiobox,get_selection)
 FUNC_TO_GENERIC(radiobox,set_selection)
+	 
+FUNC_TO_GENERIC(auimanager,add_pane)
 
 
 
@@ -227,6 +231,7 @@ Init_LibRwx(void)
 	
 	librwx_AuiManager  = rb_define_class_under(librwx_Namespace, "AuiManager", rb_cObject);
 	rb_define_method(librwx_AuiManager, "initialize", librwx_auimanager_initialize, -1);
+	rb_define_method(librwx_AuiManager, "add_pane", librwx_auimanager_add_pane, -1);
 	
 	 
 }

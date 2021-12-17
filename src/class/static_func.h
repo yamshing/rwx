@@ -346,7 +346,9 @@ struct StaticFunc
 		}else if (func_name_str == "radiobox_call" ) {
 			RadioBox* radiobox_p = static_cast<RadioBox*>(app_p->GetObjectFromMap(target));
 			result = radiobox_p->Call(nargs, args);
-			 
+		}else if (func_name_str == "auimanager_call" ) {
+			AuiManager* auimanager_p = static_cast<AuiManager*>(app_p->GetObjectFromMap(target));
+			result = auimanager_p->Call(nargs, args);
 		}
 		 
 		return result;
