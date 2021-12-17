@@ -25,6 +25,7 @@ VALUE librwx_ListBox;
 VALUE librwx_ListCtrl;
  
 VALUE librwx_TreeList;
+VALUE librwx_AuiManager;;
  
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
@@ -99,6 +100,7 @@ INITIALIZE(notebook)
 INITIALIZE(listbox)
 INITIALIZE(listctrl)
 INITIALIZE(treelist)
+INITIALIZE(auimanager)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -223,6 +225,8 @@ Init_LibRwx(void)
 	librwx_TreeList  = rb_define_class_under(librwx_Namespace, "TreeList", rb_cObject);
 	rb_define_method(librwx_TreeList, "initialize", librwx_treelist_initialize, -1);
 	
+	librwx_AuiManager  = rb_define_class_under(librwx_Namespace, "AuiManager", rb_cObject);
+	rb_define_method(librwx_AuiManager, "initialize", librwx_auimanager_initialize, -1);
 	
 	 
 }
