@@ -10,13 +10,26 @@ AuiManager::AuiManager(int nargs, VALUE *args)
 	VALUE option = args[1];
 	
 	App* app_p = static_cast<App*>(wxTheApp);
-	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+	 
+	m_parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 	 
 	m_aui_manager = new wxAuiManager();
-	m_aui_manager->SetManagedWindow(parent_p);
+	m_aui_manager->SetManagedWindow(m_parent_p);
 	
 	 
 }
+ 
+wxGrid* AuiManager::CreateGrid()
+{
+	wxGrid* grid = new wxGrid(m_parent_p, wxID_ANY,
+			wxPoint(0,0),
+			wxSize(150,250),
+			wxNO_BORDER | wxWANTS_CHARS);
+	grid->CreateGrid(50, 20);
+	return grid;
+}
+
+ 
 VALUE AuiManager::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
@@ -28,9 +41,10 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 	if (func_name_str == "add_pane") {
 		VALUE option = args[1];
 		VALUE pane = rb_hash_aref(option, ID2SYM(rb_intern("pane")));
-		std::cout << "pane (in auimanager.cpp) " << pane << std::endl;
+		 
 		Toolbar* pane_p = dynamic_cast<Toolbar*>(app_p->GetObjectFromMap(pane));
 		if (pane_p) {
+			
 			 
 			wxToolBar* m_tb = pane_p->GetWxToolbarP();
 			 
@@ -41,15 +55,18 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxAuiPaneInfo pi = wxAuiPaneInfo()  .Name(wxT("toolbar"))
 				.Caption(wxT("toolbar"))
-				.ToolbarPane()
+				.ToolbarPane().Top()
 				.Floatable()
 				.Direction(wxAUI_DOCK_TOP) // see also ticket #9722
 				.LeftDockable(false)
 				.RightDockable(false);
 			 
 			m_aui_manager->AddPane(m_tb,pi);
+			m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().Name("grid_content").
+					CenterPane().Show());
+			 
 			m_aui_manager->Update();
-	
+			 
 			 
 		}
 		 
