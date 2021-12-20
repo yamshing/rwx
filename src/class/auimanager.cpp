@@ -3,6 +3,13 @@
 #include "static_func.h"
 #include "wx/aui/framemanager.h"
 
+
+wxBEGIN_EVENT_TABLE(wxSizeReportCtrl, wxControl)
+    EVT_PAINT(wxSizeReportCtrl::OnPaint)
+    EVT_SIZE(wxSizeReportCtrl::OnSize)
+    EVT_ERASE_BACKGROUND(wxSizeReportCtrl::OnEraseBackground)
+wxEND_EVENT_TABLE()
+
  
 AuiManager::AuiManager(int nargs, VALUE *args)
 {
@@ -19,6 +26,15 @@ AuiManager::AuiManager(int nargs, VALUE *args)
 	 
 }
  
+wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
+{
+	wxSizeReportCtrl* ctrl = new wxSizeReportCtrl(m_parent_p, wxID_ANY,
+			wxDefaultPosition,
+			size, m_aui_manager);
+	return ctrl;
+}
+ 
+
 wxGrid* AuiManager::CreateGrid()
 {
 	wxGrid* grid = new wxGrid(m_parent_p, wxID_ANY,
@@ -65,6 +81,39 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().Name("grid_content").
 					CenterPane().Show());
 			 
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test1").Caption("Pane Caption").
+					Top());
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test2").Caption("Client Size Reporter").
+					Bottom().Position(1).
+					CloseButton(true).MaximizeButton(true));
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test3").Caption("Client Size Reporter").
+					Bottom().
+					CloseButton(true).MaximizeButton(true));
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test4").Caption("Pane Caption").
+					Left());
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test5").Caption("No Close Button").
+					Right().CloseButton(false));
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test6").Caption("Client Size Reporter").
+					Right().Row(1).
+					CloseButton(true).MaximizeButton(true));
+
+			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+					Name("test7").Caption("Client Size Reporter").
+					Left().Layer(1).
+					CloseButton(true).MaximizeButton(true));
+
+
 			m_aui_manager->Update();
 			 
 			 
