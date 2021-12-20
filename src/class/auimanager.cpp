@@ -23,7 +23,7 @@ wxGrid* AuiManager::CreateGrid()
 {
 	wxGrid* grid = new wxGrid(m_parent_p, wxID_ANY,
 			wxPoint(0,0),
-			wxSize(150,250),
+			m_parent_p->FromDIP(wxSize(150,250)),
 			wxNO_BORDER | wxWANTS_CHARS);
 	grid->CreateGrid(50, 20);
 	return grid;
