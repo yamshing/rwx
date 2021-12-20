@@ -12,7 +12,9 @@ class Canvas: public wxScrolledWindow
 
 	public:
 		Canvas(wxWindow* parent, VALUE rwx_canvas , VALUE rwx_dc );
-		virtual ~Canvas (){};
+		virtual ~Canvas (){
+			delete m_dc;
+		};
 		void CallOnInit(VALUE self);
 		void Call(int nargs, VALUE *args);
 		 

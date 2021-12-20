@@ -14,7 +14,9 @@ private:
 		 
 public:
 	AuiManager(int nargs, VALUE *args);
-	virtual ~AuiManager (){};
+	virtual ~AuiManager (){
+		delete m_aui_manager;
+	};
 	wxAuiManager* GetAuiManager(){
 		return m_aui_manager;
 	};

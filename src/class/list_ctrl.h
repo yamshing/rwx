@@ -12,7 +12,9 @@ private:
 	 
 public:
 	ListCtrl(int nargs, VALUE *args);
-	virtual ~ListCtrl (){};
+	virtual ~ListCtrl (){
+		delete m_listctrl;
+	};
 	wxListCtrl* GetListCtrl(){
 		return m_listctrl;
 	};

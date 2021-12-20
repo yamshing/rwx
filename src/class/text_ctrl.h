@@ -15,7 +15,9 @@ class TextCtrl: public wxTextCtrl
 
 		TextCtrl(int nargs, VALUE *args);
 		 
-		virtual ~TextCtrl (){};
+		virtual ~TextCtrl (){
+			delete m_text_ctrl_p;
+		};
 		 
 		VALUE Call(int nargs, VALUE *args);
 		 

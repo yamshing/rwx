@@ -8,7 +8,9 @@ class ListBox :public wxObject
 {
 public:
 	ListBox(int nargs, VALUE *args);
-	virtual ~ListBox (){};
+	virtual ~ListBox (){
+		delete m_listbox;
+	};
 	wxListBox* GetListBox(){
 		return m_listbox;
 	};

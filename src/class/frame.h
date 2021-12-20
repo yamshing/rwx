@@ -12,6 +12,7 @@ class Frame : public wxFrame
 	public:
 		VALUE m_rwx_frame;
 		Frame(const wxString& title);
+		virtual ~Frame (){};
 		void Call(int nargs, VALUE *args);
 		void CallOnInit();
 		 

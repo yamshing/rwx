@@ -13,7 +13,9 @@ class RadioBox :public wxObject
 		 
 	public:
 		RadioBox(int nargs, VALUE *args);
-		virtual ~RadioBox (){};
+		virtual ~RadioBox (){
+			delete m_radio; 
+		};
 		 
 		wxRadioBox* GetRadioBox(){
 			return m_radio;

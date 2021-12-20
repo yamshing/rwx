@@ -26,7 +26,9 @@ public:
 		//m_toolbar_item_count = 0;
 	};
 	 
-	virtual ~Toolbar (){};
+	virtual ~Toolbar (){
+		delete m_wx_toolbar_p; 
+	};
 	void Call(int nargs, VALUE *args);
 	 
 	void SetWxToolbarP(wxToolBar* wx_toolbar_p){

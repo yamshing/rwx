@@ -8,7 +8,9 @@ class Sizer :public wxObject
 
 	public:
 		Sizer(int nargs, VALUE *args);
-		virtual ~Sizer (){};
+		virtual ~Sizer (){
+			delete m_sizer;
+		};
 		wxSizer* GetSizer(){
 			return m_sizer;
 		};

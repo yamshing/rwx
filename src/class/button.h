@@ -14,7 +14,9 @@ class Button :public wxObject
 		 
 	public:
 		Button(int nargs, VALUE *args);
-		virtual ~Button (){};
+		virtual ~Button (){
+			delete m_button;
+		};
 		 
 		wxButton* GetButton(){
 			return m_button;

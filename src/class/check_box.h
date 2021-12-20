@@ -14,7 +14,9 @@ class CheckBox :public wxObject
 		 
 	public:
 		CheckBox(int nargs, VALUE *args);
-		virtual ~CheckBox (){};
+		virtual ~CheckBox (){
+			delete m_checkbox;
+		};
 		 
 		wxCheckBox* GetCheckBox(){
 			return m_checkbox;

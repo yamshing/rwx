@@ -16,7 +16,9 @@ class StaticText: public wxObject
 		 
 		StaticText (int nargs, VALUE *args);
 		 
-		virtual ~StaticText (){};
+		virtual ~StaticText (){
+			delete m_static_text_p;
+		};
 		void Call(int nargs, VALUE *args);
 		 
 };
