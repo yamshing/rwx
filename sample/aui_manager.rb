@@ -16,7 +16,7 @@ module Rwx
 			@frame = Frame.new
 			@frame.set_size(1000, 500)
 			@auimanager = AuiManager.new(@frame)
-			@toolbar = Toolbar.new(@frame)
+			@toolbar = Toolbar.new(@frame, {type:'aui'})
 			@auimanager.add_pane(pane:@toolbar)
 			 
 		end

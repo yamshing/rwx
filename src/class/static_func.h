@@ -124,6 +124,9 @@ struct StaticFunc
 		}else if (func_name_str == "init_toolbar"){
 			 
 			VALUE parent = args[0];
+			VALUE option = args[1];
+			 
+			std::cout << "option (in static_func.h) " << option << std::endl;
 			 
 			if (!check_class_name(parent, "Rwx::Frame")) {
 				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
@@ -139,14 +142,24 @@ struct StaticFunc
 			//style &= ~(wxTB_HORIZONTAL | wxTB_VERTICAL | wxTB_BOTTOM | wxTB_RIGHT | wxTB_HORZ_LAYOUT); 
 			//long style = wxTB_NOICONS | wxTB_TEXT | wxTB_VERTICAL | wxTB_DOCKABLE;
 			 
-			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT;
-			wxToolBar* wx_toolbar_p = frame_p->CreateToolBar(style, wxID_ANY);
-
-			/*
-			// for aui toolbar
-			long style = wxTB_FLAT | wxTB_NODIVIDER;
-			wxToolBar* wx_toolbar_p = new wxToolBar(frame_p,wxID_ANY,wxDefaultPosition,wxDefaultSize,wxTB_FLAT|wxTB_NODIVIDER);
-			*/
+			//VALUE option_type = rb_hash_aref(option, ID2SYM(rb_intern("type")));
+			wxToolBar* wx_toolbar_p;
+			if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("type")))) {
+				 
+				VALUE type_val = rb_hash_aref(option, ID2SYM(rb_intern("type")));
+				std::string type_str; 
+				StaticFunc::ValueToString(type_val, type_str);
+				if (type_str == "aui") {
+					// for aui toolbar
+					long style = wxTB_FLAT | wxTB_NODIVIDER;
+					wx_toolbar_p = new wxToolBar(frame_p,wxID_ANY,wxDefaultPosition,wxDefaultSize,wxTB_FLAT|wxTB_NODIVIDER);
+				}
+	
+				 
+			}else{
+				long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT;
+				wx_toolbar_p = frame_p->CreateToolBar(style, wxID_ANY);
+			}
 			 
 			toolbar_p->SetWxToolbarP(wx_toolbar_p);
 			 
