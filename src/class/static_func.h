@@ -32,6 +32,8 @@ extern "C"{
 extern "C" VALUE rb_cFloat;
 extern "C" VALUE rb_cInteger;
 extern "C" VALUE rb_cSymbol;
+extern "C" VALUE rb_cHash;
+ 
 extern "C" VALUE rb_cTrueClass;
 extern "C" VALUE rb_cFalseClass;
 extern "C" VALUE rb_cNilClass;
