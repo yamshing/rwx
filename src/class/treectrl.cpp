@@ -9,5 +9,6 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	
 	App* app_p = static_cast<App*>(wxTheApp);
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+	std::cout << "treectrl ctor (in treectrl.cpp) "  << std::endl;
 	 
 }

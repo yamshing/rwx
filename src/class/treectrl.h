@@ -1,5 +1,10 @@
 #ifndef TREECTRL
 #define TREECTRL 
+
+#include "wx/wx.h"
+#include "wx/treectrl.h"
+#include "ruby.h"
+ 
 class TreeCtrl :public wxObject
 {
 private:

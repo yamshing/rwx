@@ -25,6 +25,7 @@ extern "C"{
 #include "list_ctrl.h"
 #include "treelist.h"
 #include "auimanager.h"
+#include "treectrl.h"
  
 #include <wx/wx.h> 
 
@@ -323,7 +324,8 @@ struct StaticFunc
 			 
 		}else if (check_class_name(target,"Rwx::TreeCtrl") && func_name_str == "init_treectrl"){
 			 
-			std::cout << "treectrl init (in static_func.h) "  << std::endl;
+			TreeCtrl* treectrl_p = new TreeCtrl(nargs, args);
+			app_p -> SetObjectToMap(target, treectrl_p);
 			 
 		}
 		 
