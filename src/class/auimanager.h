@@ -5,8 +5,11 @@
 #include "wx/artprov.h"
 #include "wx/aui/aui.h"
 #include "wx/aui/framemanager.h"
+#include "wx/treectrl.h"
+#include "wx/artprov.h"
 
 #include "wx/grid.h"
+#include "wx/spinctrl.h"
  
 #include "ruby.h"
 
@@ -89,7 +92,11 @@ private:
 	wxAuiManager* m_aui_manager;
 	wxGrid* CreateGrid();
 	wxSizeReportCtrl* CreateSizeReportCtrl(const wxSize& size = wxWindow::FromDIP(wxSize(80, 80), NULL));
+	wxTreeCtrl* CreateTreeCtrl();
+	wxAuiNotebook* CreateNotebook();
 	wxWindow* m_parent_p;
+	long m_notebook_style;
+
 		 
 public:
 	AuiManager(int nargs, VALUE *args);
