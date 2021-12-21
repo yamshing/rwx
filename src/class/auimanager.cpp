@@ -196,28 +196,19 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test1").Caption("Pane Caption").
 					Top());
-
+				 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test3").Caption("Client Size Reporter").
 					Bottom());
-
-			/*m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test4").Caption("Pane Caption").
-					Left().Layer(1));
-					*/
-
+				 
 			m_aui_manager->AddPane(CreateTreeCtrl(), wxAuiPaneInfo().
 					Name("test8").Caption("Tree Pane").
 					Left().Layer(1).Position(1).
 					CloseButton(true).MaximizeButton(true));
 				 
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+			m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().
 					Name("test5").Caption("No Close Button").
 					Right());
-				 
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test6").Caption("No Close Button").
-					Right().Row(1));
 				 
 			m_aui_manager->Update();
 			 
