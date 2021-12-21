@@ -81,41 +81,32 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().Name("grid_content").
 					CenterPane().Show());
 			 
+			//
+			// Layer 1 ni suruto sotoni deru
+			// Row(0). Row(1) de ue shita ni naru
+			// 
+			 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test1").Caption("Pane Caption").
 					Top());
 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test2").Caption("Client Size Reporter").
-					Bottom().Position(1).
-					CloseButton(true).MaximizeButton(true));
-
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test3").Caption("Client Size Reporter").
-					Bottom().
-					CloseButton(true).MaximizeButton(true));
+					Bottom());
 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test4").Caption("Pane Caption").
-					Left());
+					Left().Layer(1));
 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test5").Caption("No Close Button").
-					Right().CloseButton(false));
-
+					Right());
+				 
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test6").Caption("Client Size Reporter").
-					Right().Row(1).
-					CloseButton(true).MaximizeButton(true));
-
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test7").Caption("Client Size Reporter").
-					Left().Layer(1).
-					CloseButton(true).MaximizeButton(true));
-
-
+					Name("test6").Caption("No Close Button").
+					Right().Row(1));
+				 
 			m_aui_manager->Update();
-			 
 			 
 		}
 		 
