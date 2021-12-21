@@ -25,6 +25,8 @@ VALUE librwx_ListBox;
 VALUE librwx_ListCtrl;
  
 VALUE librwx_TreeList;
+VALUE librwx_TreeCtrl;
+ 
 VALUE librwx_AuiManager;;
  
  
@@ -100,6 +102,7 @@ INITIALIZE(notebook)
 INITIALIZE(listbox)
 INITIALIZE(listctrl)
 INITIALIZE(treelist)
+INITIALIZE(treectrl)
 INITIALIZE(auimanager)
 	 
 	 
@@ -232,7 +235,9 @@ Init_LibRwx(void)
 	librwx_AuiManager  = rb_define_class_under(librwx_Namespace, "AuiManager", rb_cObject);
 	rb_define_method(librwx_AuiManager, "initialize", librwx_auimanager_initialize, -1);
 	rb_define_method(librwx_AuiManager, "add_pane", librwx_auimanager_add_pane, -1);
-	
+	 
+	librwx_TreeCtrl  = rb_define_class_under(librwx_Namespace, "TreeCtrl", rb_cObject);
+	rb_define_method(librwx_TreeCtrl, "initialize", librwx_treectrl_initialize, -1);
 	 
 }
 

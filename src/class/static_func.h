@@ -321,6 +321,9 @@ struct StaticFunc
 			AuiManager* auimanager_p = new AuiManager(nargs, args);
 			app_p -> SetObjectToMap(target, auimanager_p);
 			 
+		}else if (check_class_name(target,"Rwx::TreeCtrl") && func_name_str == "init_treectrl"){
+			 
+			std::cout << "treectrl init (in static_func.h) "  << std::endl;
 			 
 		}
 		 
@@ -356,6 +359,7 @@ struct StaticFunc
 				|| func_name_str == "init_listbox" 
 				|| func_name_str == "init_treelist" 
 				|| func_name_str == "init_auimanager" 
+				|| func_name_str == "init_treectrl" 
 				|| func_name_str == "init_listctrl"  ){
 			result = input_callback(target, func_name, nargs, args);
 			 

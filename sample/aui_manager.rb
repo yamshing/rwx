@@ -19,6 +19,8 @@ module Rwx
 			@toolbar = Toolbar.new(@frame, {type:'aui'})
 			@auimanager.add_pane(pane:@toolbar)
 			 
+			@treectrl = TreeCtrl.new(@frame)
+			 
 		end
 	end
 end
