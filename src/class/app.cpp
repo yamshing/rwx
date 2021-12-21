@@ -23,7 +23,7 @@ bool App::OnInit()
 	 
 	if (m_start_type == "with_file") {
 		 
-		std::cout << "with file in app (in app.cpp) "  << std::endl;
+		std::cout << "with file in app (in app.cpp) "  << m_start_file_name <<  std::endl;
 		 
 		char* start_file_name_c = const_cast<char*>(m_start_file_name.c_str());
 		char* options[] = { "-v", start_file_name_c};
