@@ -263,7 +263,7 @@ struct StaticFunc
 			 
 		}
 	}
-	static VALUE input_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
+	static void input_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
@@ -365,7 +365,7 @@ struct StaticFunc
 				|| func_name_str == "init_auimanager" 
 				|| func_name_str == "init_treectrl" 
 				|| func_name_str == "init_listctrl"  ){
-			result = input_callback(target, func_name, nargs, args);
+			input_callback(target, func_name, nargs, args);
 			 
 		}else if (func_name_str == "checkbox_call" ) {
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
