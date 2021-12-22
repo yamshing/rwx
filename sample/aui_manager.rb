@@ -9,6 +9,10 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@toolbar)
 			 
+			@notebook = Notebook.new(self)
+			 
+			@auimanager.add_pane(pane:@notebook)
+			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
 			#set_sizer(@sizer)

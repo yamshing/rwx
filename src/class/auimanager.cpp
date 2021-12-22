@@ -65,15 +65,16 @@ wxTreeCtrl* AuiManager::CreateTreeCtrl()
 	return tree;
 }
  
-wxAuiNotebook* AuiManager::CreateNotebook()
+wxNotebook* AuiManager::CreateNotebook()
 {
 	// create the notebook off-window to avoid flicker
 	wxSize client_size = m_parent_p-> GetClientSize();
 
-	wxAuiNotebook* ctrl = new wxAuiNotebook(m_parent_p, wxID_ANY,
+	wxNotebook* ctrl = new wxNotebook(m_parent_p, wxID_ANY,
 			wxPoint(client_size.x, client_size.y),
 			m_parent_p -> FromDIP(wxSize(430,200)),
 			m_notebook_style);
+	 
 	ctrl->Freeze();
 
 	wxBitmap page_bmp = wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, m_parent_p->FromDIP(wxSize(16,16)));
@@ -95,10 +96,11 @@ wxAuiNotebook* AuiManager::CreateNotebook()
 				wxSP_ARROW_KEYS, 5, 50, 5 ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
 	flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );   flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );
 	panel->SetSizer( flex );
-	ctrl->AddPage( panel, "wxPanel", false, page_bmp );
+	 
+	ctrl->InsertPage(0, static_cast<wxWindow*>(panel), "wxPanel", false );
 
 
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some text",
+	/*ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some text",
 				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 1", false, page_bmp );
 
 	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
@@ -118,11 +120,11 @@ wxAuiNotebook* AuiManager::CreateNotebook()
 
 	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
 				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 7 (longer title)" );
-	ctrl->SetPageToolTip(ctrl->GetPageCount()-1,
-			"wxTextCtrl 7: and the tooltip message can be even longer!");
+	
 
 	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
 				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 8" );
+				*/
 
 	ctrl->Thaw();
 	return ctrl;
@@ -212,6 +214,14 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			m_aui_manager->Update();
 			 
 		}
+
+		Notebook* notebook_pane_p = dynamic_cast<Notebook*>(app_p->GetObjectFromMap(pane));
+		if (notebook_pane_p) {
+			 
+			std::cout << "notebook p ok (in auimanager.cpp) " << std::endl;
+			
+		}
+		 
 		 
 	}
 	 
