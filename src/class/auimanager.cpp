@@ -161,16 +161,15 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		VALUE option = args[1];
 		VALUE pane = rb_hash_aref(option, ID2SYM(rb_intern("pane")));
 		 
-		Toolbar* pane_p = dynamic_cast<Toolbar*>(app_p->GetObjectFromMap(pane));
-		if (pane_p) {
-			
+		Toolbar* toolbar_pane_p = dynamic_cast<Toolbar*>(app_p->GetObjectFromMap(pane));
+		 
+		if (toolbar_pane_p) {
 			 
-			wxToolBar* m_tb = pane_p->GetWxToolbarP();
+			wxToolBar* m_tb = toolbar_pane_p->GetWxToolbarP();
 			 
-			m_tb->AddTool(wxID_ANY,wxT("tool1"),wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR));
-			m_tb->AddTool(wxID_ANY,wxT("tool2"),wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR));
-			 
-			m_tb->Realize();
+			//m_tb->AddTool(wxID_ANY,wxT("tool1"),wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR));
+			//m_tb->AddTool(wxID_ANY,wxT("tool2"),wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR));
+			//m_tb->Realize();
 			 
 			wxAuiPaneInfo pi = wxAuiPaneInfo()  .Name(wxT("toolbar"))
 				.Caption(wxT("toolbar"))
