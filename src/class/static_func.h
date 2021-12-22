@@ -208,67 +208,28 @@ struct StaticFunc
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		if (func_name_str == "init_splitter"){
-			VALUE parent = args[0];
-			if (!check_class_name(parent, "Rwx::Frame")) {
-				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
-				return;
-			}
-
-			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
-			Splitter* splitter_p = new Splitter(frame_p);
-			app_p -> SetObjectToMap(target, splitter_p);
-		}else if (func_name_str == "init_panel"){
-
-			VALUE parent = args[0];
-			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-			Panel* panel_p = new Panel(parent_p, nargs, args);
-			//std::cout << "init panel (in static_func.h) "  << std::endl; 
-			rb_p(target);
-			app_p -> SetObjectToMap(target, panel_p);
-			panel_p->CallOnInit(target);
-			 
-		}else if (func_name_str == "splitter_call"){
+		if (func_name_str == "splitter_call"){
 			Splitter* splitter_p = static_cast<Splitter*>(app_p->GetObjectFromMap(target));
 			splitter_p->Call(nargs, args);
 			 
 		}else if (func_name_str == "panel_call"){
-			 
 			Panel* panel_p = static_cast<Panel*>(app_p->GetObjectFromMap(target));
 			panel_p->Call(nargs, args);
 			 
-		}else if (check_class_name(target,"Rwx::Sizer") && func_name_str == "init_sizer"){
-			 
-			Sizer* sizer_p = new Sizer(nargs, args);
-			//panel_p->CallOnInit(target);
-			app_p -> SetObjectToMap(target, sizer_p);
-			 
 		}else if (func_name_str == "sizer_call"){
-			 
 			Sizer* sizer_p = static_cast<Sizer*>(app_p->GetObjectFromMap(target));
 			sizer_p->Call(nargs, args);
 			 
-		}else if (func_name_str == "init_notebook"){
-			 
-			VALUE parent = args[0];
-			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-			Notebook* notebook_p = new Notebook(parent_p, nargs, args);
-			 
-			app_p -> SetObjectToMap(target, notebook_p);
-			 
 		}else if (func_name_str == "notebook_call"){
-			 
 			Notebook* notebook_p = static_cast<Notebook*>(app_p->GetObjectFromMap(target));
 			notebook_p->Call(nargs, args);
 			 
 		}
 	}
-	static void input_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
+	static void init_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
-		 
-		VALUE result = Qtrue;
 		 
 		if (check_class_name(target,"Rwx::StaticText") && func_name_str == "init_static_text"){
 			 
@@ -279,11 +240,6 @@ struct StaticFunc
 			 
 			TextCtrl* text_ctrl_p = new TextCtrl(nargs, args);
 			app_p -> SetObjectToMap(target, text_ctrl_p);
-
-		}else if (check_class_name(target,"Rwx::TextCtrl") && func_name_str == "text_ctrl_call"){
-			 
-			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
-			result = text_ctrl_p->Call(nargs, args);
 			 
 		}else if (check_class_name(target,"Rwx::Button") && func_name_str == "init_button"){
 			 
@@ -329,12 +285,44 @@ struct StaticFunc
 			TreeCtrl* treectrl_p = new TreeCtrl(nargs, args);
 			app_p -> SetObjectToMap(target, treectrl_p);
 			 
+		}else if (func_name_str == "init_panel"){
+
+			VALUE parent = args[0];
+			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+			Panel* panel_p = new Panel(parent_p, nargs, args);
+			//std::cout << "init panel (in static_func.h) "  << std::endl; 
+			rb_p(target);
+			app_p -> SetObjectToMap(target, panel_p);
+			panel_p->CallOnInit(target);
+			 
+		}else if (func_name_str == "init_notebook"){
+			 
+			VALUE parent = args[0];
+			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+			Notebook* notebook_p = new Notebook(parent_p, nargs, args);
+			 
+			app_p -> SetObjectToMap(target, notebook_p);
+			 
+		}else if (check_class_name(target,"Rwx::Sizer") && func_name_str == "init_sizer"){
+			 
+			Sizer* sizer_p = new Sizer(nargs, args);
+			//panel_p->CallOnInit(target);
+			app_p -> SetObjectToMap(target, sizer_p);
+			 
+		}else if (func_name_str == "init_splitter"){
+			VALUE parent = args[0];
+			if (!check_class_name(parent, "Rwx::Frame")) {
+				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
+				return;
+			}
+
+			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
+			Splitter* splitter_p = new Splitter(frame_p);
+			app_p -> SetObjectToMap(target, splitter_p);
+
 		}
-		 
 	}
 	
-	 
-	 
 	static VALUE app_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
@@ -352,21 +340,27 @@ struct StaticFunc
 			menu_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_canvas" || func_name_str == "dc_call" || func_name_str == "canvas_call"){
 			canvas_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "init_splitter" || func_name_str == "notebook_call"|| func_name_str == "init_notebook" || func_name_str == "splitter_call" ||  func_name_str == "init_panel" || func_name_str == "panel_call" || func_name_str == "init_sizer" || func_name_str == "sizer_call"){
+		}else if (func_name_str == "notebook_call" || func_name_str == "splitter_call" ||   func_name_str == "panel_call"  || func_name_str == "sizer_call"){
 			panel_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_static_text" 
 				|| func_name_str == "init_text_ctrl" 
 				|| func_name_str == "init_button"  
 				|| func_name_str == "init_radiobox" 
 				|| func_name_str == "init_checkbox" 
-				|| func_name_str == "text_ctrl_call" 
 				|| func_name_str == "init_listbox" 
 				|| func_name_str == "init_treelist" 
 				|| func_name_str == "init_auimanager" 
 				|| func_name_str == "init_treectrl" 
+				|| func_name_str == "init_panel" 
+				|| func_name_str == "init_notebook"
+				|| func_name_str == "init_sizer"
+				|| func_name_str == "init_splitter"
 				|| func_name_str == "init_listctrl"  ){
-			input_callback(target, func_name, nargs, args);
+			init_callback(target, func_name, nargs, args);
 			 
+		}else if (func_name_str == "text_ctrl_call" ) {
+			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
+			result = text_ctrl_p->Call(nargs, args);
 		}else if (func_name_str == "checkbox_call" ) {
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
 			result = checkbox_p->Call(nargs, args);
