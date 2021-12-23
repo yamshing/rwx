@@ -8,20 +8,20 @@
 class Notebook: public wxNotebook
 {
 	private:
-		//wxNotebook* m_notebook_p;
+		wxNotebook* m_notebook_p;
 		wxPanel* CreateRadioButtonsPage(wxWindow *parent, int type);
 		 
 	public:
-		/*wxNotebook* GetNotebookP(){
+		wxNotebook* GetNotebookP(){
 			return m_notebook_p;
 		};
-		*/
-
-		Notebook(wxWindow* parent, int nargs, VALUE *args) : wxNotebook(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize) 
+		 
+		/*Notebook(wxWindow* parent, int nargs, VALUE *args) : wxNotebook(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize) 
 		{
 		};
+		*/
 		 
-		//Notebook (int nargs, VALUE *args);
+		Notebook (int nargs, VALUE *args);
 		 
 		virtual ~Notebook (){};
 		 

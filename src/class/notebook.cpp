@@ -2,7 +2,7 @@
 #include "static_func.h"
  
  
-/*Notebook::Notebook(int nargs, VALUE *args)
+Notebook::Notebook(int nargs, VALUE *args)
 {
 	std::cout << "nargs (in static_func.h) " << nargs << std::endl;
 	App* app_p = static_cast<App*>(wxTheApp);
@@ -15,11 +15,8 @@
 	 
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 	m_notebook_p = new wxNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
-	 
-	 
 
 }
-*/
  
 void Notebook::Call(int nargs, VALUE *args)
 {

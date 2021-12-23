@@ -297,9 +297,9 @@ struct StaticFunc
 			 
 		}else if (func_name_str == "init_notebook"){
 			 
-			VALUE parent = args[0];
-			wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-			Notebook* notebook_p = new Notebook(parent_p, nargs, args);
+			//VALUE parent = args[0];
+			//wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+			Notebook* notebook_p = new Notebook(nargs, args);
 			 
 			app_p -> SetObjectToMap(target, notebook_p);
 			 
