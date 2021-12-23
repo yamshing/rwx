@@ -93,7 +93,6 @@ private:
 	wxGrid* CreateGrid();
 	wxSizeReportCtrl* CreateSizeReportCtrl(const wxSize& size = wxWindow::FromDIP(wxSize(80, 80), NULL));
 	wxTreeCtrl* CreateTreeCtrl();
-	wxAuiNotebook* CreateNotebook();
 	wxWindow* m_parent_p;
 	long m_notebook_style;
 

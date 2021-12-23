@@ -9,7 +9,7 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@toolbar)
 			 
-			@notebook = Notebook.new(self)
+			@notebook = Notebook.new(self, {type:'aui'})
 			 
 			@auimanager.add_pane(pane:@notebook)
 			 

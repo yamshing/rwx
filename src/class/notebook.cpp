@@ -8,13 +8,31 @@ Notebook::Notebook(int nargs, VALUE *args)
 	App* app_p = static_cast<App*>(wxTheApp);
 
 	VALUE parent = args[0];
+	VALUE option = args[1];
 	 
 	//VALUE content = args[1];
 	//std::string content_str; 
 	//StaticFunc::ValueToString(content, content_str);
 	 
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-	m_notebook_p = new wxNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
+	 
+	 
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("type")))) {
+		 
+		VALUE type_val = rb_hash_aref(option, ID2SYM(rb_intern("type")));
+		std::string type_str; 
+		StaticFunc::ValueToString(type_val, type_str);
+		if (type_str == "aui") {
+			std::cout << "notebook init (in static_func.h) with type " << std::endl;
+			 
+			m_notebook_p = new wxAuiNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
+			 
+		}
+	}else{
+		 
+		m_notebook_p = new wxNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
+		 
+	}
 
 }
  

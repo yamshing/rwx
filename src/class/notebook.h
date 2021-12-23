@@ -8,11 +8,11 @@
 class Notebook: public wxNotebook
 {
 	private:
-		wxNotebook* m_notebook_p;
+		wxWindow* m_notebook_p;
 		wxPanel* CreateRadioButtonsPage(wxWindow *parent, int type);
 		 
 	public:
-		wxNotebook* GetNotebookP(){
+		wxWindow* GetNotebookP(){
 			return m_notebook_p;
 		};
 		 

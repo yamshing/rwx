@@ -65,70 +65,7 @@ wxTreeCtrl* AuiManager::CreateTreeCtrl()
 	return tree;
 }
  
-wxAuiNotebook* AuiManager::CreateNotebook()
-{
-	// create the notebook off-window to avoid flicker
-	wxSize client_size = m_parent_p-> GetClientSize();
-	 
-	wxAuiNotebook* ctrl = new wxAuiNotebook(m_parent_p, wxID_ANY,
-																	 wxPoint(client_size.x, client_size.y),
-																	 m_parent_p->FromDIP(wxSize(430,200)),
-																	 m_notebook_style);
 
-	 
-	ctrl->Freeze();
-
-	wxBitmap page_bmp = wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, m_parent_p->FromDIP(wxSize(16,16)));
-
-	//ctrl->AddPage(CreateHTMLCtrl(ctrl), "Welcome to wxAUI" , false, page_bmp);
-	//ctrl->SetPageToolTip(0, "Welcome to wxAUI (this is a page tooltip)");
-
-	wxPanel *panel = new wxPanel( ctrl, wxID_ANY );
-	wxFlexGridSizer *flex = new wxFlexGridSizer( 4, 2, 0, 0 );
-	flex->AddGrowableRow( 0 );
-	flex->AddGrowableRow( 3 );
-	flex->AddGrowableCol( 1 );
-	flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );   flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );
-	flex->Add( new wxStaticText( panel, -1, "wxTextCtrl:" ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
-	flex->Add( new wxTextCtrl( panel, -1, "", wxDefaultPosition, m_parent_p->FromDIP(wxSize(100,-1))),
-			1, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
-	flex->Add( new wxStaticText( panel, -1, "wxSpinCtrl:" ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
-	flex->Add( new wxSpinCtrl( panel, -1, "5", wxDefaultPosition, wxDefaultSize,
-				wxSP_ARROW_KEYS, 5, 50, 5 ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
-	flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );   flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );
-	panel->SetSizer( flex );
-	ctrl->AddPage( panel, "wxPanel", false, page_bmp );
-	 
-
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 1", false, page_bmp );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 2" );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 3" );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 4" );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 5" );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 6" );
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 7 (longer title)" );
-	
-
-	ctrl->AddPage( new wxTextCtrl( ctrl, wxID_ANY, "Some more text",
-				wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 8" );
-
-	ctrl->Thaw();
-	return ctrl;
-}
 
  
 wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
@@ -217,7 +154,61 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		Notebook* notebook_pane_p = dynamic_cast<Notebook*>(app_p->GetObjectFromMap(pane));
 		if (notebook_pane_p) {
 			 
-			m_aui_manager->AddPane(CreateNotebook(), wxAuiPaneInfo().Name("notebook_content").
+			wxAuiNotebook* wx_notebook_p = dynamic_cast<wxAuiNotebook*>(notebook_pane_p->GetNotebookP());
+			if (wx_notebook_p) {
+				std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
+				wx_notebook_p->Freeze();
+
+				wxBitmap page_bmp = wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, m_parent_p->FromDIP(wxSize(16,16)));
+
+				//wx_notebook_p->AddPage(CreateHTMLCtrl(wx_notebook_p), "Welcome to wxAUI" , false, page_bmp);
+				//wx_notebook_p->SetPageToolTip(0, "Welcome to wxAUI (this is a page tooltip)");
+
+				wxPanel *panel = new wxPanel( wx_notebook_p, wxID_ANY );
+				wxFlexGridSizer *flex = new wxFlexGridSizer( 4, 2, 0, 0 );
+				flex->AddGrowableRow( 0 );
+				flex->AddGrowableRow( 3 );
+				flex->AddGrowableCol( 1 );
+				flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );   flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );
+				flex->Add( new wxStaticText( panel, -1, "wxTextCtrl:" ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
+				flex->Add( new wxTextCtrl( panel, -1, "", wxDefaultPosition, m_parent_p->FromDIP(wxSize(100,-1))),
+						1, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
+				flex->Add( new wxStaticText( panel, -1, "wxSpinCtrl:" ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
+				flex->Add( new wxSpinCtrl( panel, -1, "5", wxDefaultPosition, wxDefaultSize,
+							wxSP_ARROW_KEYS, 5, 50, 5 ), 0, wxALL|wxALIGN_CENTRE, m_parent_p->FromDIP(5) );
+				flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );   flex->Add( m_parent_p->FromDIP(5), m_parent_p->FromDIP(5) );
+				panel->SetSizer( flex );
+				wx_notebook_p->AddPage( panel, "wxPanel", false, page_bmp );
+				 
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 1", false, page_bmp );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 2" );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 3" );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 4" );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 5" );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 6" );
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 7 (longer title)" );
+
+
+				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
+							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 8" );
+
+				wx_notebook_p->Thaw();
+			}
+			 
+			m_aui_manager->AddPane(wx_notebook_p, wxAuiPaneInfo().Name("notebook_content").
 				CenterPane().PaneBorder(false).Show());
 			
 			m_aui_manager->Update();
