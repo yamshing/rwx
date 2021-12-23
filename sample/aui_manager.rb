@@ -1,5 +1,43 @@
 module Rwx
 	 
+	class Panel
+		def on_init 
+			out_sizer = Sizer.new('box', 'vertical')
+			row_1_sizer = Sizer.new('box', 'horizontal')
+			label_1 = StaticText.new(self, 'あいうえお')
+			row_1_sizer.add(label_1)
+			out_sizer.add(row_1_sizer)
+			 
+			row_8_sizer = Sizer.new('box', 'horizontal')
+			row_8_sizer.add_spacer(10)
+			label = StaticText.new(self, 'リストコントロール')
+			row_8_sizer.add(label)
+			list_content = [
+				['山田太郎','abc-ABC-あいうえお'],
+				['木村次郎','abc-ABC-カキクケコ'],
+				['木村一郎','abc-ABC-カキクケコ'],
+				['山田太郎','abc-ABC-あいうえお'],
+				['木村次郎','abc-ABC-カキクケコ'],
+				['木村一郎','abc-ABC-カキクケコ'],
+				['山田太郎','abc-ABC-あいうえお'],
+				['木村次郎','abc-ABC-カキクケコ'],
+				['木村一郎','abc-ABC-カキクケコ'],
+			]
+			 
+			@list_ctrl = ListCtrl.new(self, 'header':['氏名','キー'], 'content':list_content);
+			row_8_sizer.add(@list_ctrl)
+			out_sizer.add(row_8_sizer)
+			 
+			add_sizer(out_sizer)
+		end
+		 
+		def on_button_click
+		end
+		 
+		def on_button_2_click
+		end
+		 
+	end
 	class Frame
 		def on_init 
 			@auimanager = AuiManager.new(self)
@@ -10,6 +48,13 @@ module Rwx
 			@auimanager.add_pane(pane:@toolbar)
 			 
 			@notebook = Notebook.new(self, {type:'aui'})
+			 
+			@panel = Panel.new(self)
+			 
+			@notebook.add(@panel, "１番")
+
+			@panel2 = Panel.new(self)
+			@notebook.add(@panel2, "第２")
 			 
 			@auimanager.add_pane(pane:@notebook)
 			 

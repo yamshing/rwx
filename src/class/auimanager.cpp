@@ -159,6 +159,7 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 				std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
 				wx_notebook_p->Freeze();
 
+				/*
 				wxBitmap page_bmp = wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, m_parent_p->FromDIP(wxSize(16,16)));
 
 				//wx_notebook_p->AddPage(CreateHTMLCtrl(wx_notebook_p), "Welcome to wxAUI" , false, page_bmp);
@@ -205,6 +206,8 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 				wx_notebook_p->AddPage( new wxTextCtrl( wx_notebook_p, wxID_ANY, "Some more text",
 							wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE|wxNO_BORDER) , "wxTextCtrl 8" );
 
+				*/
+				 
 				wx_notebook_p->Thaw();
 			}
 			 

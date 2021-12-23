@@ -10,6 +10,7 @@ class Notebook: public wxNotebook
 	private:
 		wxWindow* m_notebook_p;
 		wxPanel* CreateRadioButtonsPage(wxWindow *parent, int type);
+		std::string m_type;
 		 
 	public:
 		wxWindow* GetNotebookP(){

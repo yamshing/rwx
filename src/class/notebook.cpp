@@ -9,6 +9,7 @@ Notebook::Notebook(int nargs, VALUE *args)
 
 	VALUE parent = args[0];
 	VALUE option = args[1];
+	m_type = "";
 	 
 	//VALUE content = args[1];
 	//std::string content_str; 
@@ -24,7 +25,7 @@ Notebook::Notebook(int nargs, VALUE *args)
 		StaticFunc::ValueToString(type_val, type_str);
 		if (type_str == "aui") {
 			std::cout << "notebook init (in static_func.h) with type " << std::endl;
-			 
+			m_type = "aui";
 			m_notebook_p = new wxAuiNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
 			 
 		}
@@ -59,12 +60,15 @@ void Notebook::Call(int nargs, VALUE *args)
 			 
 			if (panel_p) {
 				  
-				AddPage(panel_p, wxString::FromUTF8(title_str), false, wxWithImages::NO_IMAGE); 
+				if (m_type=="aui") {
+					static_cast<wxAuiNotebook*>(m_notebook_p)->AddPage(panel_p, wxString::FromUTF8(title_str), false, wxWithImages::NO_IMAGE); 
+				}else{
+					static_cast<wxNotebook*>(m_notebook_p)->AddPage(panel_p, wxString::FromUTF8(title_str), false, wxWithImages::NO_IMAGE); 
+				}
 				 
 			}
 		}
 	}
-	 
 }
 
 wxPanel* Notebook::CreateRadioButtonsPage(wxWindow *parent, int type)
