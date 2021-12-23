@@ -182,18 +182,16 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 				.RightDockable(false);
 			 
 			m_aui_manager->AddPane(m_tb,pi);
+			m_aui_manager->Update();
 			 
-			m_aui_manager->AddPane(CreateNotebook(), wxAuiPaneInfo().Name("notebook_content").
-				CenterPane().PaneBorder(false).Show()); 		
-
 			//m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().Name("grid_content").
 			//		CenterPane().Show());
-			 
 			//
 			// Layer 1 ni suruto sotoni deru
 			// Row(0). Row(1) de ue shita ni naru
 			// 
 			 
+			/*
 			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test1").Caption("Pane Caption").
 					Top());
@@ -212,18 +210,18 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 					Right());
 				 
 			m_aui_manager->Update();
+			*/
 			 
 		}
 
 		Notebook* notebook_pane_p = dynamic_cast<Notebook*>(app_p->GetObjectFromMap(pane));
 		if (notebook_pane_p) {
 			 
-
+			m_aui_manager->AddPane(CreateNotebook(), wxAuiPaneInfo().Name("notebook_content").
+				CenterPane().PaneBorder(false).Show());
 			
+			m_aui_manager->Update();
 		}
-		 
-		 
 	}
-	 
 	return result;
 }
