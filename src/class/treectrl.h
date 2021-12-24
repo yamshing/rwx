@@ -20,6 +20,7 @@ public:
 		return m_tree_ctrl;
 	};
 	 
+	VALUE Call(int nargs, VALUE *args);
 	 
 };
 #endif 

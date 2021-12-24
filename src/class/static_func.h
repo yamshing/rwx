@@ -361,6 +361,10 @@ struct StaticFunc
 		}else if (func_name_str == "text_ctrl_call" ) {
 			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
 			result = text_ctrl_p->Call(nargs, args);
+		}else if (func_name_str == "treectrl_call" ) {
+			TreeCtrl* treectrl_p = static_cast<TreeCtrl*>(app_p->GetObjectFromMap(target));
+			result = treectrl_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "checkbox_call" ) {
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
 			result = checkbox_p->Call(nargs, args);

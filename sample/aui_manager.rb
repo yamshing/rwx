@@ -84,7 +84,7 @@ module Rwx
 		end
 		 
 		def on_button_1
-			p "button 1"
+			@treectrl.get_selection
 		end
 		 
 		def on_button_2

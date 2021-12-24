@@ -70,5 +70,15 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 	} 
 }
 
+VALUE TreeCtrl::Call(int nargs, VALUE *args)
+{
+	VALUE func_name = args[0];
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	 
+	if (func_name_str == "get_selection") {
+		std::cout << "get seelection called (in treectrl.cpp) "  << std::endl;
+		 
+	}
+}
 
  
