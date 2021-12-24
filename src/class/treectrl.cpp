@@ -12,4 +12,14 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	std::cout << "treectrl ctor (in treectrl.cpp) "  << std::endl;
 	 
 }
+
+wxTreeCtrl* TreeCtrl::CreateTreeCtrl(wxWindow* parent)
+{
+	wxTreeCtrl* tree = new wxTreeCtrl(parent, wxID_ANY,
+			wxPoint(0,0),
+			parent->FromDIP(wxSize(160,250)),
+			wxTR_DEFAULT_STYLE | wxNO_BORDER);
+	 
+	return tree;
+}
  

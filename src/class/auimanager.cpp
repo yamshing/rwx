@@ -169,11 +169,46 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		}
 		 
 		TreeCtrl* treectrl_p = dynamic_cast<TreeCtrl*>(app_p->GetObjectFromMap(pane));
+		 
 		if (treectrl_p) {
 			 
-			std::cout << "treectrlp found (in auimanager.cpp) " <<  std::endl;
-			 
-			m_aui_manager->AddPane(CreateTreeCtrl(), wxAuiPaneInfo().
+			/*wxTreeCtrl* tree = new wxTreeCtrl(m_parent_p, wxID_ANY,
+					wxPoint(0,0),
+					m_parent_p->FromDIP(wxSize(160,250)),
+					wxTR_DEFAULT_STYLE | wxNO_BORDER);
+					*/
+					
+			wxTreeCtrl* tree = treectrl_p->CreateTreeCtrl(m_parent_p);
+
+			wxSize size = m_parent_p->FromDIP(wxSize(16, 16));
+			wxImageList* imglist = new wxImageList(size.x, size.y, true, 2);
+			imglist->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, size));
+			imglist->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, size));
+			tree->AssignImageList(imglist);
+
+			wxTreeItemId root = tree->AddRoot("wxAUI Project", 0);
+			wxArrayTreeItemIds items;
+
+			items.Add(tree->AppendItem(root, "Item 1", 0));
+			items.Add(tree->AppendItem(root, "Item 2", 0));
+			items.Add(tree->AppendItem(root, "Item 3", 0));
+			items.Add(tree->AppendItem(root, "Item 4", 0));
+			items.Add(tree->AppendItem(root, "Item 5", 0));
+
+
+			int i, count;
+			for (i = 0, count = items.Count(); i < count; ++i)
+			{
+				wxTreeItemId id = items.Item(i);
+				tree->AppendItem(id, "Subitem 1", 1);
+				tree->AppendItem(id, "Subitem 2", 1);
+				tree->AppendItem(id, "Subitem 3", 1);
+				tree->AppendItem(id, "Subitem 4", 1);
+				tree->AppendItem(id, "Subitem 5", 1);
+			}
+			tree->Expand(root);
+
+			m_aui_manager->AddPane(tree, wxAuiPaneInfo().
 					Name("test8").Caption("Tree Pane").
 					Left().
 					CloseButton(true).MaximizeButton(true));

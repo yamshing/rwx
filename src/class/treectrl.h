@@ -19,7 +19,8 @@ public:
 		return m_tree_ctrl;
 	};
 	 
-
+	wxTreeCtrl* CreateTreeCtrl(wxWindow* parent);
+	 
 	 
 };
 #endif 
