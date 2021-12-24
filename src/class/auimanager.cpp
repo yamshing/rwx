@@ -172,23 +172,17 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		 
 		if (treectrl_p) {
 			 
-			/*wxTreeCtrl* tree = new wxTreeCtrl(m_parent_p, wxID_ANY,
-					wxPoint(0,0),
-					m_parent_p->FromDIP(wxSize(160,250)),
-					wxTR_DEFAULT_STYLE | wxNO_BORDER);
-					*/
-					
-			wxTreeCtrl* tree = treectrl_p->CreateTreeCtrl(m_parent_p);
-
+			wxTreeCtrl* tree = treectrl_p->GetTreeCtrl();
+			 
 			wxSize size = m_parent_p->FromDIP(wxSize(16, 16));
 			wxImageList* imglist = new wxImageList(size.x, size.y, true, 2);
 			imglist->Add(wxArtProvider::GetBitmap(wxART_FOLDER, wxART_OTHER, size));
 			imglist->Add(wxArtProvider::GetBitmap(wxART_NORMAL_FILE, wxART_OTHER, size));
 			tree->AssignImageList(imglist);
-
+			 
 			wxTreeItemId root = tree->AddRoot("wxAUI Project", 0);
 			wxArrayTreeItemIds items;
-
+			 
 			items.Add(tree->AppendItem(root, "Item 1", 0));
 			items.Add(tree->AppendItem(root, "Item 2", 0));
 			items.Add(tree->AppendItem(root, "Item 3", 0));

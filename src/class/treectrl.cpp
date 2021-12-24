@@ -10,16 +10,16 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	App* app_p = static_cast<App*>(wxTheApp);
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 	std::cout << "treectrl ctor (in treectrl.cpp) "  << std::endl;
+	CreateTreeCtrl(parent_p);
 	 
 }
 
-wxTreeCtrl* TreeCtrl::CreateTreeCtrl(wxWindow* parent)
+void TreeCtrl::CreateTreeCtrl(wxWindow* parent)
 {
-	wxTreeCtrl* tree = new wxTreeCtrl(parent, wxID_ANY,
+	m_tree_ctrl = new wxTreeCtrl(parent, wxID_ANY,
 			wxPoint(0,0),
 			parent->FromDIP(wxSize(160,250)),
 			wxTR_DEFAULT_STYLE | wxNO_BORDER);
 	 
-	return tree;
 }
  

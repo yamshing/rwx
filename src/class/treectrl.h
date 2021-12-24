@@ -18,8 +18,7 @@ public:
 	wxTreeCtrl* GetTreeCtrl(){
 		return m_tree_ctrl;
 	};
-	 
-	wxTreeCtrl* CreateTreeCtrl(wxWindow* parent);
+	void CreateTreeCtrl(wxWindow* parent);
 	 
 	 
 };
