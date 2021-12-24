@@ -69,24 +69,26 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 		VALUE content_row = rb_ary_entry(content,i);
 		 
 		VALUE content_str_val = rb_ary_entry(content_row,0);
-		VALUE sub_arr_val = rb_ary_entry(content_row,1);
 		 
-		int sub_arr_size = static_cast<int>(RARRAY_LEN(sub_arr_val));
-		 
-		if (sub_arr_size > 0) {
-			 
-			std::cout << "sub_arr_size (in treectrl.cpp) " << sub_arr_size << std::endl;
-			//wxArrayTreeItemIds sub_items;
-			//AddContentToTree(items.Item(i), sub_items, sub_arr_val, level + 1);
-			
-		}
+
 		 
 		std::string content_str;
 		StaticFunc::ValueToString(content_str_val, content_str);
 		if (level == 0) {
 			items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( content_str), 0));
 		}else{
-			m_tree_ctrl->AppendItem(root, "Subitem 2", level);
+			m_tree_ctrl->AppendItem(root, wxString::FromUTF8( content_str), level);
+		}
+		 
+		VALUE sub_arr_val = rb_ary_entry(content_row,1);
+		int sub_arr_size = static_cast<int>(RARRAY_LEN(sub_arr_val));
+		 
+		if (sub_arr_size > 0) {
+			 
+			//std::cout << "sub_arr_size (in treectrl.cpp) " << sub_arr_size << std::endl;
+			wxArrayTreeItemIds sub_items;
+			AddContentToTree(items.Item(i), sub_items, sub_arr_val, level + 1);
+			
 		}
 	} 
 }

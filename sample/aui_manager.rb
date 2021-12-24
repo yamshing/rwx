@@ -61,10 +61,12 @@ module Rwx
 			tree_content = [
 				['ABC',
 					[
-						['HHH',[]]
+						['HHH',
+							[
+							]
+						]
 					]
-				],
-				['DEF',[]]
+				]
 			]
 			 
 			 
