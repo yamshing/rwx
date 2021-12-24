@@ -58,7 +58,17 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@notebook)
 			 
-			@treectrl = TreeCtrl.new(self)
+			tree_content = [
+				['ABC',
+					[
+						['HHH',[]]
+					]
+				],
+				['DEF',[]]
+			]
+			 
+			 
+			@treectrl = TreeCtrl.new(self, 'content':tree_content)
 			 
 			@auimanager.add_pane(pane:@treectrl)
 			 

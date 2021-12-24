@@ -9,6 +9,7 @@ class TreeCtrl :public wxObject
 {
 private:
 	wxTreeCtrl* m_tree_ctrl;
+	void AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VALUE content, int level);
 	 
 public:
 	TreeCtrl(int nargs, VALUE *args);
