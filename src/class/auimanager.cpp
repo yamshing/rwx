@@ -167,6 +167,21 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			
 			m_aui_manager->Update();
 		}
+		 
+		TreeCtrl* treectrl_p = dynamic_cast<TreeCtrl*>(app_p->GetObjectFromMap(pane));
+		if (treectrl_p) {
+			 
+			std::cout << "treectrlp found (in auimanager.cpp) " <<  std::endl;
+			 
+			m_aui_manager->AddPane(CreateTreeCtrl(), wxAuiPaneInfo().
+					Name("test8").Caption("Tree Pane").
+					Left().
+					CloseButton(true).MaximizeButton(true));
+				 
+			m_aui_manager->Update();
+				
+		}
+		 
 	}
 	return result;
 }

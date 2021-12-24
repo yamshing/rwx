@@ -58,6 +58,10 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@notebook)
 			 
+			@treectrl = TreeCtrl.new(self)
+			 
+			@auimanager.add_pane(pane:@treectrl)
+			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
 			#set_sizer(@sizer)
@@ -81,7 +85,6 @@ module Rwx
 			@frame.set_size(1000, 500)
 	
 			 
-			@treectrl = TreeCtrl.new(@frame)
 			 
 		end
 	end
