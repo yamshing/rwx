@@ -76,7 +76,9 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 	std::string func_name_str = std::string(StringValuePtr(func_name));
 	 
 	if (func_name_str == "get_selection") {
-		std::cout << "get seelection called (in treectrl.cpp) "  << std::endl;
+		wxTreeItemId selected = m_tree_ctrl->GetSelection();
+		 
+		std::cout << "selected (in treectrl.cpp) " << selected << std::endl;
 		 
 	}
 }
