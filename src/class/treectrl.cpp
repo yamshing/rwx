@@ -34,29 +34,7 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	AddContentToTree(root, items, content, 0);
 	 
 	m_tree_ctrl->Expand(root);
-	
-	/*
-	wxArrayTreeItemIds items;
-
-	items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( "アイテム 1"), 0));
-	items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( "アイテム 2"), 0));
-	items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( "アイテム 3"), 0));
-	items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( "アイテム 4"), 0));
-	items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( "アイテム 5"), 0));
 	 
-	int i, count;
-	for (i = 0, count = items.Count(); i < count; ++i)
-	{
-		wxTreeItemId id = items.Item(i);
-		m_tree_ctrl->AppendItem(id, "Subitem 1", 1);
-		m_tree_ctrl->AppendItem(id, "Subitem 2", 1);
-		m_tree_ctrl->AppendItem(id, "Subitem 3", 1);
-		m_tree_ctrl->AppendItem(id, "Subitem 4", 1);
-		m_tree_ctrl->AppendItem(id, "Subitem 5", 1);
-	}
-	m_tree_ctrl->Expand(root);
-	*/
-
 }
 
 void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VALUE content, int level)
