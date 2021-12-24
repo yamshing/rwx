@@ -74,10 +74,10 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 		 
 		std::string content_str;
 		StaticFunc::ValueToString(content_str_val, content_str);
+		wxTreeItemId added = m_tree_ctrl->AppendItem(root,wxString::FromUTF8( content_str), 0);
+		 
 		if (level == 0) {
-			items.Add(m_tree_ctrl->AppendItem(root,wxString::FromUTF8( content_str), 0));
-		}else{
-			m_tree_ctrl->AppendItem(root, wxString::FromUTF8( content_str), level);
+			items.Add(added);
 		}
 		 
 		VALUE sub_arr_val = rb_ary_entry(content_row,1);
@@ -85,9 +85,8 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 		 
 		if (sub_arr_size > 0) {
 			 
-			//std::cout << "sub_arr_size (in treectrl.cpp) " << sub_arr_size << std::endl;
 			wxArrayTreeItemIds sub_items;
-			AddContentToTree(items.Item(i), sub_items, sub_arr_val, level + 1);
+			AddContentToTree(added, sub_items, sub_arr_val, level + 1);
 			
 		}
 	} 
