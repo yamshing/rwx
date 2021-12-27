@@ -73,6 +73,8 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@treectrl)
 			 
+			@grid = Grid.new(self)
+			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
 			#set_sizer(@sizer)

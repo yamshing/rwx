@@ -274,6 +274,10 @@ struct StaticFunc
 			app_p -> SetObjectToMap(target, treelist_p);
 			//std::cout << "treelist (in static_func.h) "  << std::endl;
 
+		}else if (check_class_name(target,"Rwx::Grid") && func_name_str == "init_grid"){
+			 
+			std::cout << "init grid call (in static_func.h) "  << std::endl;
+			 
 		}else if (check_class_name(target,"Rwx::AuiManager") && func_name_str == "init_auimanager"){
 			 
 			//std::cout << "auimanager init (in static_func.h) "  << std::endl;
@@ -355,6 +359,7 @@ struct StaticFunc
 				|| func_name_str == "init_notebook"
 				|| func_name_str == "init_sizer"
 				|| func_name_str == "init_splitter"
+				|| func_name_str == "init_grid"
 				|| func_name_str == "init_listctrl"  ){
 			init_callback(target, func_name, nargs, args);
 			 

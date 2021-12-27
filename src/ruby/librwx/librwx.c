@@ -27,6 +27,8 @@ VALUE librwx_ListCtrl;
 VALUE librwx_TreeList;
 VALUE librwx_TreeCtrl;
  
+VALUE librwx_Grid;
+ 
 VALUE librwx_AuiManager;;
  
  
@@ -104,6 +106,7 @@ INITIALIZE(listctrl)
 INITIALIZE(treelist)
 INITIALIZE(treectrl)
 INITIALIZE(auimanager)
+INITIALIZE(grid)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -248,6 +251,8 @@ Init_LibRwx(void)
 	rb_define_method(librwx_TreeCtrl, "initialize", librwx_treectrl_initialize, -1);
 	rb_define_method(librwx_TreeCtrl, "get_selection", librwx_treectrl_get_selection, -1);
 	 
+	librwx_Grid  = rb_define_class_under(librwx_Namespace, "Grid", rb_cObject);
+	rb_define_method(librwx_Grid, "initialize", librwx_grid_initialize, -1);
 	 
 }
 
