@@ -83,6 +83,7 @@ module Rwx
 			selected = @treectrl.get_selection
 			p selected
 			p @panel.list_ctrl
+			@panel.list_ctrl.get_selection
 			 
 		end
 		 

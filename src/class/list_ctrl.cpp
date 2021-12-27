@@ -49,3 +49,16 @@ ListCtrl::ListCtrl(int nargs, VALUE *args)
 }
 
 
+VALUE ListCtrl::Call(int nargs, VALUE *args)
+{
+	VALUE func_name = args[0];
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	VALUE res;
+	 
+	if (func_name_str == "get_selection") {
+		std::cout << "listctrl get selection  (in list_ctrl.cpp) "   << std::endl;
+	}
+	 
+	 
+	return res;
+}

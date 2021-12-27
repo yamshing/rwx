@@ -358,6 +358,10 @@ struct StaticFunc
 				|| func_name_str == "init_listctrl"  ){
 			init_callback(target, func_name, nargs, args);
 			 
+		}else if (func_name_str == "listctrl_call" ) {
+			ListCtrl* listctrl_p = static_cast<ListCtrl*>(app_p->GetObjectFromMap(target));
+			result = listctrl_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "text_ctrl_call" ) {
 			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
 			result = text_ctrl_p->Call(nargs, args);

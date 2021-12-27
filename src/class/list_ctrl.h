@@ -18,9 +18,7 @@ public:
 	wxListCtrl* GetListCtrl(){
 		return m_listctrl;
 	};
-	 
-
-	 
+	VALUE Call(int nargs, VALUE *args);
 	 
 };
 #endif

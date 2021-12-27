@@ -122,6 +122,7 @@ GENERIC_CALL(radiobox_call)
 GENERIC_CALL(auimanager_call)
 
 GENERIC_CALL(treectrl_call)
+GENERIC_CALL(listctrl_call)
 	 
 	 
 FUNC_TO_GENERIC(frame,set_size)
@@ -150,6 +151,7 @@ FUNC_TO_GENERIC(radiobox,set_selection)
 	 
 FUNC_TO_GENERIC(auimanager,add_pane)
 
+FUNC_TO_GENERIC(listctrl,get_selection)
 
 
 void
@@ -232,6 +234,8 @@ Init_LibRwx(void)
 	 
 	librwx_ListCtrl  = rb_define_class_under(librwx_Namespace, "ListCtrl", rb_cObject);
 	rb_define_method(librwx_ListCtrl, "initialize", librwx_listctrl_initialize, -1);
+	rb_define_method(librwx_ListCtrl, "get_selection", librwx_listctrl_get_selection, -1);
+
 	 
 	librwx_TreeList  = rb_define_class_under(librwx_Namespace, "TreeList", rb_cObject);
 	rb_define_method(librwx_TreeList, "initialize", librwx_treelist_initialize, -1);
