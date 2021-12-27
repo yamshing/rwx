@@ -1,6 +1,8 @@
 module Rwx
 	 
 	class Panel
+		attr_accessor:list_ctrl
+		 
 		def on_init 
 			out_sizer = Sizer.new('box', 'vertical')
 			row_1_sizer = Sizer.new('box', 'horizontal')
@@ -29,12 +31,6 @@ module Rwx
 			out_sizer.add(row_8_sizer)
 			 
 			add_sizer(out_sizer)
-		end
-		 
-		def on_button_click
-		end
-		 
-		def on_button_2_click
 		end
 		 
 	end
@@ -86,6 +82,8 @@ module Rwx
 		def on_button_1
 			selected = @treectrl.get_selection
 			p selected
+			p @panel.list_ctrl
+			 
 		end
 		 
 		def on_button_2
