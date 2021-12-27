@@ -14,7 +14,7 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	m_tree_ctrl = new wxTreeCtrl(parent_p, wxID_ANY,
 			wxPoint(0,0),
 			parent_p->FromDIP(wxSize(160,250)),
-			wxTR_DEFAULT_STYLE | wxNO_BORDER);
+			wxTR_DEFAULT_STYLE | wxNO_BORDER | wxTR_MULTIPLE );
 			
 	
 	 
@@ -95,15 +95,30 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "get_selection") {
 		 
-		wxTreeItemId selected_id = m_tree_ctrl->GetSelection();
-		TreeItemData* selected_data = (TreeItemData*)m_tree_ctrl->GetItemData(selected_id);
+		//wxTreeItemId selected_id = m_tree_ctrl->GetSelection();
+		wxArrayTreeItemIds selected_id_arr;
+		m_tree_ctrl->GetSelections(selected_id_arr);
 		 
+		int cnt = selected_id_arr.GetCount();
 		res = rb_ary_new();
-		for (int i : selected_data->m_index_vec) {
-			rb_ary_push(res, INT2NUM(i));
+		 
+		for (int i = 0; i < cnt; ++i) {
+			 
+			wxTreeItemId selected_id = selected_id_arr.Item(i);
+			 
+			TreeItemData* selected_data = (TreeItemData*)m_tree_ctrl->GetItemData(selected_id);
+			 
+			VALUE sub_ary = rb_ary_new();
+			 
+			for (int i : selected_data->m_index_vec) {
+				rb_ary_push(sub_ary, INT2NUM(i));
+			}
+			 
+			rb_ary_push(res, sub_ary);
 		}
 		 
 	}
+	 
 	return res;
 }
 
