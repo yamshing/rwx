@@ -11,7 +11,7 @@ ListCtrl::ListCtrl(int nargs, VALUE *args)
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 	 
 	m_listctrl = new wxListCtrl(parent_p, StaticFunc::ALL_EVENT_ID,
-													 wxDefaultPosition, wxDefaultSize, wxLC_REPORT |  wxLC_SINGLE_SEL | wxSUNKEN_BORDER
+													 wxDefaultPosition, wxDefaultSize, wxLC_REPORT  | wxSUNKEN_BORDER //|  wxLC_SINGLE_SEL
 													 );
 	 
 	m_listctrl->InsertColumn(0, wxString::FromUTF8("Name"));
