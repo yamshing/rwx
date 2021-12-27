@@ -156,7 +156,7 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxAuiNotebook* wx_notebook_p = dynamic_cast<wxAuiNotebook*>(notebook_pane_p->GetNotebookP());
 			if (wx_notebook_p) {
-				std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
+				//std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
 				wx_notebook_p->Freeze();
 				 
 				wx_notebook_p->Thaw();

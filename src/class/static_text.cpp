@@ -4,7 +4,7 @@
  
 StaticText::StaticText(int nargs, VALUE *args)
 {
-	std::cout << "nargs (in static_func.h) " << nargs << std::endl;
+	//std::cout << "nargs (in static_func.h) " << nargs << std::endl;
 	App* app_p = static_cast<App*>(wxTheApp);
 
 	VALUE parent = args[0];

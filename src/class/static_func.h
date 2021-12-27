@@ -83,7 +83,7 @@ struct StaticFunc
 			 
 		}else if (func_name_str == "frame_call"){
 			 
-			std::cout << "framecall (in static_func.h) "  << std::endl;
+			//std::cout << "framecall (in static_func.h) "  << std::endl;
 			Frame* frame_p = app_p->GetFrameP();
 			frame_p->Call(nargs, args);
 		}
@@ -129,7 +129,7 @@ struct StaticFunc
 			VALUE parent = args[0];
 			VALUE option = args[1];
 			 
-			std::cout << "option (in static_func.h) " << option << std::endl;
+			//std::cout << "option (in static_func.h) " << option << std::endl;
 			 
 			if (!check_class_name(parent, "Rwx::Frame")) {
 				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
@@ -262,7 +262,7 @@ struct StaticFunc
 			 
 			ListBox* listbox_p = new ListBox(nargs, args);
 			app_p -> SetObjectToMap(target, listbox_p);
-			std::cout << "init and set list box (in static_func.h) " <<  std::endl;
+			//std::cout << "init and set list box (in static_func.h) " <<  std::endl;
 			 
 		}else if (check_class_name(target,"Rwx::ListCtrl") && func_name_str == "init_listctrl"){
 			ListCtrl* listctrl_p = new ListCtrl(nargs, args);
@@ -272,11 +272,11 @@ struct StaticFunc
 			 
 			TreeList* treelist_p = new TreeList(nargs, args);
 			app_p -> SetObjectToMap(target, treelist_p);
-			std::cout << "treelist (in static_func.h) "  << std::endl;
+			//std::cout << "treelist (in static_func.h) "  << std::endl;
 
 		}else if (check_class_name(target,"Rwx::AuiManager") && func_name_str == "init_auimanager"){
 			 
-			std::cout << "auimanager init (in static_func.h) "  << std::endl;
+			//std::cout << "auimanager init (in static_func.h) "  << std::endl;
 			AuiManager* auimanager_p = new AuiManager(nargs, args);
 			app_p -> SetObjectToMap(target, auimanager_p);
 			 

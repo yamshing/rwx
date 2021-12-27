@@ -8,7 +8,7 @@ void Toolbar::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "add_tool") {
 		 
-		std::cout << "nargs (in toolbar.cpp) " << nargs << std::endl;
+		//std::cout << "nargs (in toolbar.cpp) " << nargs << std::endl;
 		//wxBitmap icon = wxBitmap("assets/save.bmp");
 		wxBitmap icon = wxNullBitmap;
 		 
@@ -154,9 +154,9 @@ void Toolbar::Call(int nargs, VALUE *args)
  
 void Toolbar::OnCheck(wxCommandEvent& event)
 {
-	std::cout << "on check (in test_wx.cpp) " << std::endl;
+	//std::cout << "on check (in test_wx.cpp) " << std::endl;
 	int menu_id = event.GetId();
-	std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
+	//std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
 	int drop_menu_id  = menu_id - m_drop_index_offset_map[menu_id];
 	 
 	VALUE callback_inst = g_menu_callback_inst_map[menu_id];
@@ -191,9 +191,9 @@ void Toolbar::OnDropMenu(wxCommandEvent& event)
  
 void Toolbar::OnMenu(wxCommandEvent& event)
 {
-	std::cout << "onmenu (in test_wx.cpp) " << std::endl;
+	//std::cout << "onmenu (in test_wx.cpp) " << std::endl;
 	int menu_id = event.GetId();
-	std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
+	//std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
 	 
 	VALUE callback_inst = g_menu_callback_inst_map[menu_id];
 	VALUE callback_name = g_menu_callback_name_map[menu_id];
@@ -206,9 +206,9 @@ void Toolbar::OnMenu(wxCommandEvent& event)
  
 void Toolbar::OnCombo(wxCommandEvent& event)
 {
-	std::cout << "oncombo (in test_wx.cpp) " << std::endl;
+	//std::cout << "oncombo (in test_wx.cpp) " << std::endl;
 	int menu_id = event.GetId();
-	std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
+	//std::cout << "menu_id (in test_wx.cpp) " << menu_id << std::endl;
 	wxComboBox* combo = m_combobox_map[menu_id];
 	int selected = combo->GetCurrentSelection();
 	 

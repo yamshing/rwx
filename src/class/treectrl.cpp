@@ -9,7 +9,7 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	
 	App* app_p = static_cast<App*>(wxTheApp);
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-	std::cout << "treectrl ctor (in treectrl.cpp) "  << std::endl;
+	//std::cout << "treectrl ctor (in treectrl.cpp) "  << std::endl;
 	 
 	m_tree_ctrl = new wxTreeCtrl(parent_p, wxID_ANY,
 			wxPoint(0,0),
@@ -83,7 +83,7 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 		wxTreeItemId selected = m_tree_ctrl->GetSelection();
 		//int state = m_tree_ctrl->GetItemState(selected);
 		 
-		std::cout << "m_tree_ctrl->GetItemText(selected) (in treectrl.cpp) " << m_tree_ctrl->GetItemText(selected) << std::endl;
+		//std::cout << "m_tree_ctrl->GetItemText(selected) (in treectrl.cpp) " << m_tree_ctrl->GetItemText(selected) << std::endl;
 		 
 	}
 }

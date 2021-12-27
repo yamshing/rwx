@@ -4,7 +4,7 @@
  
 Notebook::Notebook(int nargs, VALUE *args)
 {
-	std::cout << "nargs (in static_func.h) " << nargs << std::endl;
+	//std::cout << "nargs (in static_func.h) " << nargs << std::endl;
 	App* app_p = static_cast<App*>(wxTheApp);
 
 	VALUE parent = args[0];
@@ -24,7 +24,7 @@ Notebook::Notebook(int nargs, VALUE *args)
 		std::string type_str; 
 		StaticFunc::ValueToString(type_val, type_str);
 		if (type_str == "aui") {
-			std::cout << "notebook init (in static_func.h) with type " << std::endl;
+			//std::cout << "notebook init (in static_func.h) with type " << std::endl;
 			m_type = "aui";
 			m_notebook_p = new wxAuiNotebook(parent_p, wxID_ANY, wxDefaultPosition, wxDefaultSize, 0);
 			 
@@ -42,7 +42,7 @@ void Notebook::Call(int nargs, VALUE *args)
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
 	App* app_p = static_cast<App*>(wxTheApp);
-	std::cout << "func_name_str (in notebook.cpp) " << func_name_str << std::endl;
+	//std::cout << "func_name_str (in notebook.cpp) " << func_name_str << std::endl;
 	 
 	if (func_name_str == "add") {
 		 
@@ -53,7 +53,7 @@ void Notebook::Call(int nargs, VALUE *args)
 			 
 			rb_p(panel);
 			wxPanel* panel_p = dynamic_cast<wxPanel*>(app_p->GetObjectFromMap(panel));
-			std::cout << "panel_p (in notebook.cpp) " << panel_p << std::endl;
+			//std::cout << "panel_p (in notebook.cpp) " << panel_p << std::endl;
 			 
 			std::string title_str;
 			StaticFunc::ValueToString(title, title_str);

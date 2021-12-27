@@ -23,7 +23,7 @@ ListCtrl::ListCtrl(int nargs, VALUE *args)
 	VALUE content = rb_hash_aref(option, ID2SYM(rb_intern("content")));
 	int size = static_cast<int>(RARRAY_LEN(content));
 	 
-	std::cout << "size (in list_ctrl.cpp) " << size << std::endl;
+	//std::cout << "size (in list_ctrl.cpp) " << size << std::endl;
 	for (int i = 0; i < size; ++i) {
 		 
 		VALUE sub_arr = rb_ary_entry(content,i);
