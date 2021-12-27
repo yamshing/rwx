@@ -26,6 +26,7 @@ extern "C"{
 #include "treelist.h"
 #include "auimanager.h"
 #include "treectrl.h"
+#include "grid.h"
  
 #include <wx/wx.h> 
 
@@ -276,7 +277,8 @@ struct StaticFunc
 
 		}else if (check_class_name(target,"Rwx::Grid") && func_name_str == "init_grid"){
 			 
-			std::cout << "init grid call (in static_func.h) "  << std::endl;
+			Grid* grid_p = new Grid(nargs, args);
+			app_p -> SetObjectToMap(target, grid_p);
 			 
 		}else if (check_class_name(target,"Rwx::AuiManager") && func_name_str == "init_auimanager"){
 			 
