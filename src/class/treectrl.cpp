@@ -31,31 +31,45 @@ TreeCtrl::TreeCtrl(int nargs, VALUE *args)
 	 
 	wxArrayTreeItemIds items;
 	 
-	AddContentToTree(root, items, content, 0);
+	TreeItemData* item_data = new TreeItemData();
+	 
+	AddContentToTree(root, items, content, 0, item_data);
 	 
 	m_tree_ctrl->Expand(root);
 	 
 }
 
-void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VALUE content, int level)
+void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VALUE content, int level, TreeItemData* parent_item_data)
 {
 	 
 	int content_size = static_cast<int>(RARRAY_LEN(content));
 	 
+	parent_item_data->m_index_vec.push_back(0);
+	 
 	for (int i = 0; i < content_size; ++i) {
-
+		 
+		TreeItemData* item_data = new TreeItemData();
+		 
+		std::copy(parent_item_data->m_index_vec.begin(), parent_item_data->m_index_vec.end(), std::back_inserter(item_data->m_index_vec));
+		 
+		//parent_item_data->m_index_vec[level] = i;
+		 
+		item_data->m_index_vec[level] = i;
+		 
 		VALUE content_row = rb_ary_entry(content,i);
 		 
 		VALUE content_str_val = rb_ary_entry(content_row,0);
 		 
-
-		 
 		std::string content_str;
 		StaticFunc::ValueToString(content_str_val, content_str);
+		 
+		std::cout << "level (in treectrl.cpp) " << level << std::endl;
+		std::cout << "item_data->m_index_vec.size() (in treectrl.cpp) " << item_data->m_index_vec.size() << std::endl;
+		 
 		wxTreeItemId added = m_tree_ctrl->AppendItem(root,wxString::FromUTF8( content_str), 0);
 		 
-		m_tree_ctrl->SetItemText(added, content_str);
-		//m_tree_ctrl->SetItemState(added, 123);
+		//m_tree_ctrl->SetItemText(added, content_str);
+		m_tree_ctrl->SetItemData(added, item_data);
 		 
 		if (level == 0) {
 			items.Add(added);
@@ -67,7 +81,7 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 		if (sub_arr_size > 0) {
 			 
 			wxArrayTreeItemIds sub_items;
-			AddContentToTree(added, sub_items, sub_arr_val, level + 1);
+			AddContentToTree(added, sub_items, sub_arr_val, level + 1, parent_item_data);
 			
 		}
 	} 
@@ -80,10 +94,13 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "get_selection") {
 		 
-		wxTreeItemId selected = m_tree_ctrl->GetSelection();
-		//int state = m_tree_ctrl->GetItemState(selected);
+		wxTreeItemId selected_id = m_tree_ctrl->GetSelection();
+		TreeItemData* selected_data = (TreeItemData*)m_tree_ctrl->GetItemData(selected_id);
 		 
-		//std::cout << "m_tree_ctrl->GetItemText(selected) (in treectrl.cpp) " << m_tree_ctrl->GetItemText(selected) << std::endl;
+		for (int i : selected_data->m_index_vec) {
+			std::cout << i << ',';
+		}
+		std::cout  << std::endl;
 		 
 	}
 }
