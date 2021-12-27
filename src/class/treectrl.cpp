@@ -54,6 +54,9 @@ void TreeCtrl::AddContentToTree(wxTreeItemId root, wxArrayTreeItemIds& items, VA
 		StaticFunc::ValueToString(content_str_val, content_str);
 		wxTreeItemId added = m_tree_ctrl->AppendItem(root,wxString::FromUTF8( content_str), 0);
 		 
+		m_tree_ctrl->SetItemText(added, content_str);
+		//m_tree_ctrl->SetItemState(added, 123);
+		 
 		if (level == 0) {
 			items.Add(added);
 		}
@@ -76,9 +79,11 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 	std::string func_name_str = std::string(StringValuePtr(func_name));
 	 
 	if (func_name_str == "get_selection") {
-		wxTreeItemId selected = m_tree_ctrl->GetSelection();
 		 
-		std::cout << "selected (in treectrl.cpp) " << selected << std::endl;
+		wxTreeItemId selected = m_tree_ctrl->GetSelection();
+		//int state = m_tree_ctrl->GetItemState(selected);
+		 
+		std::cout << "m_tree_ctrl->GetItemText(selected) (in treectrl.cpp) " << m_tree_ctrl->GetItemText(selected) << std::endl;
 		 
 	}
 }
