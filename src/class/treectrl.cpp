@@ -91,18 +91,20 @@ VALUE TreeCtrl::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
+	VALUE res;
 	 
 	if (func_name_str == "get_selection") {
 		 
 		wxTreeItemId selected_id = m_tree_ctrl->GetSelection();
 		TreeItemData* selected_data = (TreeItemData*)m_tree_ctrl->GetItemData(selected_id);
 		 
+		res = rb_ary_new();
 		for (int i : selected_data->m_index_vec) {
-			std::cout << i << ',';
+			rb_ary_push(res, INT2NUM(i));
 		}
-		std::cout  << std::endl;
 		 
 	}
+	return res;
 }
 
  
