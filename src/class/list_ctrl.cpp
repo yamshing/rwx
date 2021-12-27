@@ -42,6 +42,8 @@ ListCtrl::ListCtrl(int nargs, VALUE *args)
 			 
 		}
 		 
+		m_listctrl->SetItemData(i, i); 
+		 
 	}
 	 
 	++StaticFunc::ALL_EVENT_ID;
@@ -56,9 +58,20 @@ VALUE ListCtrl::Call(int nargs, VALUE *args)
 	VALUE res;
 	 
 	if (func_name_str == "get_selection") {
-		std::cout << "listctrl get selection  (in list_ctrl.cpp) "   << std::endl;
+		int cnt = m_listctrl->GetSelectedItemCount();
+		long item = -1;
+		res = rb_ary_new();
+		 
+		for (int i = 0; i < cnt; ++i) {
+			 
+			item = m_listctrl->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+			 
+			if (item != -1) {
+				int data = m_listctrl->GetItemData(item);
+				rb_ary_push(res, INT2NUM(data));
+			}
+		}
 	}
-	 
 	 
 	return res;
 }

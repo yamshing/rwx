@@ -81,9 +81,8 @@ module Rwx
 		 
 		def on_button_1
 			selected = @treectrl.get_selection
-			p selected
-			p @panel.list_ctrl
-			@panel.list_ctrl.get_selection
+			list_selected = @panel.list_ctrl.get_selection
+			p list_selected
 			 
 		end
 		 
