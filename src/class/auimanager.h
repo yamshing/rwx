@@ -90,7 +90,6 @@ class AuiManager :public wxObject
 {
 private:
 	wxAuiManager* m_aui_manager;
-	wxGrid* CreateGrid();
 	wxSizeReportCtrl* CreateSizeReportCtrl(const wxSize& size = wxWindow::FromDIP(wxSize(80, 80), NULL));
 	wxTreeCtrl* CreateTreeCtrl();
 	wxWindow* m_parent_p;

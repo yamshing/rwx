@@ -25,8 +25,6 @@ AuiManager::AuiManager(int nargs, VALUE *args)
 	 
 }
 
-
-
  
 wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
 {
@@ -36,17 +34,6 @@ wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
 	return ctrl;
 }
  
-
-wxGrid* AuiManager::CreateGrid()
-{
-	wxGrid* grid = new wxGrid(m_parent_p, wxID_ANY,
-			wxPoint(0,0),
-			m_parent_p->FromDIP(wxSize(150,250)),
-			wxNO_BORDER | wxWANTS_CHARS);
-	grid->CreateGrid(50, 20);
-	return grid;
-}
-
  
 VALUE AuiManager::Call(int nargs, VALUE *args)
 {
@@ -79,35 +66,13 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 				.RightDockable(false);
 			 
 			m_aui_manager->AddPane(m_tb,pi);
-			m_aui_manager->Update();
 			 
-			//m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().Name("grid_content").
-			//		CenterPane().Show());
-			//
-			// Layer 1 ni suruto sotoni deru
-			// Row(0). Row(1) de ue shita ni naru
-			// 
-			 
-			/*
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test1").Caption("Pane Caption").
-					Top());
-				 
-			m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
+			/*m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
 					Name("test3").Caption("Client Size Reporter").
 					Bottom());
-				 
-			m_aui_manager->AddPane(CreateTreeCtrl(), wxAuiPaneInfo().
-					Name("test8").Caption("Tree Pane").
-					Left().Layer(1).Position(1).
-					CloseButton(true).MaximizeButton(true));
-				 
-			m_aui_manager->AddPane(CreateGrid(), wxAuiPaneInfo().
-					Name("test5").Caption("No Close Button").
-					Right());
-				 
+					*/
+		
 			m_aui_manager->Update();
-			*/
 			 
 		}
 
@@ -118,7 +83,6 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			if (wx_notebook_p) {
 				//std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
 				wx_notebook_p->Freeze();
-				 
 				wx_notebook_p->Thaw();
 			}
 			 
@@ -134,8 +98,6 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxTreeCtrl* tree = treectrl_p->GetTreeCtrl();
 			 
-			
-
 			m_aui_manager->AddPane(tree, wxAuiPaneInfo().
 					Name("test8").Caption("Tree Pane").
 					Left().
@@ -144,6 +106,18 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			m_aui_manager->Update();
 				
 		}
+		 
+		Grid* grid_p = dynamic_cast<Grid*>(app_p->GetObjectFromMap(pane));
+		 
+		if (grid_p) {
+
+			wxGrid* grid = grid_p->GetGrid();
+			m_aui_manager->AddPane(grid, wxAuiPaneInfo().Name("grid_content").
+					CenterPane().Show());
+			m_aui_manager->Update();
+			
+		}
+		 
 		 
 	}
 	return result;

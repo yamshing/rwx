@@ -75,6 +75,8 @@ module Rwx
 			 
 			@grid = Grid.new(self)
 			 
+			@auimanager.add_pane(pane:@grid)
+			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
 			#set_sizer(@sizer)
@@ -96,13 +98,10 @@ module Rwx
 	 
 	class App
 		def on_init
-			 
 			@frame = Frame.new
 			@frame.set_size(1000, 500)
-	
-			 
-			 
 		end
+		 
 	end
 	 
 
