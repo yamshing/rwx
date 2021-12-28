@@ -37,13 +37,20 @@ wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
  
 void AuiManager::GetPaneInfo(wxAuiPaneInfo& pi, VALUE option)
 {
+	 std::string name  = "";
+	  
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("name")))) {
+		VALUE name_val = rb_hash_aref(option, ID2SYM(rb_intern("name")));
+		name = std::string(StringValuePtr(name_val));
+	}
 	 
-	VALUE name_val = rb_hash_aref(option, ID2SYM(rb_intern("name")));
-	VALUE direction_val = rb_hash_aref(option, ID2SYM(rb_intern("direction")));
+	std::string direction = "center";
 	 
-	std::string name = std::string(StringValuePtr(name_val));
-	std::string direction = std::string(StringValuePtr(direction_val));
-	std::cout << "name << ',' << direction << ','  (in auimanager.cpp) " << name << ',' << direction << ','  << std::endl;
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("direction")))) {
+		VALUE direction_val = rb_hash_aref(option, ID2SYM(rb_intern("direction")));
+		direction = std::string(StringValuePtr(direction_val));
+	}
+	 
 	 
 	pi.Name(name);
 	if (direction == "center") {
