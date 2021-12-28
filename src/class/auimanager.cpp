@@ -35,6 +35,30 @@ wxSizeReportCtrl* AuiManager::CreateSizeReportCtrl(const wxSize& size)
 }
  
  
+void AuiManager::GetPaneInfo(wxAuiPaneInfo& pi, VALUE option)
+{
+	 
+	VALUE name_val = rb_hash_aref(option, ID2SYM(rb_intern("name")));
+	VALUE direction_val = rb_hash_aref(option, ID2SYM(rb_intern("direction")));
+	 
+	std::string name = std::string(StringValuePtr(name_val));
+	std::string direction = std::string(StringValuePtr(direction_val));
+	std::cout << "name << ',' << direction << ','  (in auimanager.cpp) " << name << ',' << direction << ','  << std::endl;
+	 
+	pi.Name(name);
+	if (direction == "center") {
+		pi.CenterPane().Show();
+	}else if (direction == "left") {
+		pi.Left().Show();
+	}else if (direction == "right") {
+		pi.Right().Show();
+	}else if (direction == "top") {
+		pi.Top().Show();
+	}else if (direction == "bottom") {
+		pi.Bottom().Show();
+	}
+	 
+}
 VALUE AuiManager::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
@@ -53,17 +77,9 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxToolBar* m_tb = toolbar_pane_p->GetWxToolbarP();
 			 
-			//m_tb->AddTool(wxID_ANY,wxT("tool1"),wxArtProvider::GetBitmap(wxART_FILE_OPEN,wxART_TOOLBAR));
-			//m_tb->AddTool(wxID_ANY,wxT("tool2"),wxArtProvider::GetBitmap(wxART_FILE_SAVE,wxART_TOOLBAR));
-			//m_tb->Realize();
-			 
 			wxAuiPaneInfo pi = wxAuiPaneInfo()  .Name(wxT("toolbar"))
 				.Caption(wxT("toolbar"))
-				.ToolbarPane().Top()
-				.Floatable()
-				.Direction(wxAUI_DOCK_TOP) // see also ticket #9722
-				.LeftDockable(false)
-				.RightDockable(false);
+				.ToolbarPane().Top().Floatable().Direction(wxAUI_DOCK_TOP).LeftDockable(false).RightDockable(false);
 			 
 			m_aui_manager->AddPane(m_tb,pi);
 			 
@@ -81,13 +97,15 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxAuiNotebook* wx_notebook_p = dynamic_cast<wxAuiNotebook*>(notebook_pane_p->GetNotebookP());
 			if (wx_notebook_p) {
-				//std::cout << "wxnotebook p ok (in auimanager.cpp) "  << std::endl;
 				wx_notebook_p->Freeze();
 				wx_notebook_p->Thaw();
 			}
 			 
-			m_aui_manager->AddPane(wx_notebook_p, wxAuiPaneInfo().Name("notebook_content").
-				CenterPane().PaneBorder(false).Show());
+			//wxAuiPaneInfo().Name("notebook_content").CenterPane().PaneBorder(false).Show();
+			 
+			wxAuiPaneInfo pi = wxAuiPaneInfo();
+			GetPaneInfo(pi, option);
+			m_aui_manager->AddPane(wx_notebook_p, pi);
 			
 			m_aui_manager->Update();
 		}
@@ -98,13 +116,15 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			 
 			wxTreeCtrl* tree = treectrl_p->GetTreeCtrl();
 			 
-			m_aui_manager->AddPane(tree, wxAuiPaneInfo().
-					Name("test8").Caption("Tree Pane").
-					Left().
-					CloseButton(true).MaximizeButton(true));
-				 
+			//wxAuiPaneInfo pi = wxAuiPaneInfo().Name("test8").Caption("Tree Pane").Left().CloseButton(true).MaximizeButton(true);
+			 
+			wxAuiPaneInfo pi = wxAuiPaneInfo();
+			GetPaneInfo(pi,option);
+			 
+			m_aui_manager->AddPane(tree, pi);
+			 
 			m_aui_manager->Update();
-				
+			 
 		}
 		 
 		Grid* grid_p = dynamic_cast<Grid*>(app_p->GetObjectFromMap(pane));
@@ -112,8 +132,10 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		if (grid_p) {
 
 			wxGrid* grid = grid_p->GetGrid();
-			m_aui_manager->AddPane(grid, wxAuiPaneInfo().Name("grid_content").
-					CenterPane().Show());
+			wxAuiPaneInfo pi = wxAuiPaneInfo();
+			GetPaneInfo(pi, option);
+			m_aui_manager->AddPane(grid, pi);
+			 
 			m_aui_manager->Update();
 			
 		}

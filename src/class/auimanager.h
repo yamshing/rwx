@@ -94,8 +94,8 @@ private:
 	wxTreeCtrl* CreateTreeCtrl();
 	wxWindow* m_parent_p;
 	long m_notebook_style;
-
-		 
+	void GetPaneInfo(wxAuiPaneInfo& pi, VALUE option);
+	 
 public:
 	AuiManager(int nargs, VALUE *args);
 	virtual ~AuiManager (){

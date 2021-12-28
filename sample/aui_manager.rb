@@ -52,7 +52,7 @@ module Rwx
 			@panel2 = Panel.new(self)
 			@notebook.add(@panel2, "第２")
 			 
-			@auimanager.add_pane(pane:@notebook)
+			@auimanager.add_pane(pane:@notebook, name:"notebook pane", direction:"right")
 			 
 			tree_content = [
 				['ABC',
@@ -71,11 +71,11 @@ module Rwx
 			 
 			@treectrl = TreeCtrl.new(self, 'content':tree_content)
 			 
-			@auimanager.add_pane(pane:@treectrl)
+			@auimanager.add_pane(pane:@treectrl, name:"tree pane", direction:"left")
 			 
 			@grid = Grid.new(self)
 			 
-			@auimanager.add_pane(pane:@grid)
+			@auimanager.add_pane(pane:@grid, name:"grid pane", direction:"center")
 			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
