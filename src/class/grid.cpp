@@ -25,14 +25,25 @@ Grid::Grid(int nargs, VALUE *args)
 	 
 }
  
+//ref http://marupeke296.com/IKDADV_WX_GridWindow.html
+ 
 VALUE Grid::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
 	VALUE res;
 	 
-	//if (func_name_str == "get_selection") {
-	//}
+	if (func_name_str == "set_cell_value") {
+		VALUE row_val = args[1];
+		VALUE col_val = args[2];
+		VALUE value_val = args[3];
+		int row = NUM2INT(row_val);
+		int col = NUM2INT(col_val);
+		std::string value_str = std::string(StringValuePtr(value_val));
+		m_grid->SetCellValue(row, col, wxString::FromUTF8(value_str));
+		std::cout << "value_str << ',' << row << ',' << col (in grid.cpp) " << value_str << ',' << row << ',' << col << std::endl;
+		 
+	}
 	 
 }
 

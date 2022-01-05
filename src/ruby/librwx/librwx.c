@@ -127,6 +127,8 @@ GENERIC_CALL(auimanager_call)
 GENERIC_CALL(treectrl_call)
 GENERIC_CALL(listctrl_call)
 	 
+GENERIC_CALL(grid_call)
+	 
 	 
 FUNC_TO_GENERIC(frame,set_size)
 FUNC_TO_GENERIC(frame,set_sizer)
@@ -155,6 +157,8 @@ FUNC_TO_GENERIC(radiobox,set_selection)
 FUNC_TO_GENERIC(auimanager,add_pane)
 
 FUNC_TO_GENERIC(listctrl,get_selection)
+
+FUNC_TO_GENERIC(grid,set_cell_value)
 
 
 void
@@ -253,6 +257,7 @@ Init_LibRwx(void)
 	 
 	librwx_Grid  = rb_define_class_under(librwx_Namespace, "Grid", rb_cObject);
 	rb_define_method(librwx_Grid, "initialize", librwx_grid_initialize, -1);
+	rb_define_method(librwx_Grid, "set_cell_value", librwx_grid_set_cell_value, -1);
 	 
 }
 

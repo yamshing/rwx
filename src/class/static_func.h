@@ -385,7 +385,11 @@ struct StaticFunc
 		}else if (func_name_str == "auimanager_call" ) {
 			AuiManager* auimanager_p = static_cast<AuiManager*>(app_p->GetObjectFromMap(target));
 			result = auimanager_p->Call(nargs, args);
+		}else if (func_name_str == "grid_call" ) {
+			Grid* grid_p = static_cast<Grid*>(app_p->GetObjectFromMap(target));
+			result = grid_p->Call(nargs, args);
 		}
+
 		 
 		return result;
 		 

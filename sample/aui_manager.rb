@@ -74,8 +74,9 @@ module Rwx
 			@auimanager.add_pane(pane:@treectrl, name:"tree pane", direction:"right")
 			 
 			@grid = Grid.new(self)
+			@grid.set_cell_value(2,2,"へろー")
 			 
-			@auimanager.add_pane(pane:@grid, name:"grid pane", direction:"right")
+			@auimanager.add_pane(pane:@grid, name:"grid pane")
 			 
 			#@treelist = TreeList.new(self)
 			#@sizer.add(@treelist)
