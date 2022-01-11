@@ -16,6 +16,8 @@ class Frame : public wxFrame
 		void Call(int nargs, VALUE *args);
 		void CallOnInit();
 		 
+		void OnCopy(wxEvent& event);
+		 
 	private:
 	
 		 

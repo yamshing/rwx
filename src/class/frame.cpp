@@ -14,7 +14,13 @@ Frame::Frame(const wxString& title)
 	: wxFrame(NULL, wxID_ANY, title)
 {
 	
+	this -> Connect(wxEVT_TEXT_COPY, wxEventHandler(Frame::OnCopy), NULL, this);
 	 
+}
+ 
+void Frame::OnCopy(wxEvent& event)
+{
+	std::cout << "oncopy (in grid.cpp) " << std::endl;
 }
 
 void Frame::CallOnInit()
