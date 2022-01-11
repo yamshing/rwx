@@ -31,7 +31,7 @@ VALUE Grid::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
-	VALUE res;
+	VALUE res = Qtrue;
 	 
 	if (func_name_str == "set_cell_value") {
 		VALUE row_val = args[1];
@@ -44,6 +44,7 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		std::cout << "value_str << ',' << row << ',' << col (in grid.cpp) " << value_str << ',' << row << ',' << col << std::endl;
 		 
 	}
+	return res;
 	 
 }
 
