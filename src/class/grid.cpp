@@ -15,6 +15,8 @@ Grid::Grid(int nargs, VALUE *args)
 			parent_p->FromDIP(wxSize(150,250)),
 			wxNO_BORDER | wxWANTS_CHARS);
 	m_grid->CreateGrid(50, 20);
+
+	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	 
 	/*m_grid = new wxGrid(parent_p, wxID_ANY,
 			wxPoint(0,0),
@@ -22,6 +24,32 @@ Grid::Grid(int nargs, VALUE *args)
 			wxTR_DEFAULT_STYLE | wxNO_BORDER | wxTR_MULTIPLE );
 			*/
 	 
+	 
+}
+
+void Grid::OnCellClick(wxGridEvent& event)
+{
+	int col = event.GetCol();
+	int row = event.GetRow();
+	 
+	std::cout << "col << ',' << row (in grid.cpp) " << col << ',' << row << std::endl;
+	std::cout << "m_grid->Selectiong() (in grid.cpp) " << event.Selecting() << std::endl;
+
+	//event.Skip();
+	 
+	//m_grid->AutoSize(); 
+	 
+	for (int i = 0; i < 20; ++i) {
+		m_grid->DisableRowResize(i);
+		m_grid->DisableColResize(i);
+	}
+	 
+	m_grid->ClearSelection();
+	m_grid->SelectBlock(row,col,row,col);
+	m_grid->SetGridCursor(row,col);
+	 
+	//event.Skip();
+	//event.StopPropagation();
 	 
 }
  

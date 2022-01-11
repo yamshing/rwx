@@ -19,6 +19,7 @@ public:
 		return m_grid;
 	};
 	VALUE Call(int nargs, VALUE *args);
+	void OnCellClick(wxGridEvent& event);
 	 
 };
 #endif
