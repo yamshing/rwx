@@ -17,11 +17,13 @@ class Frame : public wxFrame
 		void CallOnInit();
 		 
 		void OnCopy(wxEvent& event);
+		void OnPaste(wxEvent& event);
+		 
 		 
 	private:
-	
 		 
 		//wxDECLARE_EVENT_TABLE();
+		 
 };
 
 

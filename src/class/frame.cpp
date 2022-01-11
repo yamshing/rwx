@@ -15,12 +15,17 @@ Frame::Frame(const wxString& title)
 {
 	
 	this -> Connect(wxEVT_TEXT_COPY, wxEventHandler(Frame::OnCopy), NULL, this);
+	this -> Connect(wxEVT_TEXT_PASTE, wxEventHandler(Frame::OnPaste), NULL, this);
 	 
 }
  
 void Frame::OnCopy(wxEvent& event)
 {
-	std::cout << "oncopy (in grid.cpp) " << std::endl;
+	std::cout << "on copy (in frame.cpp) "  << std::endl;
+}
+void Frame::OnPaste(wxEvent& event)
+{
+	std::cout << "on paste (in frame.cpp) "  << std::endl; 
 }
 
 void Frame::CallOnInit()

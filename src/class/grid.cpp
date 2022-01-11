@@ -47,3 +47,38 @@ VALUE Grid::Call(int nargs, VALUE *args)
 	 
 }
 
+/* on copy
+	 wxString copy_data;
+	 bool something_in_this_line;
+	 copy_data.Clear();
+	 for (int i=0; i<GetNumberRows();i++)
+	 {     
+	 something_in_this_line = false;    
+	 for (int j=0; j<GetNumberCols(); j++)
+	 {  
+	 if (IsInSelection(i,j))
+	 { 
+	 if (something_in_this_line == false)
+	 {  
+	 if (copy_data.IsEmpty() == false) 
+	 {   
+	 copy_data.Append(wxT("\n"));  
+	 }
+	 something_in_this_line = true;
+	 } 
+	 else
+	 {                                
+	 copy_data.Append(wxT("\t"));  
+	 }
+	 copy_data = copy_data + GetCellValue(i,j);    
+	 }
+	 }
+	 }
+	 if (wxTheClipboard->Open())
+	 {
+	 wxTheClipboard->Clear();
+	 wxTheClipboard->SetData( new wxTextDataObject(copy_data) );
+	 wxTheClipboard->Close();
+	 }
+	 }
+ */
