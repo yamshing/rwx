@@ -70,7 +70,10 @@ int main(int argc, char *argv[])
 		 
 	}else{
 		 
-		dynamic_cast<App*>(wxTheApp)->SetStartType("with_embed");
+		dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
+		dynamic_cast<App*>(wxTheApp)->SetStartFileName("./sample/aui_manager.rb");
+	
+		//dynamic_cast<App*>(wxTheApp)->SetStartType("with_embed");
 		start_app = true;
 		 
 	}
