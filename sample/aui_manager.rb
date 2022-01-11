@@ -30,6 +30,16 @@ module Rwx
 			row_8_sizer.add(@list_ctrl)
 			out_sizer.add(row_8_sizer)
 			 
+			row_5_sizer = Sizer.new('box', 'horizontal')
+				row_5_sizer.add_spacer(10)
+				label = StaticText.new(self, 'インプット')
+				row_5_sizer.add(label)
+				 
+				@text_ctrl_1 = TextCtrl.new(self, '123')
+				row_5_sizer.add(@text_ctrl_1)
+				 
+			out_sizer.add(row_5_sizer)
+			 
 			add_sizer(out_sizer)
 		end
 		 
