@@ -41,7 +41,16 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		int col = NUM2INT(col_val);
 		std::string value_str = std::string(StringValuePtr(value_val));
 		m_grid->SetCellValue(row, col, wxString::FromUTF8(value_str));
+		 
 		std::cout << "value_str << ',' << row << ',' << col (in grid.cpp) " << value_str << ',' << row << ',' << col << std::endl;
+		 
+		//
+		// select cell
+		//m_grid->SelectBlock(1,1,1,1);
+		//std::cout << "this->grid->GetSelectedCells().Count() (in grid.cpp) " << m_grid->GetSelectedCells().Count() << std::endl;
+		 
+		// scroll to this cell
+		//m_grid->MakeCellVisible(2,2);
 		 
 	}
 	return res;
