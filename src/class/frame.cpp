@@ -5,7 +5,9 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <wx/clipbrd.h> 
 
+#include "string_util.h"
 #include "static_func.h"
  
 extern "C" VALUE librwx_Frame;
@@ -25,7 +27,34 @@ void Frame::OnCopy(wxEvent& event)
 }
 void Frame::OnPaste(wxEvent& event)
 {
-	std::cout << "on paste (in frame.cpp) "  << std::endl; 
+	std::string method_name = "on_paste";
+	bool defined = StaticFunc::CheckFuncExist(librwx_Frame, method_name);
+	 
+	if (defined) {
+		wxString copy_data;
+		wxString cur_field;
+		wxString cur_line;
+		if (wxTheClipboard->Open())
+		{
+			if (wxTheClipboard->IsSupported( wxDF_TEXT ))
+			{
+				wxTextDataObject data;
+				wxTheClipboard->GetData( data );
+				copy_data = data.GetText();
+				 
+				VALUE args[1];
+				std::string value_str;;
+				StringUtil::WxStringToStdString(copy_data, &value_str);
+				VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
+				args[0] = res_str;
+				StaticFunc::CallRwxFunc(m_rwx_frame, method_name, 1, args);
+				 
+			}
+			 
+			wxTheClipboard->Close();
+		}
+	}
+	
 }
 
 void Frame::CallOnInit()

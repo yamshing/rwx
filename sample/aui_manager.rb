@@ -84,6 +84,12 @@ module Rwx
 			 
 		end
 		 
+		def on_paste(content)
+			 
+			@grid.set_cell_value(2,3,content)
+			 
+		end
+		 
 		def on_button_1
 			selected = @treectrl.get_selection
 			list_selected = @panel.list_ctrl.get_selection
