@@ -18,11 +18,18 @@ Grid::Grid(int nargs, VALUE *args)
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	 
+	m_grid->Bind(wxEVT_TEXT_COPY, &Grid::OnCopy, this);
+	 
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
 	 
 }
 
+void Grid::OnCopy(wxEvent& event)
+{
+	std::cout << "copy event in grid (in grid.cpp) "  << std::endl;
+}
+ 
 void Grid::OnCellClick(wxGridEvent& event)
 {
 	int col = event.GetCol();

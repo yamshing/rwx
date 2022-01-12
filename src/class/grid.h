@@ -20,6 +20,7 @@ public:
 	};
 	VALUE Call(int nargs, VALUE *args);
 	void OnCellClick(wxGridEvent& event);
+	void OnCopy(wxEvent& event);
 	 
 };
 #endif

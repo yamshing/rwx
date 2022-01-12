@@ -16,15 +16,17 @@ Frame::Frame(const wxString& title)
 	: wxFrame(NULL, wxID_ANY, title)
 {
 	
-	this -> Connect(wxEVT_TEXT_COPY, wxEventHandler(Frame::OnCopy), NULL, this);
-	this -> Connect(wxEVT_TEXT_PASTE, wxEventHandler(Frame::OnPaste), NULL, this);
+	this -> Bind(wxEVT_TEXT_COPY, &Frame::OnCopy, this);
+	this -> Bind(wxEVT_TEXT_PASTE, &Frame::OnPaste, this);
 	 
 }
  
 void Frame::OnCopy(wxEvent& event)
 {
-	std::cout << "on copy (in frame.cpp) "  << std::endl;
+	//wxWindow *foc = wxWindow::FindFocus();
+	//wxPostEvent(foc, event);
 }
+ 
 void Frame::OnPaste(wxEvent& event)
 {
 	std::string method_name = "on_paste";
