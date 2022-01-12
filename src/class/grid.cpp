@@ -21,13 +21,6 @@ Grid::Grid(int nargs, VALUE *args)
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
 	 
-	/*m_grid = new wxGrid(parent_p, wxID_ANY,
-			wxPoint(0,0),
-			parent_p->FromDIP(wxSize(160,250)),
-			wxTR_DEFAULT_STYLE | wxNO_BORDER | wxTR_MULTIPLE );
-			*/
-	 
-	 
 }
 
 void Grid::OnCellClick(wxGridEvent& event)
@@ -38,8 +31,6 @@ void Grid::OnCellClick(wxGridEvent& event)
 	int label_row = m_grid->GetRowLabelSize();
 	 
 	wxPoint org_pos = event.GetPosition();
-	//wxGridWindow* grid_win =  dynamic_cast<wxGridWindow*>(m_grid->GetGridWindow());
-	 
 	wxPoint pos = m_grid->CalcGridWindowUnscrolledPosition(org_pos, NULL);
 	 
 	 
@@ -75,19 +66,6 @@ void Grid::OnCellClick(wxGridEvent& event)
 		m_grid->SelectBlock(row,col,row,col);
 		m_grid->SetGridCursor(row,col);
 	}
-
-	//event.Skip();
-	 
-	//m_grid->AutoSize(); 
-	 
-	/*for (int i = 0; i < 20; ++i) {
-		m_grid->DisableRowResize(i);
-		m_grid->DisableColResize(i);
-	}
-	*/
-	 
-	//event.Skip();
-	//event.StopPropagation();
 	 
 }
  
