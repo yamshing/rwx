@@ -5,6 +5,9 @@ Grid::Grid(int nargs, VALUE *args)
 {
 	VALUE parent = args[0];
 	VALUE option = args[1];
+	m_prev_selected_col = -1;
+	m_prev_selected_row = -1;
+	 
 	std::cout << "grig ctor (in grid.cpp) " << std::endl;
 
 	App* app_p = static_cast<App*>(wxTheApp);
@@ -69,12 +72,39 @@ void Grid::OnCellClick(wxGridEvent& event)
 	if (left_diff < edge_click_margin || right_diff < edge_click_margin || top_diff < edge_click_margin || bottom_diff < edge_click_margin) {
 		event.Skip();
 	}else{
-		m_grid->ClearSelection();
-		m_grid->SelectBlock(row,col,row,col);
+		 
 		m_grid->SetGridCursor(row,col);
+		 
+		if (event.ControlDown()) {
+			 
+			m_grid->SelectBlock(row,col,row,col,true);
+
+			 
+		}else if(event.ShiftDown()){
+			 
+			m_grid->ClearSelection();
+			 
+			if (m_prev_selected_col != -1 && m_prev_selected_row != -1) {
+				m_grid->SelectBlock(m_prev_selected_row,m_prev_selected_col,row,col,false);
+				m_prev_selected_col = -1;
+				m_prev_selected_row = -1;
+				return;
+				 
+			}else{
+				m_grid->SelectBlock(row,col,row,col,false);
+			}
+
+		}else{
+			 
+			m_grid->ClearSelection();
+			m_grid->SelectBlock(row,col,row,col,false);
+			 
+		}
+		m_prev_selected_col = col;
+		m_prev_selected_row = row;
 	}
-	 
 }
+ 
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html
  
