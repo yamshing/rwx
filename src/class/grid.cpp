@@ -88,12 +88,15 @@ void Grid::OnCellClick(wxGridEvent& event)
 				m_grid->SelectBlock(m_prev_selected_row,m_prev_selected_col,row,col,false);
 				m_prev_selected_col = -1;
 				m_prev_selected_row = -1;
+				 
+				GetSelectedCell();
+				 
 				return;
 				 
 			}else{
 				m_grid->SelectBlock(row,col,row,col,false);
 			}
-
+			 
 		}else{
 			 
 			m_grid->ClearSelection();
@@ -103,8 +106,40 @@ void Grid::OnCellClick(wxGridEvent& event)
 		m_prev_selected_col = col;
 		m_prev_selected_row = row;
 	}
+	 
+	GetSelectedCell();
+	 
 }
  
+void Grid::GetSelectedCell()
+{
+	std::cout << "get selected cell (in grid.cpp) " << std::endl;
+	 
+	wxGridBlocks range = m_grid->GetSelectedBlocks();
+	 
+	for ( const wxGridBlockCoords& block : range ) {
+		 
+		int top_row = block.GetTopRow();
+		int bottom_row = block.GetBottomRow();
+		 
+		int left_col = block.GetLeftCol();
+		int right_col = block.GetRightCol();
+		 
+		for (int i = top_row; i < bottom_row + 1; ++i) {
+			for (int j = left_col; j < right_col + 1; ++j) {
+				 
+				std::cout << "i << ',' << j (in grid.cpp) " << i << ',' << j << std::endl;
+				wxString cell_val = m_grid->GetCellValue(i, j);
+				std::cout << "cell_val (in grid.cpp) " << cell_val << std::endl;
+				
+			}
+		}
+		 
+		//std::cout << "top_row << ',' << left_col << ',' << bottom_row << ',' << right_col (in grid.cpp) " << top_row << ',' << left_col << ',' << bottom_row << ',' << right_col << std::endl;
+		 
+	}
+	 
+}
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html
  

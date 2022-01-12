@@ -11,6 +11,7 @@ private:
 	wxGrid* m_grid;
 	int m_prev_selected_col;
 	int m_prev_selected_row;
+	void GetSelectedCell();
 	 
 public:
 	Grid(int nargs, VALUE *args);
