@@ -18,8 +18,8 @@ Grid::Grid(int nargs, VALUE *args)
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	 
-	m_grid->DisableDragRowSize();
-	m_grid->DisableDragColSize();
+	//m_grid->DisableDragRowSize();
+	//m_grid->DisableDragColSize();
 	 
 	/*m_grid = new wxGrid(parent_p, wxID_ANY,
 			wxPoint(0,0),
@@ -34,9 +34,47 @@ void Grid::OnCellClick(wxGridEvent& event)
 {
 	int col = event.GetCol();
 	int row = event.GetRow();
+	int label_col = m_grid->GetColLabelSize();
+	int label_row = m_grid->GetRowLabelSize();
 	 
-	std::cout << "col << ',' << row (in grid.cpp) " << col << ',' << row << std::endl;
-	std::cout << "m_grid->Selectiong() (in grid.cpp) " << event.Selecting() << std::endl;
+	wxPoint org_pos = event.GetPosition();
+	//wxGridWindow* grid_win =  dynamic_cast<wxGridWindow*>(m_grid->GetGridWindow());
+	 
+	wxPoint pos = m_grid->CalcGridWindowUnscrolledPosition(org_pos, NULL);
+	 
+	 
+	wxRect cell_rect = m_grid->CellToRect(row, col);
+	 
+	int edge_click_margin = 2;
+	 
+	int cell_right = cell_rect.x + label_row + cell_rect.width;
+	int cell_left = cell_rect.x + label_row;
+	 
+	int cell_top = cell_rect.y + label_col;
+	int cell_bottom = cell_rect.y + label_col +  cell_rect.height;
+	
+	 
+	int left_diff = abs(pos.x - cell_left);
+	int right_diff = abs(pos.x - cell_right);
+
+	int top_diff = abs(pos.y - cell_top);
+	int bottom_diff = abs(pos.y - cell_bottom);
+	 
+	std::cout << "pos.x << ',' << pos.y (in grid.cpp) " << pos.x << ',' << pos.y << std::endl;
+	std::cout << "cell_top << ',' << cell_bottom (in grid.cpp) " << cell_top << ',' << cell_bottom << std::endl;
+	//std::cout << "col << ',' << row (in grid.cpp) " << col << ',' << row << std::endl;
+	//std::cout << "label_col << ',' << label_row (in grid.cpp) " << label_col << ',' << label_row << std::endl;
+	//std::cout << "cell_rect.x << ',' << cell_rect.y << ',' cell_rect.w << ',' << cell_rect.h (in grid.cpp) " << cell_rect.x << ',' << cell_rect.y << ',' << cell_rect.width << ',' << cell_rect.height << std::endl;
+	//std::cout << "cell_left << ',' << cell_right (in grid.cpp) " << cell_left << ',' << cell_right << std::endl;
+	//std::cout << "left_diff << ',' << right_diff (in grid.cpp) " << left_diff << ',' << right_diff << std::endl;
+	 
+	if (left_diff < edge_click_margin || right_diff < edge_click_margin || top_diff < edge_click_margin || bottom_diff < edge_click_margin) {
+		event.Skip();
+	}else{
+		m_grid->ClearSelection();
+		m_grid->SelectBlock(row,col,row,col);
+		m_grid->SetGridCursor(row,col);
+	}
 
 	//event.Skip();
 	 
@@ -47,10 +85,6 @@ void Grid::OnCellClick(wxGridEvent& event)
 		m_grid->DisableColResize(i);
 	}
 	*/
-	 
-	m_grid->ClearSelection();
-	m_grid->SelectBlock(row,col,row,col);
-	m_grid->SetGridCursor(row,col);
 	 
 	//event.Skip();
 	//event.StopPropagation();
