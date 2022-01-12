@@ -18,6 +18,9 @@ Grid::Grid(int nargs, VALUE *args)
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	 
+	m_grid->DisableDragRowSize();
+	m_grid->DisableDragColSize();
+	 
 	/*m_grid = new wxGrid(parent_p, wxID_ANY,
 			wxPoint(0,0),
 			parent_p->FromDIP(wxSize(160,250)),
@@ -39,10 +42,11 @@ void Grid::OnCellClick(wxGridEvent& event)
 	 
 	//m_grid->AutoSize(); 
 	 
-	for (int i = 0; i < 20; ++i) {
+	/*for (int i = 0; i < 20; ++i) {
 		m_grid->DisableRowResize(i);
 		m_grid->DisableColResize(i);
 	}
+	*/
 	 
 	m_grid->ClearSelection();
 	m_grid->SelectBlock(row,col,row,col);
