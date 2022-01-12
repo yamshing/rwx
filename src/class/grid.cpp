@@ -1,5 +1,6 @@
 #include "grid.h"
 #include "static_func.h"
+#include "string_util.h"
  
 Grid::Grid(int nargs, VALUE *args)
 {
@@ -89,7 +90,6 @@ void Grid::OnCellClick(wxGridEvent& event)
 				m_prev_selected_col = -1;
 				m_prev_selected_row = -1;
 				 
-				GetSelectedCell();
 				 
 				return;
 				 
@@ -107,13 +107,11 @@ void Grid::OnCellClick(wxGridEvent& event)
 		m_prev_selected_row = row;
 	}
 	 
-	GetSelectedCell();
 	 
 }
  
-void Grid::GetSelectedCell()
+void Grid::GetSelectedCellInRubyArr(VALUE rarray)
 {
-	std::cout << "get selected cell (in grid.cpp) " << std::endl;
 	 
 	wxGridBlocks range = m_grid->GetSelectedBlocks();
 	 
@@ -126,19 +124,22 @@ void Grid::GetSelectedCell()
 		int right_col = block.GetRightCol();
 		 
 		for (int i = top_row; i < bottom_row + 1; ++i) {
+			 
+			VALUE row = rb_ary_new();
+			 
 			for (int j = left_col; j < right_col + 1; ++j) {
 				 
-				std::cout << "i << ',' << j (in grid.cpp) " << i << ',' << j << std::endl;
-				wxString cell_val = m_grid->GetCellValue(i, j);
-				std::cout << "cell_val (in grid.cpp) " << cell_val << std::endl;
+				wxString wx_cell_val = m_grid->GetCellValue(i, j);
+				std::string value_str;
+				StringUtil::WxStringToStdString(wx_cell_val, &value_str);
+				VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
+				rb_ary_push(row, res_str);
 				
 			}
+			rb_ary_push(rarray, row);
 		}
-		 
 		//std::cout << "top_row << ',' << left_col << ',' << bottom_row << ',' << right_col (in grid.cpp) " << top_row << ',' << left_col << ',' << bottom_row << ',' << right_col << std::endl;
-		 
 	}
-	 
 }
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html
@@ -167,6 +168,11 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 		// scroll to this cell
 		//m_grid->MakeCellVisible(2,2);
+		 
+	}else if (func_name_str == "get_selection") {
+		 
+		res = rb_ary_new();
+		GetSelectedCellInRubyArr(res);
 		 
 	}
 	return res;

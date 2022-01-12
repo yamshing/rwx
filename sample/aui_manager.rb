@@ -84,7 +84,15 @@ module Rwx
 			@auimanager.add_pane(pane:@treectrl, name:"tree pane", direction:"right")
 			 
 			@grid = Grid.new(self)
+			 
 			@grid.set_cell_value(2,2,"へろー")
+			@grid.set_cell_value(3,2,"abc")
+			@grid.set_cell_value(4,2,"abcd")
+			 
+			@grid.set_cell_value(2,3,"へろー")
+			@grid.set_cell_value(3,3,"abc")
+			@grid.set_cell_value(4,3,"abcd")
+			 
 			 
 			@auimanager.add_pane(pane:@grid, name:"grid pane")
 			 
@@ -101,9 +109,13 @@ module Rwx
 		end
 		 
 		def on_button_1
-			selected = @treectrl.get_selection
-			list_selected = @panel.list_ctrl.get_selection
-			p list_selected
+			#selected = @treectrl.get_selection
+			#list_selected = @panel.list_ctrl.get_selection
+			#p list_selected
+			
+			grid_value = @grid.get_selection
+			p grid_value
+			 
 			 
 		end
 		 

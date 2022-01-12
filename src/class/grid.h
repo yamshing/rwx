@@ -11,7 +11,8 @@ private:
 	wxGrid* m_grid;
 	int m_prev_selected_col;
 	int m_prev_selected_row;
-	void GetSelectedCell();
+	 
+	void GetSelectedCellInRubyArr(VALUE rarray);
 	 
 public:
 	Grid(int nargs, VALUE *args);

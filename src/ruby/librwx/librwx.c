@@ -159,6 +159,7 @@ FUNC_TO_GENERIC(auimanager,add_pane)
 FUNC_TO_GENERIC(listctrl,get_selection)
 
 FUNC_TO_GENERIC(grid,set_cell_value)
+FUNC_TO_GENERIC(grid,get_selection)
 
 
 void
@@ -258,6 +259,7 @@ Init_LibRwx(void)
 	librwx_Grid  = rb_define_class_under(librwx_Namespace, "Grid", rb_cObject);
 	rb_define_method(librwx_Grid, "initialize", librwx_grid_initialize, -1);
 	rb_define_method(librwx_Grid, "set_cell_value", librwx_grid_set_cell_value, -1);
+	rb_define_method(librwx_Grid, "get_selection", librwx_grid_get_selection, -1);
 	 
 }
 
