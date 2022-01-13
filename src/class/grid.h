@@ -13,6 +13,8 @@ private:
 	int m_prev_selected_row;
 	 
 	void GetSelectedCellInRubyArr(VALUE rarray);
+	void GetSelectedCellInString(std::string& out_str);
+	void OnKeyDown(wxKeyEvent& event);
 	 
 public:
 	Grid(int nargs, VALUE *args);

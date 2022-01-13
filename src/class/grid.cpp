@@ -21,17 +21,35 @@ Grid::Grid(int nargs, VALUE *args)
 	m_grid->CreateGrid(50, 20);
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
-	 
 	m_grid->Bind(wxEVT_TEXT_COPY, &Grid::OnCopy, this);
+
+	m_grid->Bind(wxEVT_KEY_DOWN, &Grid::OnKeyDown, this);
 	 
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
 	 
 }
 
+void Grid::OnKeyDown(wxKeyEvent& event)
+{
+
+	if (event.GetKeyCode() == 67 && event.ControlDown()) {
+		 
+		//ctrl-C
+		std::string selected_cell_str;
+		GetSelectedCellInString(selected_cell_str);
+		 
+		std::cout << "selected_cell_str (in grid.cpp) " << selected_cell_str << std::endl;
+		
+	}
+	 
+}
 void Grid::OnCopy(wxEvent& event)
 {
 	std::cout << "copy event in grid (in grid.cpp) "  << std::endl;
+	std::string selected_content;
+	GetSelectedCellInString(selected_content);
+	 
 }
  
 void Grid::OnCellClick(wxGridEvent& event)
@@ -140,6 +158,15 @@ void Grid::GetSelectedCellInRubyArr(VALUE rarray)
 		}
 		//std::cout << "top_row << ',' << left_col << ',' << bottom_row << ',' << right_col (in grid.cpp) " << top_row << ',' << left_col << ',' << bottom_row << ',' << right_col << std::endl;
 	}
+}
+
+void Grid::GetSelectedCellInString(std::string& out_str)
+{
+	std::stringstream ss;
+	ss << "hello";
+	 
+	out_str = ss.str();
+	 
 }
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html
