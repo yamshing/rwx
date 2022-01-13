@@ -170,10 +170,11 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 			for (int j = left_col; j < right_col + 1; ++j) {
 				wxString wx_cell_val = m_grid->GetCellValue(i, j);
 				wx_res_str.Append(wx_cell_val);  
-				wx_res_str.Append(wxT(","));  
 				 
-				//std::string value_str;
-				//StringUtil::WxStringToStdString(wx_cell_val, &value_str);
+				if (j < right_col) {
+					wx_res_str.Append(wxT(","));  
+				}
+				 
 			}
 			wx_res_str.Append(wxT("\n"));  
 		}
