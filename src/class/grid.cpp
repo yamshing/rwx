@@ -1,6 +1,7 @@
 #include "grid.h"
 #include "static_func.h"
 #include "string_util.h"
+#include <wx/clipbrd.h> 
  
 Grid::Grid(int nargs, VALUE *args)
 {
@@ -164,9 +165,15 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 {
 	std::stringstream ss;
 	ss << "hello";
-	 
+
 	out_str = ss.str();
-	 
+	if (wxTheClipboard->Open())
+	{
+		wxTheClipboard->Clear();
+		wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(out_str)) );
+		wxTheClipboard->Close();
+	}
+
 }
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html
