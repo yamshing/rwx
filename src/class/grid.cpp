@@ -32,6 +32,11 @@ Grid::Grid(int nargs, VALUE *args)
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
 	 
+	 
+	// overlay canvas example
+	//wxScrolledWindow* test = new wxScrolledWindow( m_grid, wxID_ANY, wxPoint(0,0), parent_p->FromDIP(wxSize(1500,2500)), wxFRAME_FLOAT_ON_PARENT );
+	 
+
 }
 
 void Grid::OnKeyDown(wxKeyEvent& event)
