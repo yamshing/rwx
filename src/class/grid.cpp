@@ -2,6 +2,9 @@
 #include "static_func.h"
 #include "string_util.h"
 #include <wx/clipbrd.h> 
+#include <wx/tokenzr.h>
+
+
  
 Grid::Grid(int nargs, VALUE *args)
 {
@@ -34,6 +37,8 @@ Grid::Grid(int nargs, VALUE *args)
 void Grid::OnKeyDown(wxKeyEvent& event)
 {
 
+	std::cout << "event.GetKeyCode() (in grid.cpp) " << event.GetKeyCode() << std::endl;
+	 
 	if (event.GetKeyCode() == 67 && event.ControlDown()) {
 		//ctrl-C
 		std::string selected_content;
@@ -45,6 +50,68 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 			wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(selected_content)) );
 			wxTheClipboard->Close();
 		}
+		 
+	}else if (event.GetKeyCode() == 86 && event.ControlDown()) {
+		 
+		std::cout << "ctrl v (in grid.cpp) "  << std::endl;
+		wxString copy_data;
+		wxString cur_field;
+		wxString cur_line;
+		 
+		if (wxTheClipboard->Open())
+		{
+			if (wxTheClipboard->IsSupported( wxDF_TEXT ))
+			{
+				wxGridBlocks range = m_grid->GetSelectedBlocks();
+				int start_row = 0;
+				int start_col = 0;
+				 
+				SELECTED_BLOCK_LOOP_START(range)
+					start_row = top_row;
+					start_col = left_col;
+				SELECTED_BLOCK_LOOP_END
+	
+				 
+				wxTextDataObject data;
+				wxTheClipboard->GetData( data );
+				copy_data = data.GetText();
+
+				std::cout << "copy_data (in grid.cpp) " << copy_data << std::endl;
+				wxStringTokenizer line_tokenizer(copy_data, "\n");
+				while ( line_tokenizer.HasMoreTokens() )
+				{
+					 
+					wxString line_token = line_tokenizer.GetNextToken();
+					wxStringTokenizer cell_tokenizer(line_token, "\t");
+					 
+					int now_col = start_col;
+					 
+					while ( cell_tokenizer.HasMoreTokens() )
+					{
+						wxString cell_token = cell_tokenizer.GetNextToken();
+						 
+						m_grid->SetCellValue(start_row, now_col, cell_token);
+						 
+						++ now_col;
+						 
+					}
+					 
+					++ start_row;
+					 
+				}
+
+				//VALUE args[1];
+				//std::string value_str;;
+				//StringUtil::WxStringToStdString(copy_data, &value_str);
+				//VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
+				//args[0] = res_str;
+				//StaticFunc::CallRwxFunc(m_rwx_frame, method_name, 1, args);
+			}
+			 
+			wxTheClipboard->Close();
+			 
+		}
+
 	}
 }
 void Grid::OnCopy(wxEvent& event)
@@ -220,39 +287,5 @@ VALUE Grid::Call(int nargs, VALUE *args)
 	return res;
 	 
 }
+ 
 
-/* on copy
-	 wxString copy_data;
-	 bool something_in_this_line;
-	 copy_data.Clear();
-	 for (int i=0; i<GetNumberRows();i++)
-	 {     
-	 something_in_this_line = false;    
-	 for (int j=0; j<GetNumberCols(); j++)
-	 {  
-	 if (IsInSelection(i,j))
-	 { 
-	 if (something_in_this_line == false)
-	 {  
-	 if (copy_data.IsEmpty() == false) 
-	 {   
-	 copy_data.Append(wxT("\n"));  
-	 }
-	 something_in_this_line = true;
-	 } 
-	 else
-	 {                                
-	 copy_data.Append(wxT("\t"));  
-	 }
-	 copy_data = copy_data + GetCellValue(i,j);    
-	 }
-	 }
-	 }
-	 if (wxTheClipboard->Open())
-	 {
-	 wxTheClipboard->Clear();
-	 wxTheClipboard->SetData( new wxTextDataObject(copy_data) );
-	 wxTheClipboard->Close();
-	 }
-	 }
- */
