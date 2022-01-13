@@ -35,21 +35,21 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 {
 
 	if (event.GetKeyCode() == 67 && event.ControlDown()) {
-		 
 		//ctrl-C
-		std::string selected_cell_str;
-		GetSelectedCellInString(selected_cell_str);
-		 
-		std::cout << "selected_cell_str (in grid.cpp) " << selected_cell_str << std::endl;
-		
+		std::string selected_content;
+		GetSelectedCellInString(selected_content);
+
+		if (wxTheClipboard->Open())
+		{
+			wxTheClipboard->Clear();
+			wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(selected_content)) );
+			wxTheClipboard->Close();
+		}
 	}
-	 
 }
 void Grid::OnCopy(wxEvent& event)
 {
-	std::cout << "copy event in grid (in grid.cpp) "  << std::endl;
-	std::string selected_content;
-	GetSelectedCellInString(selected_content);
+	
 	 
 }
  
@@ -134,13 +134,7 @@ void Grid::GetSelectedCellInRubyArr(VALUE rarray)
 	 
 	wxGridBlocks range = m_grid->GetSelectedBlocks();
 	 
-	for ( const wxGridBlockCoords& block : range ) {
-		 
-		int top_row = block.GetTopRow();
-		int bottom_row = block.GetBottomRow();
-		 
-		int left_col = block.GetLeftCol();
-		int right_col = block.GetRightCol();
+	SELECTED_BLOCK_LOOP_START(range)
 		 
 		for (int i = top_row; i < bottom_row + 1; ++i) {
 			 
@@ -156,24 +150,37 @@ void Grid::GetSelectedCellInRubyArr(VALUE rarray)
 				
 			}
 			rb_ary_push(rarray, row);
+			 
 		}
-		//std::cout << "top_row << ',' << left_col << ',' << bottom_row << ',' << right_col (in grid.cpp) " << top_row << ',' << left_col << ',' << bottom_row << ',' << right_col << std::endl;
-	}
+	 
+	SELECTED_BLOCK_LOOP_END
 }
 
 void Grid::GetSelectedCellInString(std::string& out_str)
 {
-	std::stringstream ss;
-	ss << "hello";
 
-	out_str = ss.str();
-	if (wxTheClipboard->Open())
-	{
-		wxTheClipboard->Clear();
-		wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(out_str)) );
-		wxTheClipboard->Close();
-	}
-
+	wxString wx_res_str;
+	wx_res_str.Clear();
+	 
+	wxGridBlocks range = m_grid->GetSelectedBlocks();
+	 
+	SELECTED_BLOCK_LOOP_START(range)
+		 
+		for (int i = top_row; i < bottom_row + 1; ++i) {
+			for (int j = left_col; j < right_col + 1; ++j) {
+				wxString wx_cell_val = m_grid->GetCellValue(i, j);
+				wx_res_str.Append(wx_cell_val);  
+				wx_res_str.Append(wxT(","));  
+				 
+				//std::string value_str;
+				//StringUtil::WxStringToStdString(wx_cell_val, &value_str);
+			}
+			wx_res_str.Append(wxT("\n"));  
+		}
+	SELECTED_BLOCK_LOOP_END
+		 
+	StringUtil::WxStringToStdString(wx_res_str, &out_str);
+	 
 }
  
 //ref http://marupeke296.com/IKDADV_WX_GridWindow.html

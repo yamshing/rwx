@@ -29,4 +29,17 @@ public:
 	void OnCopy(wxEvent& event);
 	 
 };
+
+#define  SELECTED_BLOCK_LOOP_START(blocks)\
+	for ( const wxGridBlockCoords& block : blocks ) {\
+		int top_row = block.GetTopRow();\
+		int bottom_row = block.GetBottomRow();\
+		int left_col = block.GetLeftCol();\
+		int right_col = block.GetRightCol();\
+	
+
+#define  SELECTED_BLOCK_LOOP_END\
+	}\
+	 
+
 #endif
