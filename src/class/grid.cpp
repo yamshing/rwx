@@ -39,8 +39,10 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 
 	std::cout << "event.GetKeyCode() (in grid.cpp) " << event.GetKeyCode() << std::endl;
 	 
-	if (event.GetKeyCode() == 67 && event.ControlDown()) {
+	if ((event.GetKeyCode() == 67 && event.ControlDown()) || (event.GetKeyCode() == 88 && event.ControlDown())) {
+		 
 		//ctrl-C
+		 
 		std::string selected_content;
 		GetSelectedCellInString(selected_content);
 
@@ -53,7 +55,8 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 		 
 	}else if (event.GetKeyCode() == 86 && event.ControlDown()) {
 		 
-		std::cout << "ctrl v (in grid.cpp) "  << std::endl;
+		//ctrl-V
+		 
 		wxString copy_data;
 		wxString cur_field;
 		wxString cur_line;
@@ -78,11 +81,17 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 
 				std::cout << "copy_data (in grid.cpp) " << copy_data << std::endl;
 				wxStringTokenizer line_tokenizer(copy_data, "\n");
+				 
+				wxString delim = "\t";
+				if (copy_data.Find("\t") == -1) {
+					delim = ",";
+				}
+				 
 				while ( line_tokenizer.HasMoreTokens() )
 				{
 					 
 					wxString line_token = line_tokenizer.GetNextToken();
-					wxStringTokenizer cell_tokenizer(line_token, "\t");
+					wxStringTokenizer cell_tokenizer(line_token, delim);
 					 
 					int now_col = start_col;
 					 
@@ -99,19 +108,27 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 					++ start_row;
 					 
 				}
-
-				//VALUE args[1];
-				//std::string value_str;;
-				//StringUtil::WxStringToStdString(copy_data, &value_str);
-				//VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
-				//args[0] = res_str;
-				//StaticFunc::CallRwxFunc(m_rwx_frame, method_name, 1, args);
 			}
 			 
 			wxTheClipboard->Close();
 			 
 		}
+	}
+	 
+	if (event.GetKeyCode() == 127 || (event.GetKeyCode() == 88 && event.ControlDown())) {
+		//delete
+		 
+		wxGridBlocks range = m_grid->GetSelectedBlocks();
+		SELECTED_BLOCK_LOOP_START(range)
 
+			for (int i = top_row; i < bottom_row + 1; ++i) {
+				for (int j = left_col; j < right_col + 1; ++j) {
+					m_grid->SetCellValue(i, j, wxT(""));
+				}
+			}
+		SELECTED_BLOCK_LOOP_END
+
+		 
 	}
 }
 void Grid::OnCopy(wxEvent& event)
