@@ -151,6 +151,7 @@ void Toolbar::Call(int nargs, VALUE *args)
 			m_wx_toolbar_p->AddSeparator();
 			 
 		}
+		m_wx_toolbar_p->Realize();
 	}
 }
  
