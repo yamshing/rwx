@@ -330,7 +330,27 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 	}else if ((func_name_str == "get_cell_value_with_index_arr")) {
 		 
-		std::cout << "get cell value with index (in grid.cpp) " << std::endl;
+		VALUE hash = args[1];
+		VALUE index_arr = rb_hash_aref(hash, ID2SYM(rb_intern("index_arr")));
+		int size = static_cast<int>(RARRAY_LEN(index_arr));
+		for (int i = 0; i < size; ++i) {
+			VALUE index_row = rb_ary_entry(index_arr,i);
+			int index_row_size = static_cast<int>(RARRAY_LEN(index_row));
+			for (int j = 0; j < index_row_size; ++j) {
+				VALUE index = rb_ary_entry(index_row,j);
+				VALUE row = rb_ary_entry(index,0);
+				VALUE col = rb_ary_entry(index,1);
+				int row_i = NUM2INT(row);
+				int col_i = NUM2INT(col);
+				wxString cell_val_wxstr = m_grid->GetCellValue(row_i, col_i);
+				 
+				std::cout << "cell_val_wxstr (in grid.cpp) " << cell_val_wxstr << std::endl;
+				 
+			}
+			 
+		}
+		 
+		 
 		 
 	}else if ((func_name_str == "set_cell_value_with_index_arr") || (func_name_str == "delete_cell_value_with_index_arr")) {
 		 
