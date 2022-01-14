@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 	}else{
 		 
 		dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
-		dynamic_cast<App*>(wxTheApp)->SetStartFileName("./sample/toolbar.rb");
+		dynamic_cast<App*>(wxTheApp)->SetStartFileName("./sample/grid.rb");
 	
 		//dynamic_cast<App*>(wxTheApp)->SetStartType("with_embed");
 		start_app = true;
