@@ -316,7 +316,35 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 	}else if (func_name_str == "set_cell_value_with_index_arr") {
 		 
-		std::cout << "set cell value with index arr (in grid.cpp) " << std::endl;
+
+		VALUE hash = args[1];
+		 
+		VALUE content_arr = rb_hash_aref(hash, ID2SYM(rb_intern("content_arr")));
+		VALUE index_arr = rb_hash_aref(hash, ID2SYM(rb_intern("index_arr")));
+		 
+		int size = static_cast<int>(RARRAY_LEN(content_arr));
+
+		for (int i = 0; i < size; ++i) {
+			VALUE content_row = rb_ary_entry(content_arr,i);
+			VALUE index_row = rb_ary_entry(index_arr,i);
+
+			int content_row_size = static_cast<int>(RARRAY_LEN(content_row));
+			int index_row_size = static_cast<int>(RARRAY_LEN(index_row));
+			 
+			for (int j = 0; j < content_row_size; ++j) {
+				VALUE content = rb_ary_entry(content_row,j);
+				VALUE index = rb_ary_entry(index_row,j);
+				VALUE row = rb_ary_entry(index,0);
+				VALUE col = rb_ary_entry(index,1);
+				 
+				int row_i = NUM2INT(row);
+				int col_i = NUM2INT(col);
+				 
+				std::string content_str;
+				StaticFunc::ValueToString(content, content_str);
+				m_grid->SetCellValue(row_i, col_i, wxString::FromUTF8(content_str));
+			}
+		}
 		 
 	}else if (func_name_str == "get_selection") {
 		 
