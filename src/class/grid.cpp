@@ -26,16 +26,14 @@ Grid::Grid(int nargs, VALUE *args)
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	m_grid->Bind(wxEVT_TEXT_COPY, &Grid::OnCopy, this);
-
 	m_grid->Bind(wxEVT_KEY_DOWN, &Grid::OnKeyDown, this);
+	 
 	 
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
 	 
-	 
 	// overlay canvas example
 	//wxScrolledWindow* test = new wxScrolledWindow( m_grid, wxID_ANY, wxPoint(0,0), parent_p->FromDIP(wxSize(1500,2500)), wxFRAME_FLOAT_ON_PARENT );
-	 
 
 }
 
@@ -218,10 +216,12 @@ void Grid::OnCellClick(wxGridEvent& event)
 	 
 }
  
-void Grid::GetSelectedCellInRubyArr(VALUE rarray)
+void Grid::GetSelectedCellInRubyArr(VALUE rhash)
 {
 	 
 	wxGridBlocks range = m_grid->GetSelectedBlocks();
+	VALUE selection_arr = rb_ary_new();
+	VALUE selection_index_arr = rb_ary_new();
 	 
 	SELECTED_BLOCK_LOOP_START(range)
 		 
@@ -229,20 +229,34 @@ void Grid::GetSelectedCellInRubyArr(VALUE rarray)
 			 
 			VALUE row = rb_ary_new();
 			 
+			VALUE select_index_row = rb_ary_new();
+			 
 			for (int j = left_col; j < right_col + 1; ++j) {
 				 
 				wxString wx_cell_val = m_grid->GetCellValue(i, j);
 				std::string value_str;
 				StringUtil::WxStringToStdString(wx_cell_val, &value_str);
 				VALUE res_str =  rb_utf8_str_new(value_str.c_str(),value_str.length());
+				 
 				rb_ary_push(row, res_str);
+				 
+				VALUE coord_arr = rb_ary_new();
+				rb_ary_push(coord_arr, INT2NUM(i));
+				rb_ary_push(coord_arr, INT2NUM(j));
+				rb_ary_push(select_index_row, coord_arr);
 				
 			}
-			rb_ary_push(rarray, row);
+			 
+			rb_ary_push(selection_arr, row);
+			rb_ary_push(selection_index_arr, select_index_row);
 			 
 		}
 	 
 	SELECTED_BLOCK_LOOP_END
+		 
+	rb_hash_aset(rhash,  ID2SYM(rb_intern("selection_arr")), selection_arr);
+	rb_hash_aset(rhash,  ID2SYM(rb_intern("selection_index_arr")), selection_index_arr);
+	 
 }
 
 void Grid::GetSelectedCellInString(std::string& out_str)
@@ -302,7 +316,8 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 	}else if (func_name_str == "get_selection") {
 		 
-		res = rb_ary_new();
+		res = rb_hash_new();
+		 
 		GetSelectedCellInRubyArr(res);
 		 
 	}
