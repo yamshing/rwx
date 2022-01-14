@@ -314,6 +314,10 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		// scroll to this cell
 		//m_grid->MakeCellVisible(2,2);
 		 
+	}else if (func_name_str == "set_cell_value_with_index_arr") {
+		 
+		std::cout << "set cell value with index arr (in grid.cpp) " << std::endl;
+		 
 	}else if (func_name_str == "get_selection") {
 		 
 		res = rb_hash_new();
@@ -326,3 +330,16 @@ VALUE Grid::Call(int nargs, VALUE *args)
 }
  
 
+/*
+ *
+VALUE type = rb_hash_aref(hash, ID2SYM(rb_intern("type")));
+ ary loop
+		int size = static_cast<int>(RARRAY_LEN(content));
+			for (int i = 0; i < size; ++i) {
+				VALUE menu_content = rb_ary_entry(content,i);
+				std::string menu_content_str;
+				StaticFunc::ValueToString(menu_content, menu_content_str);
+				combo->Append(wxString::FromUTF8(menu_content_str));
+			}
+		
+			*/

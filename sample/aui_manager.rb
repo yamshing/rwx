@@ -113,8 +113,10 @@ module Rwx
 			#list_selected = @panel.list_ctrl.get_selection
 			#p list_selected
 			
-			grid_value = @grid.get_selection
-			p grid_value
+			#grid_value = @grid.get_selection
+			#p grid_value
+
+			@grid.set_cell_value_with_index_arr()
 			 
 			 
 		end
