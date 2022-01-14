@@ -161,6 +161,7 @@ FUNC_TO_GENERIC(listctrl,get_selection)
 FUNC_TO_GENERIC(grid,set_cell_value)
 FUNC_TO_GENERIC(grid,get_selection)
 FUNC_TO_GENERIC(grid,set_cell_value_with_index_arr)
+FUNC_TO_GENERIC(grid,get_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,delete_cell_value_with_index_arr)
 
 
@@ -264,6 +265,7 @@ Init_LibRwx(void)
 	rb_define_method(librwx_Grid, "get_selection", librwx_grid_get_selection, -1);
 	rb_define_method(librwx_Grid, "set_cell_value_with_index_arr", librwx_grid_set_cell_value_with_index_arr, -1);
 	rb_define_method(librwx_Grid, "delete_cell_value_with_index_arr", librwx_grid_delete_cell_value_with_index_arr, -1);
+	rb_define_method(librwx_Grid, "get_cell_value_with_index_arr", librwx_grid_get_cell_value_with_index_arr, -1);
 	 
 }
 

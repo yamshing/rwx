@@ -328,6 +328,10 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 
 		 
+	}else if ((func_name_str == "get_cell_value_with_index_arr")) {
+		 
+		std::cout << "get cell value with index (in grid.cpp) " << std::endl;
+		 
 	}else if ((func_name_str == "set_cell_value_with_index_arr") || (func_name_str == "delete_cell_value_with_index_arr")) {
 		 
 		bool is_deleting = false;
