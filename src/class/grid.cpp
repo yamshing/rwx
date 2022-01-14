@@ -42,10 +42,13 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 
 	std::cout << "event.GetKeyCode() (in grid.cpp) " << event.GetKeyCode() << std::endl;
 	 
+	bool key_hit = false;
+	 
 	if ((event.GetKeyCode() == 67 && event.ControlDown()) || (event.GetKeyCode() == 88 && event.ControlDown())) {
 		 
 		//ctrl-C
 		 
+		key_hit = true;
 		std::string selected_content;
 		GetSelectedCellInString(selected_content);
 
@@ -59,6 +62,8 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 	}else if (event.GetKeyCode() == 86 && event.ControlDown()) {
 		 
 		//ctrl-V
+		 
+		key_hit = true;
 		 
 		wxString copy_data;
 		wxString cur_field;
@@ -121,6 +126,8 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 	if (event.GetKeyCode() == 127 || (event.GetKeyCode() == 88 && event.ControlDown())) {
 		//delete
 		 
+		key_hit = true;
+		 
 		wxGridBlocks range = m_grid->GetSelectedBlocks();
 		SELECTED_BLOCK_LOOP_START(range)
 
@@ -133,6 +140,11 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 
 		 
 	}
+	if (!key_hit) {
+		std::cout << "skip (in grid.cpp) "  << std::endl;
+		event.Skip();
+	}
+	 
 }
 void Grid::OnCopy(wxEvent& event)
 {
@@ -314,35 +326,57 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		// scroll to this cell
 		//m_grid->MakeCellVisible(2,2);
 		 
-	}else if (func_name_str == "set_cell_value_with_index_arr") {
-		 
 
-		VALUE hash = args[1];
 		 
-		VALUE content_arr = rb_hash_aref(hash, ID2SYM(rb_intern("content_arr")));
+	}else if ((func_name_str == "set_cell_value_with_index_arr") || (func_name_str == "delete_cell_value_with_index_arr")) {
+		 
+		bool is_deleting = false;
+		if (func_name_str == "delete_cell_value_with_index_arr") {
+			is_deleting = true;
+		}
+		 
+		 
+		VALUE hash = args[1];
+		VALUE content_arr;
+		if (!is_deleting) {
+			content_arr = rb_hash_aref(hash, ID2SYM(rb_intern("content_arr")));
+		}
+		 
 		VALUE index_arr = rb_hash_aref(hash, ID2SYM(rb_intern("index_arr")));
 		 
-		int size = static_cast<int>(RARRAY_LEN(content_arr));
+		int size = static_cast<int>(RARRAY_LEN(index_arr));
 
 		for (int i = 0; i < size; ++i) {
-			VALUE content_row = rb_ary_entry(content_arr,i);
+			 
+			VALUE content_row;
+			if (!is_deleting) {
+				content_row = rb_ary_entry(content_arr,i);
+			}
+			 
 			VALUE index_row = rb_ary_entry(index_arr,i);
 
 			int content_row_size = static_cast<int>(RARRAY_LEN(content_row));
 			int index_row_size = static_cast<int>(RARRAY_LEN(index_row));
 			 
-			for (int j = 0; j < content_row_size; ++j) {
-				VALUE content = rb_ary_entry(content_row,j);
+			for (int j = 0; j < index_row_size; ++j) {
+				 
+				std::string content_str;
+				 
+				if (!is_deleting) {
+					VALUE content = rb_ary_entry(content_row,j);
+					StaticFunc::ValueToString(content, content_str);
+				}else{
+					content_str = "";
+				}
+
 				VALUE index = rb_ary_entry(index_row,j);
 				VALUE row = rb_ary_entry(index,0);
 				VALUE col = rb_ary_entry(index,1);
-				 
 				int row_i = NUM2INT(row);
 				int col_i = NUM2INT(col);
-				 
-				std::string content_str;
-				StaticFunc::ValueToString(content, content_str);
+				
 				m_grid->SetCellValue(row_i, col_i, wxString::FromUTF8(content_str));
+				 
 			}
 		}
 		 
@@ -358,16 +392,3 @@ VALUE Grid::Call(int nargs, VALUE *args)
 }
  
 
-/*
- *
-VALUE type = rb_hash_aref(hash, ID2SYM(rb_intern("type")));
- ary loop
-		int size = static_cast<int>(RARRAY_LEN(content));
-			for (int i = 0; i < size; ++i) {
-				VALUE menu_content = rb_ary_entry(content,i);
-				std::string menu_content_str;
-				StaticFunc::ValueToString(menu_content, menu_content_str);
-				combo->Append(wxString::FromUTF8(menu_content_str));
-			}
-		
-			*/

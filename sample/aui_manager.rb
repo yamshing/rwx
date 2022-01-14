@@ -116,7 +116,8 @@ module Rwx
 			#grid_value = @grid.get_selection
 			#p grid_value
 
-			@grid.set_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			#@grid.set_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
 			 
 			 
 		end
