@@ -35,8 +35,8 @@ void Toolbar::Call(int nargs, VALUE *args)
 			StaticFunc::ValueToString(desc, desc_str);
 			g_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
 			g_menu_callback_name_map[StaticFunc::ALL_EVENT_ID] = cb_name;
-			//m_wx_toolbar_p-> AddTool(StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), icon, wxNullBitmap, wxITEM_NORMAL,wxString::FromUTF8(label_str), wxString::FromUTF8(desc_str));
-			m_wx_toolbar_p-> InsertTool(0, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), icon);
+			m_wx_toolbar_p-> AddTool(StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), icon, wxNullBitmap, wxITEM_NORMAL,wxString::FromUTF8(label_str), wxString::FromUTF8(desc_str));
+			//m_wx_toolbar_p-> InsertTool(0, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), icon);
 			 
 			m_wx_toolbar_p-> Bind(wxEVT_MENU, &Toolbar::OnMenu, this, StaticFunc::ALL_EVENT_ID);
 			StaticFunc::ALL_EVENT_ID ++;
