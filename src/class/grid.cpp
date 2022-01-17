@@ -106,6 +106,9 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 					while ( cell_tokenizer.HasMoreTokens() )
 					{
 						wxString cell_token = cell_tokenizer.GetNextToken();
+						if (cell_token == " ") {
+							cell_token = wxT("");
+						}
 						 
 						m_grid->SetCellValue(start_row, now_col, cell_token);
 						 
@@ -284,6 +287,10 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 		for (int i = top_row; i < bottom_row + 1; ++i) {
 			for (int j = left_col; j < right_col + 1; ++j) {
 				wxString wx_cell_val = m_grid->GetCellValue(i, j);
+				if (wx_cell_val == "") {
+					wx_cell_val = wxT(" ");
+				}
+				 
 				wx_res_str.Append(wx_cell_val);  
 				 
 				if (j < right_col) {
