@@ -17,15 +17,7 @@ module Rwx
 			 
 		end
 		 
-		def on_button_1
-			 
-			 
-		end
-		 
-		def on_button_2
-			 
-			direction = 1
-			 
+		def move_row(direction)
 			selected = @grid.get_selection
 			selection_index_arr = selected[:selection_index_arr]
 			selection_content_arr = selected[:selection_content_arr]
@@ -60,14 +52,21 @@ module Rwx
 				 
 				@grid.set_cell_value_with_index_arr(content_arr:cell_val,index_arr:set_cell_index_arr)
 				 
-				#p cell_val
-				 
 			end
 			 
 			@grid.delete_cell_value_with_index_arr(index_arr:selection_index_arr)
 			 
-			#row = selection_index_arr[0][0][0]
-			#col = selection_index_arr[0][0][1]
+		end
+		 
+		def on_button_1
+			 
+			move_row(- 1)
+			 
+		end
+		 
+		def on_button_2
+			 
+			move_row(1)
 			 
 		end
 		 
