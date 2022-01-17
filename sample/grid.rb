@@ -24,9 +24,11 @@ module Rwx
 		 
 		def on_button_2
 			 
-			@grid.get_cell_value_with_index_arr(index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			cell_val = @grid.get_cell_value_with_index_arr(index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			p cell_val
 			 
 			#@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			 
 			selected = @grid.get_selection
 			selection_index_arr = selected[:selection_index_arr]
 			selection_content_arr = selected[:selection_content_arr]

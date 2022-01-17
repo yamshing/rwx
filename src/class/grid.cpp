@@ -333,9 +333,14 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		VALUE hash = args[1];
 		VALUE index_arr = rb_hash_aref(hash, ID2SYM(rb_intern("index_arr")));
 		int size = static_cast<int>(RARRAY_LEN(index_arr));
+		 
+		res = rb_ary_new();
+		 
 		for (int i = 0; i < size; ++i) {
 			VALUE index_row = rb_ary_entry(index_arr,i);
 			int index_row_size = static_cast<int>(RARRAY_LEN(index_row));
+			VALUE res_row = rb_ary_new();
+			 
 			for (int j = 0; j < index_row_size; ++j) {
 				VALUE index = rb_ary_entry(index_row,j);
 				VALUE row = rb_ary_entry(index,0);
@@ -344,12 +349,17 @@ VALUE Grid::Call(int nargs, VALUE *args)
 				int col_i = NUM2INT(col);
 				wxString cell_val_wxstr = m_grid->GetCellValue(row_i, col_i);
 				 
-				std::cout << "cell_val_wxstr (in grid.cpp) " << cell_val_wxstr << std::endl;
+				std::string cell_val_str;
+				StringUtil::WxStringToStdString(cell_val_wxstr, &cell_val_str);
+				VALUE cell_val =  rb_utf8_str_new(cell_val_str.c_str(),cell_val_str.length());
+				rb_ary_push(res_row, cell_val);
 				 
 			}
 			 
+			rb_ary_push(res, res_row);
+			 
 		}
-		 
+		rb_p(res);
 		 
 		 
 	}else if ((func_name_str == "set_cell_value_with_index_arr") || (func_name_str == "delete_cell_value_with_index_arr")) {
