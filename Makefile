@@ -32,6 +32,7 @@ ifeq ($(SYS),"win")
 	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
 else
 	rm $(RWX_BIN_NAME) || true;
+	rm $(RWX_BIN_NAME)_omusubin.exe || true;
 	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 
 	 
 endif
