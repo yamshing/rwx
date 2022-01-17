@@ -152,6 +152,14 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 void Grid::OnCopy(wxEvent& event)
 {
 	
+	wxTextCtrl *win = (wxTextCtrl *)event.GetEventObject();
+	wxString val = win->GetValue();
+	if (wxTheClipboard->Open())
+	{
+		wxTheClipboard->Clear();
+		wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(val)) );
+		wxTheClipboard->Close();
+	}
 	 
 }
  
