@@ -35,3 +35,8 @@ else
 	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 
 	 
 endif
+
+embed:
+	./rwx embed ./sample/grid.rb
+	chmod +x rwx_omusubin.exe
+	 

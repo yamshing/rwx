@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	 
 	if (argc > 1) {
 
-		/*std::cout << "use argv[0] (in test_wx.cpp) " << argv[0] << std::endl;
+		std::cout << "use argv[0] (in test_wx.cpp) " << argv[0] << std::endl;
 		std::stringstream ss;
 		ss << argv[1];
 		 
@@ -62,18 +62,18 @@ int main(int argc, char *argv[])
 			dynamic_cast<App*>(wxTheApp)->SetStartFileName(argv[1]);
 			start_app = true;
 		}
-		*/
 		 
-		dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
+		/*dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
 		dynamic_cast<App*>(wxTheApp)->SetStartFileName(argv[1]);
 		start_app = true;
+		*/
 		 
 	}else{
 		 
-		dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
-		dynamic_cast<App*>(wxTheApp)->SetStartFileName("./sample/grid.rb");
+		//dynamic_cast<App*>(wxTheApp)->SetStartType("with_file");
+		//dynamic_cast<App*>(wxTheApp)->SetStartFileName("./sample/grid.rb");
 	
-		//dynamic_cast<App*>(wxTheApp)->SetStartType("with_embed");
+		dynamic_cast<App*>(wxTheApp)->SetStartType("with_embed");
 		start_app = true;
 		 
 	}
