@@ -26,6 +26,8 @@ Grid::Grid(int nargs, VALUE *args)
 
 	m_grid->Bind(wxEVT_GRID_CELL_LEFT_CLICK, &Grid::OnCellClick, this);
 	m_grid->Bind(wxEVT_TEXT_COPY, &Grid::OnCopy, this);
+	m_grid->Bind(wxEVT_TEXT_PASTE, &Grid::OnPaste, this);
+	m_grid->Bind(wxEVT_TEXT_CUT, &Grid::OnCut, this);
 	m_grid->Bind(wxEVT_KEY_DOWN, &Grid::OnKeyDown, this);
 	 
 	 
@@ -159,6 +161,35 @@ void Grid::OnCopy(wxEvent& event)
 		wxTheClipboard->Clear();
 		wxTheClipboard->SetData( new wxTextDataObject(wxString::FromUTF8(val)) );
 		wxTheClipboard->Close();
+	}
+	 
+}
+ 
+void Grid::OnCut(wxEvent& event)
+{
+	
+	OnCopy(event);
+	wxTextCtrl *win = (wxTextCtrl *)event.GetEventObject();
+	win->SetValue(wxT(""));
+	 
+}
+void Grid::OnPaste(wxEvent& event)
+{
+
+	if (wxTheClipboard->Open())
+	{
+		if (wxTheClipboard->IsSupported( wxDF_TEXT ))
+		{
+			wxTextDataObject data;
+			wxTheClipboard->GetData( data );
+			wxString copy_data = data.GetText();
+			wxTextCtrl *win = (wxTextCtrl *)event.GetEventObject();
+			win->SetValue(copy_data);
+			 
+		}
+		 
+		wxTheClipboard->Close();
+		 
 	}
 	 
 }
