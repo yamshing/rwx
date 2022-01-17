@@ -359,7 +359,6 @@ VALUE Grid::Call(int nargs, VALUE *args)
 			rb_ary_push(res, res_row);
 			 
 		}
-		rb_p(res);
 		 
 		 
 	}else if ((func_name_str == "set_cell_value_with_index_arr") || (func_name_str == "delete_cell_value_with_index_arr")) {

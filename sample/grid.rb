@@ -13,7 +13,7 @@ module Rwx
 			 
 			@auimanager.add_pane(pane:@grid, name:"grid pane")
 
-			@grid.set_cell_value_with_index_arr(content_arr:[["abc","def"],["ghi","jkl"],["mno","pqr"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			@grid.set_cell_value_with_index_arr(content_arr:[["abc","def"],["ghi","jkl"],["mno","pqr"]],index_arr:[[[0,5],[0,6]],[[1,5],[1,6]],[[2,5],[2,6]]])
 			 
 		end
 		 
@@ -24,32 +24,50 @@ module Rwx
 		 
 		def on_button_2
 			 
-			cell_val = @grid.get_cell_value_with_index_arr(index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
-			p cell_val
-			 
-			#@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			direction = 1
 			 
 			selected = @grid.get_selection
 			selection_index_arr = selected[:selection_index_arr]
 			selection_content_arr = selected[:selection_content_arr]
-			 
 			move_col_num = 10
+			get_cell_index_arr = []
+			 
 			 
 			for selected_row in selection_index_arr do
 				row = selected_row[0][0]
 				col = selected_row[0][1]
 				 
-				row_content_arr = []
+				get_row_index_arr = []
+				set_row_index_arr = []
+				if direction > 0
+					for get_col in col...col + move_col_num do
+						get_row_index_arr.push [row, get_col]
+						set_row_index_arr.push [row, get_col + direction]
+					end
+				else
+					for get_col in col.downto(0) do
+						get_row_index_arr.push [row, get_col]
+						if get_col > 0
+							set_row_index_arr.push [row, get_col + direction]
+						end
+					end
+				end
 				 
-				#for i in col...col + 10 do
-				#end
+				get_cell_index_arr = [get_row_index_arr]
+				set_cell_index_arr = [set_row_index_arr]
+				 
+				cell_val = @grid.get_cell_value_with_index_arr(index_arr:get_cell_index_arr)
+				 
+				@grid.set_cell_value_with_index_arr(content_arr:cell_val,index_arr:set_cell_index_arr)
+				 
+				#p cell_val
 				 
 			end
 			 
+			@grid.delete_cell_value_with_index_arr(index_arr:selection_index_arr)
+			 
 			#row = selection_index_arr[0][0][0]
 			#col = selection_index_arr[0][0][1]
-			 
-			 
 			 
 		end
 		 
