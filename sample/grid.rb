@@ -5,22 +5,31 @@ module Rwx
 			@auimanager = AuiManager.new(self)
 			 
 			@toolbar = Toolbar.new(self, {type:'aui'})
-			@toolbar.add_tool(type:"button", title:"<", label:"<", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
-			@toolbar.add_tool(type:"button", title:">", label:">", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
+			@toolbar.add_tool(type:"button", title:"<", label:"<", desc:"", cb_inst:self, cb_name:"on_button_1" )
+			@toolbar.add_tool(type:"button", title:">", label:">", desc:"", cb_inst:self, cb_name:"on_button_2" )
+			@toolbar.add_tool(type:"button", title:"ソート", label:"ソート", desc:"", cb_inst:self, cb_name:"on_sort" )
+       
 			@auimanager.add_pane(pane:@toolbar)
 			 
 			@grid = Grid.new(self)
 			 
 			@auimanager.add_pane(pane:@grid, name:"grid pane")
 
-			@grid.set_cell_value_with_index_arr(content_arr:[["abc","def"],["ghi","jkl"],["mno","pqr"]],index_arr:[[[0,5],[0,6]],[[1,5],[1,6]],[[2,5],[2,6]]])
+			@grid.set_cell_value_with_index_arr(content_arr:[
+        ["abc","def", "30"],
+        ["ghi","jkl", "10"],
+        ["mno","pqr", "20"]
+      ],index_arr:[
+        [[0,5],[0,6],[0,7]],
+        [[1,5],[1,6],[1,7]],
+        [[2,5],[2,6],[2,7]]
+      ])
 			 
 		end
 		 
 		def move_row(direction)
 			selected = @grid.get_selection
 			selection_index_arr = selected[:selection_index_arr]
-			selection_content_arr = selected[:selection_content_arr]
 			move_col_num = 10
 			get_cell_index_arr = []
 			 
@@ -58,7 +67,23 @@ module Rwx
 			 
 		end
 		 
-		def on_button_1
+    def on_sort
+      selected = @grid.get_selection
+      selection_index_arr = selected[:selection_index_arr]
+      selection_arr = selected[:selection_arr]
+      move_col_num = 10
+      row_i = 0
+       
+      index_num_hash = {}
+      for sel_row in selection_arr do
+        order = sel_row[0].to_f
+        index_num_hash[order] = selection_index_arr[row_i]
+        row_i += 1
+      end
+       
+    end
+     
+    def on_button_1
 			 
 			move_row(- 1)
 			 
