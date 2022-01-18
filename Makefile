@@ -38,6 +38,7 @@ else
 endif
 
 embed:
+	 
 	./rwx embed ./sample/grid.rb
 	chmod +x rwx_omusubin.exe
 	 
