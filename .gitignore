@@ -3,7 +3,7 @@ lib
 rwx
 winzip
 winlib
-rwx.exe
+*.exe
 rwx_omusubin.exe
  
  

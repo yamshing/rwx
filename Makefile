@@ -38,7 +38,14 @@ else
 endif
 
 embed:
-	 
+ifeq ($(SYS),"win")
+	./rwx.exe embed ./sample/grid.rb
+	chmod +x rwx.exe_omusubin.exe
+else
 	./rwx embed ./sample/grid.rb
 	chmod +x rwx_omusubin.exe
+endif
+
+
+
 	 
