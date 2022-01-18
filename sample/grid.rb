@@ -71,7 +71,7 @@ module Rwx
       selected = @grid.get_selection
       selection_index_arr = selected[:selection_index_arr]
       selection_arr = selected[:selection_arr]
-      move_col_num = 10
+      get_col_num = 20
       row_i = 0
        
       index_num_hash = {}
@@ -80,6 +80,34 @@ module Rwx
         index_num_hash[order] = selection_index_arr[row_i]
         row_i += 1
       end
+      sorted_index_arr = index_num_hash.sort
+       
+      set_cell_val_arr = []
+      set_cell_index_arr = []
+       
+      set_row_i = 0
+      for index_row in sorted_index_arr do
+        row = index_row[1][0][0]
+         
+        cell_index_arr = []
+        set_row_index_arr = []
+           
+        for col_i in 0...get_col_num do
+          cell_index_arr.push [row, col_i]
+          set_row_index_arr.push [set_row_i, col_i]
+        end
+         
+				cell_val = @grid.get_cell_value_with_index_arr(index_arr:[cell_index_arr])
+        set_cell_val_arr.push cell_val[0]
+        set_cell_index_arr.push set_row_index_arr
+         
+        set_row_i += 1
+      end
+       
+      #p set_cell_val_arr
+      #p set_cell_index_arr
+       
+			@grid.set_cell_value_with_index_arr(content_arr:set_cell_val_arr,index_arr:set_cell_index_arr)
        
     end
      
