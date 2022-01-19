@@ -28,6 +28,11 @@ module Rwx
 		end
 		 
 		def move_row(direction)
+			 
+			grid_size = @grid.get_grid_size()
+			grid_col_num = grid_size[:col]
+			grid_row_num = grid_size[:row]
+			 
 			selected = @grid.get_selection
 			selection_index_arr = selected[:selection_index_arr]
 			move_col_num = 10
@@ -39,13 +44,17 @@ module Rwx
 				 
 				get_row_index_arr = []
 				set_row_index_arr = []
+				 
 				if direction > 0
-					for get_col in col...col + move_col_num do
-						get_row_index_arr.push [row, get_col]
-						set_row_index_arr.push [row, get_col + direction]
+					for get_col in col...grid_col_num do
+						if get_col < (grid_col_num - 1)
+							p get_col
+							get_row_index_arr.push [row, get_col]
+							set_row_index_arr.push [row, get_col + direction]
+						end
 					end
 				else
-					for get_col in col...col + move_col_num do
+					for get_col in col...(grid_col_num) do
 						if get_col > 0
 							get_row_index_arr.push [row, get_col]
 							set_row_index_arr.push [row, get_col + direction]
@@ -62,7 +71,9 @@ module Rwx
 				 
 			end
 			 
-			@grid.delete_cell_value_with_index_arr(index_arr:selection_index_arr)
+			if direction > 0
+				@grid.delete_cell_value_with_index_arr(index_arr:selection_index_arr)
+			end
 			 
 		end
 		 

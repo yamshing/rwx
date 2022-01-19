@@ -465,6 +465,18 @@ VALUE Grid::Call(int nargs, VALUE *args)
 		 
 		GetSelectedCellInRubyArr(res);
 		 
+	}else if (func_name_str == "get_grid_size") {
+		std::cout << "get grid size call (in grid.cpp) " << std::endl;
+		 
+		int row_num = m_grid->GetNumberRows();
+		int col_num = m_grid->GetNumberCols();
+		 
+		res = rb_hash_new();
+
+		rb_hash_aset(res,  ID2SYM(rb_intern("row")), INT2NUM(row_num));
+		rb_hash_aset(res,  ID2SYM(rb_intern("col")), INT2NUM(col_num));
+		 
+		 
 	}
 	return res;
 	 
