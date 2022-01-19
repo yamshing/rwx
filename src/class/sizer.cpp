@@ -100,6 +100,13 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(treelist_child_p->GetTreeListCtrl(), wxSizerFlags(2).Expand());
 			return;
 		}
+
+		Canvas* canvas_child_p = dynamic_cast<Canvas*>(app_p->GetObjectFromMap(child));
+		if (canvas_child_p) {
+			m_sizer -> Add(canvas_child_p, wxSizerFlags(2).Expand());
+			return;
+		}
+
 		 
 		std::cout << "PLEASE ADD GETOBJECT IN SIZER.CPP "  << std::endl;
 		 

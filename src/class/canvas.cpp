@@ -30,8 +30,6 @@ Canvas::Canvas(wxWindow *parent, VALUE rwx_canvas, VALUE rwx_dc)
 	m_use_on_mouse_dragging = CheckMouseEventFlag("on_mouse_dragging");
 	 
 	 
-	SetVirtualSize(wxSize(1000,1000));
-	 
 	m_dc = new DC();
 	 
 	App* app_p = static_cast<App*>(wxTheApp);
@@ -127,6 +125,12 @@ void Canvas::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "refresh") {
 		Refresh(true);
+
+	}else if (func_name_str == "set_size") {
+		 
+		int w = NUM2INT(args[1]);
+		int h = NUM2INT(args[2]);
+		SetSize(w, h);
 	}
 	 
 }

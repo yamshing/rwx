@@ -52,6 +52,7 @@ module Rwx
 			@frame.set_size(1000, 500)
 			 
 			@canvas = Canvas.new(@frame)
+			@canvas.set_size(1000,1000)
 			 
 			@sizer = Sizer.new('box', 'horizontal')
 			@sizer.add(@canvas)

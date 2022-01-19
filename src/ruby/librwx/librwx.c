@@ -143,6 +143,8 @@ FUNC_TO_GENERIC(sizer,add)
 FUNC_TO_GENERIC(sizer,add_spacer)
 FUNC_TO_GENERIC(notebook,add)
 FUNC_TO_GENERIC(canvas,refresh)
+FUNC_TO_GENERIC(canvas,set_size)
+	 
 FUNC_TO_GENERIC(checkbox,get_value)
 FUNC_TO_GENERIC(checkbox,set_value)
 	 
@@ -191,6 +193,7 @@ Init_LibRwx(void)
 	 
 	rb_define_method(librwx_Canvas, "initialize", librwx_canvas_initialize, -1);
 	rb_define_method(librwx_Canvas, "refresh", librwx_canvas_refresh, -1);
+	rb_define_method(librwx_Canvas, "set_size", librwx_canvas_set_size, -1);
 
 	librwx_DC  = rb_define_class_under(librwx_Namespace, "DC", rb_cObject);
 	 
