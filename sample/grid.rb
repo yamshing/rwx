@@ -33,7 +33,6 @@ module Rwx
 			move_col_num = 10
 			get_cell_index_arr = []
 			 
-			 
 			for selected_row in selection_index_arr do
 				row = selected_row[0][0]
 				col = selected_row[0][1]
@@ -46,9 +45,9 @@ module Rwx
 						set_row_index_arr.push [row, get_col + direction]
 					end
 				else
-					for get_col in col.downto(0) do
-						get_row_index_arr.push [row, get_col]
+					for get_col in col...col + move_col_num do
 						if get_col > 0
+							get_row_index_arr.push [row, get_col]
 							set_row_index_arr.push [row, get_col + direction]
 						end
 					end
