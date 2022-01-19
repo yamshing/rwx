@@ -101,7 +101,7 @@ void Grid::OnKeyDown(wxKeyEvent& event)
 				{
 					 
 					wxString line_token = line_tokenizer.GetNextToken();
-					wxStringTokenizer cell_tokenizer(line_token, delim);
+					wxStringTokenizer cell_tokenizer(line_token, delim, wxTOKEN_RET_EMPTY_ALL);
 					 
 					int now_col = start_col;
 					 
