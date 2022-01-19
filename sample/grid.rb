@@ -18,7 +18,7 @@ module Rwx
 			@grid.set_cell_value_with_index_arr(content_arr:[
         ["abc","def", "30"],
         ["ghi","jkl", "10"],
-        ["mno","pqr", "20"]
+        ["mno","pqr", "10"]
       ],index_arr:[
         [[0,5],[0,6],[0,7]],
         [[1,5],[1,6],[1,7]],
@@ -77,31 +77,40 @@ module Rwx
       index_num_hash = {}
       for sel_row in selection_arr do
         order = sel_row[0].to_f
-        index_num_hash[order] = selection_index_arr[row_i]
+				index_num_hash[order] ||= []
+				index_num_hash[order].push selection_index_arr[row_i]
         row_i += 1
       end
+			 
       sorted_index_arr = index_num_hash.sort
        
       set_cell_val_arr = []
       set_cell_index_arr = []
        
       set_row_i = 0
+			 
       for index_row in sorted_index_arr do
-        row = index_row[1][0][0]
-         
-        cell_index_arr = []
-        set_row_index_arr = []
-           
-        for col_i in 0...get_col_num do
-          cell_index_arr.push [row, col_i]
-          set_row_index_arr.push [set_row_i, col_i]
-        end
-         
-				cell_val = @grid.get_cell_value_with_index_arr(index_arr:[cell_index_arr])
-        set_cell_val_arr.push cell_val[0]
-        set_cell_index_arr.push set_row_index_arr
-         
-        set_row_i += 1
+				 
+				row_arr = index_row[1]
+				 
+				for row_col in row_arr do
+					row = row_col[0][0]
+					 
+					cell_index_arr = []
+					set_row_index_arr = []
+						 
+					for col_i in 0...get_col_num do
+						cell_index_arr.push [row, col_i]
+						set_row_index_arr.push [set_row_i, col_i]
+					end
+					 
+					cell_val = @grid.get_cell_value_with_index_arr(index_arr:[cell_index_arr])
+					set_cell_val_arr.push cell_val[0]
+					set_cell_index_arr.push set_row_index_arr
+					set_row_i += 1
+				end
+				 
+
       end
        
       #p set_cell_val_arr
