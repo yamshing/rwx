@@ -5,6 +5,8 @@ module Rwx
 			@mouse_y = 0
 			@mouse_clicked = false
 			 
+			@image = Image.new(file_name:"./asset/test.png")
+			 
 		end
 		def on_paint()
 			if @mouse_clicked
@@ -38,11 +40,6 @@ module Rwx
 		def on_init 
 		end
 	end
-	class Image 
-		def on_init 
-		end
-	end
-	
 	 
 	 
 	class Frame
@@ -62,7 +59,6 @@ module Rwx
 			@sizer = Sizer.new('box', 'horizontal')
 			@sizer.add(@canvas)
 			@frame.set_sizer(@sizer)
-			@image = Image.new(file_name:"./asset/test.png")
 			 
 		end
 	end
