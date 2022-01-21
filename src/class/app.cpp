@@ -15,6 +15,8 @@ bool App::OnInit()
 	if ( !wxApp::OnInit() )
 		return false;
 		
+	wxInitAllImageHandlers();
+	 
 	ruby_init();
 	 
 	set_app_pointer(StaticFunc::app_callback);
