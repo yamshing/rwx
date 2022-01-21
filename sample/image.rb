@@ -62,8 +62,7 @@ module Rwx
 			@sizer = Sizer.new('box', 'horizontal')
 			@sizer.add(@canvas)
 			@frame.set_sizer(@sizer)
-			@image = Image.new
-			p @image
+			@image = Image.new(file_name:"./asset/test.png")
 			 
 		end
 	end
