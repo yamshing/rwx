@@ -5,6 +5,7 @@ module Rwx
 			@mouse_y = 0
 			@mouse_clicked = false
 			 
+			@image = Image.new(embed_name:"test")
 			#@image = Image.new(file_name:"./asset/test.png")
 			 
 		end
