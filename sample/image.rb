@@ -14,7 +14,7 @@ module Rwx
 				#@dc.set_pen('#ff0000',2,'dot_dash')  #dot, long_dash, short_dash, dot_dash
 				#@dc.draw_circle(@mouse_x, @mouse_y, 10)
 				 
-				@dc.draw_image(@image)
+				@dc.draw_image(@image, @mouse_x, @mouse_y)
 				 
 			end
 		end

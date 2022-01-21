@@ -1,5 +1,7 @@
 
 #include "dc.h"
+#include "image.h"
+ 
 #include "static_func.h"
  
 void DC::GetColorBrush(VALUE color_str_value, wxBrush& brush)
@@ -23,6 +25,7 @@ void DC::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
+	App* app_p = static_cast<App*>(wxTheApp);
 	 
 	if (func_name_str == "draw_circle") {
 		int x = NUM2INT(args[1]);
@@ -33,7 +36,18 @@ void DC::Call(int nargs, VALUE *args)
 		 
 	}else if (func_name_str == "draw_image") {
 		 
-		std::cout << "draw image call (in dc.cpp) " << std::endl;
+		VALUE image = args[1];
+		Image* image_p = static_cast<Image*>(app_p->GetObjectFromMap(image));
+		if (image_p) {
+			 
+			int x = NUM2INT(args[2]);
+			int y = NUM2INT(args[3]);
+			 
+			wxImage* wx_image_p = image_p -> GetWxImage();
+			wxBitmap bitmap = wxBitmap(*wx_image_p);
+			 
+			m_wx_dc_p->DrawBitmap(bitmap,x, y);
+		}
 		 
 	}else if (func_name_str == "set_brush") {
 		 

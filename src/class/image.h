@@ -15,8 +15,13 @@ class Image: public wxObject
 		 
 		//void Call(int nargs, VALUE *args);
 		 
+		wxImage* GetWxImage(){
+			return m_wx_image;
+		};
+		 
 	private:
 		wxImage* m_wx_image;
+		 
 		 
 };
 #endif
