@@ -43,10 +43,10 @@ endif
 
 embed:
 ifeq ($(SYS),"win")
-	./rwx.exe embed ./sample/grid.rb
+	./rwx embed ./rwx_omusubin.conf
 	chmod +x rwx.exe_omusubin.exe
 else
-	./rwx embed ./sample/grid.rb
+	./rwx embed ./rwx_omusubin.conf
 	chmod +x rwx_omusubin.exe
 endif
 

@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 			ss.clear(std::stringstream::goodbit);
 			ss << argv[2];
 			 
-			std::string embed_file_name = ss.str();
+			std::string embed_conf_name = ss.str();
 			 
 			Omusubin omusubin;
 			 
@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
 			//std::vector<std::string> file_type_vec{"TXT","DATA"};
 			//std::vector<std::string> file_path_vec{embed_file_name,"./assets/test.png"};
 			 
+			/*
 			std::vector<std::string> file_id_vec{"script"};
 			std::vector<std::string> file_type_vec{"TXT"};
 			std::vector<std::string> file_path_vec{embed_file_name};
@@ -55,6 +56,11 @@ int main(int argc, char *argv[])
 			if (omusubin.Insert(file_name, file_id_vec, file_type_vec, file_path_vec)) {
 				std::cout << "INSERT FROM FILE NAME DONE " << std::endl;
 			}
+			*/
+			if (omusubin.InsertFromConf(embed_conf_name)) {
+				std::cout << "INSERT FROM FILE NAME DONE " << std::endl;
+			}
+	
 
 			 
 		}else{
