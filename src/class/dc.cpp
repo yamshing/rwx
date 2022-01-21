@@ -31,6 +31,10 @@ void DC::Call(int nargs, VALUE *args)
 		 
 		m_wx_dc_p->DrawCircle(x, y, r);
 		 
+	}else if (func_name_str == "draw_image") {
+		 
+		std::cout << "draw image call (in dc.cpp) " << std::endl;
+		 
 	}else if (func_name_str == "set_brush") {
 		 
 		wxBrush brush;

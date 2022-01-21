@@ -10,9 +10,12 @@ module Rwx
 		end
 		def on_paint()
 			if @mouse_clicked
-				@dc.set_brush('#aaaaaaff')
-				@dc.set_pen('#ff0000',2,'dot_dash')  #dot, long_dash, short_dash, dot_dash
-				@dc.draw_circle(@mouse_x, @mouse_y, 10)
+				#@dc.set_brush('#aaaaaaff')
+				#@dc.set_pen('#ff0000',2,'dot_dash')  #dot, long_dash, short_dash, dot_dash
+				#@dc.draw_circle(@mouse_x, @mouse_y, 10)
+				 
+				@dc.draw_image(@image)
+				 
 			end
 		end
 		 
