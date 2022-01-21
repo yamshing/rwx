@@ -317,6 +317,10 @@ struct StaticFunc
 			//panel_p->CallOnInit(target);
 			app_p -> SetObjectToMap(target, sizer_p);
 			 
+		}else if (func_name_str == "init_image"){
+			 
+			std::cout << "init image call (in static_func.h) "  << std::endl;
+			 
 		}else if (func_name_str == "init_splitter"){
 			VALUE parent = args[0];
 			if (!check_class_name(parent, "Rwx::Frame")) {
@@ -351,6 +355,7 @@ struct StaticFunc
 		}else if (func_name_str == "notebook_call" || func_name_str == "splitter_call" ||   func_name_str == "panel_call"  || func_name_str == "sizer_call"){
 			panel_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_static_text" 
+				|| func_name_str == "init_image" 
 				|| func_name_str == "init_text_ctrl" 
 				|| func_name_str == "init_button"  
 				|| func_name_str == "init_radiobox" 
@@ -391,7 +396,6 @@ struct StaticFunc
 			Grid* grid_p = static_cast<Grid*>(app_p->GetObjectFromMap(target));
 			result = grid_p->Call(nargs, args);
 		}
-
 		 
 		return result;
 		 

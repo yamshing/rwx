@@ -29,7 +29,8 @@ VALUE librwx_TreeCtrl;
  
 VALUE librwx_Grid;
  
-VALUE librwx_AuiManager;;
+VALUE librwx_AuiManager;
+VALUE librwx_Image;
  
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
@@ -107,6 +108,7 @@ INITIALIZE(treelist)
 INITIALIZE(treectrl)
 INITIALIZE(auimanager)
 INITIALIZE(grid)
+INITIALIZE(image)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -271,6 +273,9 @@ Init_LibRwx(void)
 	rb_define_method(librwx_Grid, "delete_cell_value_with_index_arr", librwx_grid_delete_cell_value_with_index_arr, -1);
 	rb_define_method(librwx_Grid, "get_cell_value_with_index_arr", librwx_grid_get_cell_value_with_index_arr, -1);
 	rb_define_method(librwx_Grid, "get_grid_size", librwx_grid_get_grid_size, -1);
+
+	librwx_Image  = rb_define_class_under(librwx_Namespace, "Image", rb_cObject);
+	rb_define_method(librwx_Image, "initialize", librwx_image_initialize, -1);
 	 
 }
 
