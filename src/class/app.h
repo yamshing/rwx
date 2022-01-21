@@ -46,11 +46,14 @@ class App : public wxApp
 		void SetObjectToMap(VALUE value, wxObject* obj_p)
 		{
 			m_object_map[value] = obj_p;
-		}
+		};
+		 
 		wxObject* GetObjectFromMap(VALUE value)
 		{
 			return m_object_map[value];
-		}
+		};
+		 
+		void GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name);
 		 
 };
  

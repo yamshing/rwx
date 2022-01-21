@@ -5,7 +5,7 @@ module Rwx
 			@mouse_y = 0
 			@mouse_clicked = false
 			 
-			@image = Image.new(file_name:"./asset/test.png")
+			#@image = Image.new(file_name:"./asset/test.png")
 			 
 		end
 		def on_paint()

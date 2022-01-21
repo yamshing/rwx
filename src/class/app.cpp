@@ -109,3 +109,14 @@ bool App::OnInit()
 
 	return true;
 }
+
+void App::GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name)
+{
+	 
+	Omusubin omusubin;
+	omusubin.Load(m_app_path);
+	omusubin.GetBinDataByKey(embed_name, out_bin);
+	 
+}
+ 
+ 
