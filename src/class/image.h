@@ -8,8 +8,8 @@ class Image: public wxObject
 {
 
 	public:
-		Image (){
-		};
+		 
+		Image(int nargs, VALUE *args);
 		 
 		virtual ~Image (){};
 		 

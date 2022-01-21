@@ -27,6 +27,7 @@ extern "C"{
 #include "auimanager.h"
 #include "treectrl.h"
 #include "grid.h"
+#include "image.h"
  
 #include <wx/wx.h> 
 
@@ -319,7 +320,8 @@ struct StaticFunc
 			 
 		}else if (func_name_str == "init_image"){
 			 
-			std::cout << "init image call (in static_func.h) "  << std::endl;
+			Image* image_p = new Image(nargs, args);
+			app_p -> SetObjectToMap(target, image_p);
 			 
 		}else if (func_name_str == "init_splitter"){
 			VALUE parent = args[0];
