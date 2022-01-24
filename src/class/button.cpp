@@ -38,7 +38,7 @@ Button::Button(int nargs, VALUE *args)
 			wxBitmap img_bitmap = wxBitmap(*wx_image_p);
 			std::cout << "bitmap ok (in button.cpp) "  << std::endl;
 			 
-			wxBitmap bitmap( 100, 30 );
+			wxBitmap bitmap( 100, 100 );
 			wxMemoryDC dc;
 			dc.SelectObject( bitmap );
 			wxSystemSettings sys;
@@ -56,7 +56,7 @@ Button::Button(int nargs, VALUE *args)
 			dc.DrawText(_T("ボタン"), 25, 5);
 
 			dc.SelectObject( wxNullBitmap );
-			m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,30));
+			m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,100),wxBU_AUTODRAW);
 			 
 		}
 		 
