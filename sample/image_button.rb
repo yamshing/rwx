@@ -4,15 +4,17 @@ module Rwx
 		def on_init 
 			 
 			out_sizer = Sizer.new('box', 'vertical')
+			row_sizer = Sizer.new('box', 'horizontal')
 			 
-			row_2_sizer = Sizer.new('box', 'horizontal')
-			button_1 = Button.new(self, label:'Click Here',cb_inst:self, cb_name:'on_button_click' )
+			@image = Image.new(embed_name:"test_png")
 			 
-			row_2_sizer.add_spacer(20)
-			row_2_sizer.add(button_1)
+			button = Button.new(self, label:'Click Here',cb_inst:self, cb_name:'on_button_click', image: @image  )
+			 
+			row_sizer.add_spacer(20)
+			row_sizer.add(button)
 			 
 			out_sizer.add_spacer(20)
-			out_sizer.add(row_2_sizer)
+			out_sizer.add(row_sizer)
 			 
 			add_sizer(out_sizer)
 			 
