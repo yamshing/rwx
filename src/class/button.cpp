@@ -22,7 +22,40 @@ Button::Button(int nargs, VALUE *args)
 	App* app_p = static_cast<App*>(wxTheApp);
 
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
-	m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID,  wxString::FromUTF8(content_str));
+	 
+	wxImage img;
+
+	if (img.LoadFile("./asset/test.png",  wxBITMAP_TYPE_ANY)) {
+		 
+		//std::cout << "image button (in button.cpp) " << std::endl;
+		wxBitmap img_bitmap = wxBitmap(img);
+		 
+		wxBitmap bitmap( 100, 30 );
+		wxMemoryDC dc;
+		dc.SelectObject( bitmap );
+		wxSystemSettings sys;
+		 
+		//dc.SetBackground(wxBrush(wxTransparentColour));
+		//dc.SetBackground(*wxGREEN);
+		dc.SetBackground(wxBrush(sys.GetColour(wxSYS_COLOUR_BTNFACE)));
+		dc.SetPen(*wxRED_PEN);
+		dc.Clear();
+			 
+		//dc.SetBrush( *wxTRANSPARENT_BRUSH );
+		//dc.DrawRectangle( 0, 0, 100, 30 );
+		 
+		dc.DrawBitmap(img_bitmap,5, 5);
+		dc.DrawText(_T("ボタン"), 25, 5);
+		 
+		dc.SelectObject( wxNullBitmap );
+		m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,30));
+		 
+	}else{
+		m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID,  wxString::FromUTF8(content_str));
+	}
+
+	//m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID,  wxString::FromUTF8(content_str));
+	 
 	m_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
 	m_menu_callback_name_map[StaticFunc::ALL_EVENT_ID] = cb_name;
 	 
