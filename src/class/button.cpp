@@ -38,14 +38,14 @@ Button::Button(int nargs, VALUE *args)
 			wxBitmap img_bitmap = wxBitmap(*wx_image_p);
 			std::cout << "bitmap ok (in button.cpp) "  << std::endl;
 			 
-			wxBitmap bitmap( 100, 100 );
+			wxBitmap bitmap( 50, 90 );
 			wxMemoryDC dc;
 			dc.SelectObject( bitmap );
 			wxSystemSettings sys;
 
 			//dc.SetBackground(wxBrush(wxTransparentColour));
-			//dc.SetBackground(*wxGREEN);
-			dc.SetBackground(wxBrush(sys.GetColour(wxSYS_COLOUR_BTNFACE)));
+			dc.SetBackground(*wxGREEN);
+			//dc.SetBackground(wxBrush(sys.GetColour(wxSYS_COLOUR_BTNFACE)));
 			dc.SetPen(*wxRED_PEN);
 			dc.Clear();
 
@@ -53,10 +53,10 @@ Button::Button(int nargs, VALUE *args)
 			//dc.DrawRectangle( 0, 0, 100, 30 );
 
 			dc.DrawBitmap(img_bitmap,5, 5);
-			dc.DrawText(_T("ボタン"), 25, 5);
+			dc.DrawText(_T("button"), 25, 5);
 
 			dc.SelectObject( wxNullBitmap );
-			m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,100),wxBU_AUTODRAW);
+			m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,100),wxTHICK_FRAME);
 			 
 		}
 		 
