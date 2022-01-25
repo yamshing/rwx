@@ -67,19 +67,26 @@ Button::Button(int nargs, VALUE *args)
 		if (os_name == _T("Windows")) {
 			m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID);
 			m_button -> SetBitmap(img_bitmap);
-			//m_button -> SetBitmapPressed(bitmap);
-			m_button -> SetLabel(wxString::FromUTF8(content_str));
-		}else{
-			m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
-			m_button -> SetBitmap(img_bitmap);
 			 
 			if (hover_image != Qnil) {
 				m_button -> SetBitmapCurrent(hover_img_bitmap);
 			}
-		if (press_image != Qnil) {
+			if (press_image != Qnil) {
 				m_button -> SetBitmapPressed(press_img_bitmap);
 			}
 			 
+			m_button -> SetLabel(wxString::FromUTF8(content_str));
+		}else{
+			m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
+			m_button -> SetBitmap(img_bitmap);
+
+			if (hover_image != Qnil) {
+				m_button -> SetBitmapCurrent(hover_img_bitmap);
+			}
+			if (press_image != Qnil) {
+				m_button -> SetBitmapPressed(press_img_bitmap);
+			}
+
 			//m_button -> SetBitmapPressed(bitmap);
 		}
 		 
