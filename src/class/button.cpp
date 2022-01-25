@@ -12,6 +12,7 @@ Button::Button(int nargs, VALUE *args)
 	VALUE content = rb_hash_aref(option, ID2SYM(rb_intern("label")));
 	VALUE cb_inst = rb_hash_aref(option, ID2SYM(rb_intern("cb_inst")));
 	VALUE cb_name = rb_hash_aref(option, ID2SYM(rb_intern("cb_name")));
+	 
 	VALUE image = Qnil;
 	VALUE hover_image = Qnil;
 	VALUE press_image = Qnil;
@@ -22,6 +23,18 @@ Button::Button(int nargs, VALUE *args)
 	 
 	std::string content_str; 
 	StaticFunc::ValueToString(content, content_str);
+	int width =  -1;
+	int height = -1;
+
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("width")))) {
+		width = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("width"))));
+	}
+	 
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("height")))) {
+		height = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("height"))));
+	}
+	std::cout << "width << ',' height (in button.cpp) " << width << ',' << height << std::endl;
+	 
 	 
 	//rb_p(parent);
 	 
@@ -86,14 +99,21 @@ Button::Button(int nargs, VALUE *args)
 			if (press_image != Qnil) {
 				m_button -> SetBitmapPressed(press_img_bitmap);
 			}
-
+			 
+			std::cout << "set size (in button.cpp) "  << std::endl;
+			 
+			 
 			//m_button -> SetBitmapPressed(bitmap);
 		}
 		 
 	}else{
 		m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID,  wxString::FromUTF8(content_str));
 	}
-
+	 
+	if (width > 0 && height > 0) {
+		m_button -> SetMinSize(wxSize(width,height));
+	}
+	 
 	//m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID,  wxString::FromUTF8(content_str));
 	 
 	m_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
@@ -119,6 +139,7 @@ void Button::OnClick(wxCommandEvent& event)
 	StaticFunc::ValueToString(callback_name, callback_name_str);
 	ID callback_def_id = rb_intern(callback_name_str.c_str());
 	rb_funcall(callback_inst, callback_def_id,0);
+
 	 
 }
 

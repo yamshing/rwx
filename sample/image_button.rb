@@ -10,7 +10,11 @@ module Rwx
 			@hover_image = Image.new(embed_name:"hover_image")
 			@pressed_image = Image.new(embed_name:"pressed_image")
 			 
-			button = Button.new(self, label:'Click Here',cb_inst:self, cb_name:'on_button_click', image: @image, hover_image:@hover_image, pressed_image:@pressed_image  )
+			button = Button.new(self, {label:'クリック' ,
+														cb_inst:self, cb_name:'on_button_click', 
+														image: @image, hover_image:@hover_image, pressed_image:@pressed_image ,
+														width: 70, height: 25 
+												})
 			 
 			row_sizer.add_spacer(20)
 			row_sizer.add(button)
