@@ -38,7 +38,7 @@ Button::Button(int nargs, VALUE *args)
 			wxImage* wx_image_p = image_p -> GetWxImage();
 			wxBitmap img_bitmap = wxBitmap(*wx_image_p);
 			 
-			wxBitmap bitmap( 20, 20 );
+			/*wxBitmap bitmap( 20, 20 );
 			wxMemoryDC dc;
 			dc.SelectObject( bitmap );
 			wxSystemSettings sys;
@@ -56,8 +56,10 @@ Button::Button(int nargs, VALUE *args)
 			//dc.DrawText(_T("button"), 25, 5);
 
 			dc.SelectObject( wxNullBitmap );
+			*/
 			 
 			//m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,50));
+			 
 			 
 			wxString os_name =  wxPlatformInfo::Get().GetOperatingSystemFamilyName(); 
 			std::cout << "os_name (in button.cpp) " << os_name << std::endl;
@@ -65,12 +67,12 @@ Button::Button(int nargs, VALUE *args)
 			if (os_name == _T("Windows")) {
 				 
 				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID);
-				m_button -> SetBitmap(bitmap);
+				m_button -> SetBitmap(img_bitmap);
 				m_button -> SetLabel(wxString::FromUTF8(content_str));
 				 
 			}else{
 				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
-				m_button -> SetBitmap(bitmap);
+				m_button -> SetBitmap(img_bitmap);
 			}
 			 
 
