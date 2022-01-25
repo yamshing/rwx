@@ -1,5 +1,6 @@
 #include "button.h"
 #include "static_func.h"
+#include <wx/platinfo.h>
 
 Button::Button(int nargs, VALUE *args)
 {
@@ -36,28 +37,43 @@ Button::Button(int nargs, VALUE *args)
 			 
 			wxImage* wx_image_p = image_p -> GetWxImage();
 			wxBitmap img_bitmap = wxBitmap(*wx_image_p);
-			std::cout << "bitmap ok (in button.cpp) "  << std::endl;
 			 
-			wxBitmap bitmap( 50, 90 );
+			wxBitmap bitmap( 20, 20 );
 			wxMemoryDC dc;
 			dc.SelectObject( bitmap );
 			wxSystemSettings sys;
 
 			//dc.SetBackground(wxBrush(wxTransparentColour));
-			dc.SetBackground(*wxGREEN);
+			//dc.SetBackground(*wxGREEN);
 			//dc.SetBackground(wxBrush(sys.GetColour(wxSYS_COLOUR_BTNFACE)));
-			dc.SetPen(*wxRED_PEN);
-			dc.Clear();
+			//dc.SetPen(*wxRED_PEN);
+			//dc.Clear();
 
 			//dc.SetBrush( *wxTRANSPARENT_BRUSH );
 			//dc.DrawRectangle( 0, 0, 100, 30 );
 
-			dc.DrawBitmap(img_bitmap,5, 5);
-			dc.DrawText(_T("button"), 25, 5);
+			dc.DrawBitmap(img_bitmap, 0, 0);
+			//dc.DrawText(_T("button"), 25, 5);
 
 			dc.SelectObject( wxNullBitmap );
-			m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,100),wxTHICK_FRAME);
 			 
+			//m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,50));
+			 
+			wxString os_name =  wxPlatformInfo::Get().GetOperatingSystemFamilyName(); 
+			std::cout << "os_name (in button.cpp) " << os_name << std::endl;
+			 
+			if (os_name == _T("Windows")) {
+				 
+				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID);
+				m_button -> SetBitmap(bitmap);
+				m_button -> SetLabel(wxString::FromUTF8(content_str));
+				 
+			}else{
+				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
+				m_button -> SetBitmap(bitmap);
+			}
+			 
+
 		}
 		 
 	}else{
