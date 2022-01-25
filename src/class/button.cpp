@@ -13,69 +13,74 @@ Button::Button(int nargs, VALUE *args)
 	VALUE cb_inst = rb_hash_aref(option, ID2SYM(rb_intern("cb_inst")));
 	VALUE cb_name = rb_hash_aref(option, ID2SYM(rb_intern("cb_name")));
 	VALUE image = Qnil;
-
-	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("image")))) {
-		image = rb_hash_aref(option, ID2SYM(rb_intern("image")));
-	}
+	VALUE hover_image = Qnil;
+	VALUE press_image = Qnil;
 	 
+	wxBitmap img_bitmap;
+	wxBitmap hover_img_bitmap;
+	wxBitmap press_img_bitmap;
 	 
 	std::string content_str; 
 	StaticFunc::ValueToString(content, content_str);
 	 
-	std::cout << "button init (in button.cpp) "  << std::endl;
-	rb_p(parent);
+	//rb_p(parent);
 	 
 	App* app_p = static_cast<App*>(wxTheApp);
-
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+	 
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("image")))) {
+		image = rb_hash_aref(option, ID2SYM(rb_intern("image")));
+		Image* image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(image));
+
+		if (image_p) {
+			wxImage* wx_image_p = image_p -> GetWxImage();
+			img_bitmap = wxBitmap(*wx_image_p);
+		}
+	}
+	 
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("hover_image")))) {
+		hover_image = rb_hash_aref(option, ID2SYM(rb_intern("hover_image")));
+		Image* hover_image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(hover_image));
+		 
+		if (hover_image_p) {
+			wxImage* wx_hover_image_p = hover_image_p -> GetWxImage();
+			hover_img_bitmap = wxBitmap(*wx_hover_image_p);
+		}
+	}
+	 
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("pressed_image")))) {
+		press_image = rb_hash_aref(option, ID2SYM(rb_intern("pressed_image")));
+		Image* press_image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(press_image));
+		 
+		if (press_image_p) {
+			wxImage* wx_press_image_p = press_image_p -> GetWxImage();
+			press_img_bitmap = wxBitmap(*wx_press_image_p);
+		}
+	}
+	
+	 
+	wxString os_name =  wxPlatformInfo::Get().GetOperatingSystemFamilyName(); 
+	std::cout << "os_name (in button.cpp) " << os_name << std::endl;
 
 	if (image != Qnil) {
 		 
-		Image* image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(image));
-		 
-		if (image_p) {
+		if (os_name == _T("Windows")) {
+			m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID);
+			m_button -> SetBitmap(img_bitmap);
+			//m_button -> SetBitmapPressed(bitmap);
+			m_button -> SetLabel(wxString::FromUTF8(content_str));
+		}else{
+			m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
+			m_button -> SetBitmap(img_bitmap);
 			 
-			wxImage* wx_image_p = image_p -> GetWxImage();
-			wxBitmap img_bitmap = wxBitmap(*wx_image_p);
-			 
-			/*wxBitmap bitmap( 20, 20 );
-			wxMemoryDC dc;
-			dc.SelectObject( bitmap );
-			wxSystemSettings sys;
-
-			//dc.SetBackground(wxBrush(wxTransparentColour));
-			//dc.SetBackground(*wxGREEN);
-			//dc.SetBackground(wxBrush(sys.GetColour(wxSYS_COLOUR_BTNFACE)));
-			//dc.SetPen(*wxRED_PEN);
-			//dc.Clear();
-
-			//dc.SetBrush( *wxTRANSPARENT_BRUSH );
-			//dc.DrawRectangle( 0, 0, 100, 30 );
-
-			dc.DrawBitmap(img_bitmap, 0, 0);
-			//dc.DrawText(_T("button"), 25, 5);
-
-			dc.SelectObject( wxNullBitmap );
-			*/
-			 
-			//m_button = new wxBitmapButton(parent_p, StaticFunc::ALL_EVENT_ID,  bitmap, wxPoint(0,0), wxSize(100,50));
-			 
-			 
-			wxString os_name =  wxPlatformInfo::Get().GetOperatingSystemFamilyName(); 
-			std::cout << "os_name (in button.cpp) " << os_name << std::endl;
-			 
-			if (os_name == _T("Windows")) {
-				 
-				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID);
-				m_button -> SetBitmap(img_bitmap);
-				m_button -> SetLabel(wxString::FromUTF8(content_str));
-				 
-			}else{
-				m_button = new wxButton(parent_p, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(content_str));
-				m_button -> SetBitmap(img_bitmap);
+			if (hover_image != Qnil) {
+				m_button -> SetBitmapCurrent(hover_img_bitmap);
+			}
+		if (press_image != Qnil) {
+				m_button -> SetBitmapPressed(press_img_bitmap);
 			}
 			 
-
+			//m_button -> SetBitmapPressed(bitmap);
 		}
 		 
 	}else{
