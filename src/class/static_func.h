@@ -28,6 +28,7 @@ extern "C"{
 #include "treectrl.h"
 #include "grid.h"
 #include "image.h"
+#include "combo_box.h"
  
 #include <wx/wx.h> 
 
@@ -254,6 +255,10 @@ struct StaticFunc
 			 
 			RadioBox* radio_p = new RadioBox(nargs, args);
 			app_p -> SetObjectToMap(target, radio_p);
+
+		}else if (check_class_name(target,"Rwx::ComboBox") && func_name_str == "init_combobox"){
+			 
+			std::cout << "init combobox in stic (in static_func.h) " << std::endl;
 			 
 		}else if (check_class_name(target,"Rwx::CheckBox") && func_name_str == "init_checkbox"){
 			 
@@ -361,6 +366,7 @@ struct StaticFunc
 				|| func_name_str == "init_text_ctrl" 
 				|| func_name_str == "init_button"  
 				|| func_name_str == "init_radiobox" 
+				|| func_name_str == "init_combobox" 
 				|| func_name_str == "init_checkbox" 
 				|| func_name_str == "init_listbox" 
 				|| func_name_str == "init_treelist" 

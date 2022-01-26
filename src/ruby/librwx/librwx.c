@@ -31,6 +31,8 @@ VALUE librwx_Grid;
  
 VALUE librwx_AuiManager;
 VALUE librwx_Image;
+
+VALUE librwx_ComboBox;
  
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
@@ -109,6 +111,8 @@ INITIALIZE(treectrl)
 INITIALIZE(auimanager)
 INITIALIZE(grid)
 INITIALIZE(image)
+
+INITIALIZE(combobox)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -280,6 +284,9 @@ Init_LibRwx(void)
 
 	librwx_Image  = rb_define_class_under(librwx_Namespace, "Image", rb_cObject);
 	rb_define_method(librwx_Image, "initialize", librwx_image_initialize, -1);
+
+	librwx_ComboBox  = rb_define_class_under(librwx_Namespace, "ComboBox", rb_cObject);
+	rb_define_method(librwx_ComboBox, "initialize", librwx_combobox_initialize, -1);
 	 
 }
 

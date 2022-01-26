@@ -13,7 +13,7 @@ SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DI
 			 $(CLASS_DIR)/check_box.cpp $(CLASS_DIR)/button.cpp $(CLASS_DIR)/text_ctrl.cpp $(CLASS_DIR)/static_text.cpp $(CLASS_DIR)/sizer.cpp\
 			 $(CLASS_DIR)/panel.cpp $(CLASS_DIR)/splitter.cpp $(CLASS_DIR)/toolbar.cpp $(CLASS_DIR)/dc.cpp $(CLASS_DIR)/canvas.cpp $(CLASS_DIR)/frame.cpp\
 			 $(CLASS_DIR)/menubar.cpp $(CLASS_DIR)/list_box.cpp  $(CLASS_DIR)/list_ctrl.cpp  $(CLASS_DIR)/treelist.cpp $(CLASS_DIR)/auimanager.cpp\
-			 $(CLASS_DIR)/treectrl.cpp  $(CLASS_DIR)/grid.cpp $(CLASS_DIR)/image.cpp
+			 $(CLASS_DIR)/treectrl.cpp  $(CLASS_DIR)/grid.cpp $(CLASS_DIR)/image.cpp $(CLASS_DIR)/combo_box.cpp
 
 WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx
  
