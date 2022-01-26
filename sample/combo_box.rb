@@ -13,8 +13,14 @@ module Rwx
 			row_sizer.add_spacer(20)
 			row_sizer.add(button)
 	
+			@image = Image.new(embed_name:"test_png")
+			@hover_image = Image.new(embed_name:"hover_image")
+			@pressed_image = Image.new(embed_name:"pressed_image")
 			 
-			combo = ComboBox.new(self, { })
+			combo = ComboBox.new(self, { image: @image, 
+															hover_image:@hover_image, 
+															pressed_image:@pressed_image
+													})
 			 
 			row_sizer.add_spacer(20)
 			row_sizer.add(combo)
