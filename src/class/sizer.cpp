@@ -106,6 +106,13 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(canvas_child_p, wxSizerFlags(2).Expand());
 			return;
 		}
+		ComboBox* combo_box_child_p = dynamic_cast<ComboBox*>(app_p->GetObjectFromMap(child));
+		if (combo_box_child_p) {
+			m_sizer -> Add(combo_box_child_p -> GetComboBox());
+			return;
+		}
+
+
 
 		 
 		std::cout << "PLEASE ADD GETOBJECT IN SIZER.CPP "  << std::endl;

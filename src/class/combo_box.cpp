@@ -10,16 +10,26 @@ ComboBox::ComboBox(int nargs, VALUE *args)
 	 
 	App* app_p = static_cast<App*>(wxTheApp);
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
+	wxArrayString   arrItems;
+	arrItems.Add( "Solid" );
+	arrItems.Add( "Transparent" );
+	arrItems.Add( "Dot" );
+	arrItems.Add( "Long Dash" );
+	arrItems.Add( "Short Dash" );
+	arrItems.Add( "Dot Dash" );
+	arrItems.Add( "Backward Diagonal Hatch" );
+	arrItems.Add( "Cross-diagonal Hatch" );
+	arrItems.Add( "Forward Diagonal Hatch" );
+	arrItems.Add( "Cross Hatch" );
+	arrItems.Add( "Horizontal Hatch" );
+	arrItems.Add( "Vertical Hatch" );
 	 
-	/*m_combo = new wxComboBox(parent_p, StaticFunc::ALL_EVENT_ID,
-													 wxString::FromUTF8(label_str),
-													 wxDefaultPosition, wxDefaultSize,
-													 items,
-													 majorDim,
-													 0);
-	 
+	m_combo = new wxOwnerDrawnComboBox(parent_p,StaticFunc::ALL_EVENT_ID,wxEmptyString,
+			wxDefaultPosition, wxDefaultSize,
+			arrItems,
+			wxCB_SORT // wxNO_BORDER|wxCB_READONLY
+			);
 	++StaticFunc::ALL_EVENT_ID;
-	*/
 
 }
 VALUE ComboBox::Call(int nargs, VALUE *args)

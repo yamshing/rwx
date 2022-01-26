@@ -3,11 +3,15 @@
  
 #include "wx/wx.h"
 #include "ruby.h"
+ 
+#include "wx/combo.h"
+#include "wx/odcombo.h"
+
 
 class ComboBox :public wxObject
 {
 	private:
-		wxComboBox* m_combo;
+		wxOwnerDrawnComboBox* m_combo;
 		 
 	public:
 		ComboBox(int nargs, VALUE *args);
@@ -15,11 +19,8 @@ class ComboBox :public wxObject
 			delete m_combo; 
 		};
 		 
-		wxComboBox* GetComboBox(){
+		wxOwnerDrawnComboBox* GetComboBox(){
 			return m_combo;
-		};
-		void SetComboBox(wxComboBox* combo){
-			m_combo = combo;
 		};
 		VALUE Call(int nargs, VALUE *args);
 		 

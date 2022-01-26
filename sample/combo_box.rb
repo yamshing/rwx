@@ -5,9 +5,19 @@ module Rwx
 			 
 			out_sizer = Sizer.new('box', 'vertical')
 			row_sizer = Sizer.new('box', 'horizontal')
+			button = Button.new(self, {label:'クリック' ,
+														cb_inst:self, cb_name:'on_button_click', 
+														width: 70, height: 25 
+												})
+			 
+			row_sizer.add_spacer(20)
+			row_sizer.add(button)
+	
 			 
 			combo = ComboBox.new(self, { })
 			 
+			row_sizer.add_spacer(20)
+			row_sizer.add(combo)
 			 
 			out_sizer.add_spacer(20)
 			out_sizer.add(row_sizer)

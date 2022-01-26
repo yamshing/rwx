@@ -258,7 +258,8 @@ struct StaticFunc
 
 		}else if (check_class_name(target,"Rwx::ComboBox") && func_name_str == "init_combobox"){
 			 
-			std::cout << "init combobox in stic (in static_func.h) " << std::endl;
+			ComboBox* combo_p = new ComboBox(nargs, args);
+			app_p -> SetObjectToMap(target, combo_p);
 			 
 		}else if (check_class_name(target,"Rwx::CheckBox") && func_name_str == "init_checkbox"){
 			 
