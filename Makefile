@@ -50,6 +50,12 @@ else
 	chmod +x rwx_omusubin.exe
 endif
 
-
-
+all:
+	$(MAKE) wx;
+	$(MAKE) embed;
 	 
+clean:
+	rm rwx || true;
+	rm rwx_omusubin.exe || true;
+	rm rwx.exe || true;
+	rm rwx.exe_omusubin.exe || true;
