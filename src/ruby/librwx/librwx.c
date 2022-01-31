@@ -3,36 +3,7 @@
 
 VALUE librwx_Namespace;
  
-VALUE librwx_App;
-VALUE librwx_Frame;
-VALUE librwx_MenuBar;
-VALUE librwx_Menu;
-VALUE librwx_Canvas;
-VALUE librwx_DC;
-VALUE librwx_Panel;
-VALUE librwx_Splitter;
-VALUE librwx_Sizer;
-VALUE librwx_StaticText;
-VALUE librwx_TextCtrl;
-VALUE librwx_Toolbar;
-VALUE librwx_Button;
-VALUE librwx_Notebook;
- 
-VALUE librwx_RadioBox;
-VALUE librwx_CheckBox;
-VALUE librwx_ListBox;
- 
-VALUE librwx_ListCtrl;
- 
-VALUE librwx_TreeList;
-VALUE librwx_TreeCtrl;
- 
-VALUE librwx_Grid;
- 
-VALUE librwx_AuiManager;
-VALUE librwx_Image;
 
-VALUE librwx_ComboBox;
  
  
 VALUE(*global_app_callback_ptr)(VALUE, char* , int, VALUE*);
@@ -43,23 +14,7 @@ void set_app_pointer(VALUE(*cb)(VALUE, char* , int, VALUE*))
 }
  
 
-static VALUE
-librwx_canvas_initialize(int argc, VALUE *argv, VALUE self)
-{
-	if (argc == 1) {
-		 
-		ID method_def_id = rb_intern("new");
-		VALUE def_args[0];
-		VALUE dc = rb_class_new_instance(0,0, librwx_DC);
-		 
-		VALUE parent = argv[0];
-		rb_iv_set(self, "@parent", parent);
-		rb_iv_set(self, "@dc", dc);
-		 
-		global_app_callback_ptr(self,"init_canvas", argc, argv);
-		 
-	}
-}
+
 
  
 #define STRINGIFY(x) #x 
@@ -89,6 +44,50 @@ static VALUE librwx_##target##_##name (int argc, VALUE *argv, VALUE self)\
 	return librwx_##target##_call(argc, argv, self, #name );\
 }\
 
+VALUE librwx_App;
+VALUE librwx_Frame;
+VALUE librwx_MenuBar;
+VALUE librwx_Menu;
+VALUE librwx_Canvas;
+VALUE librwx_DC;
+VALUE librwx_Panel;
+VALUE librwx_Splitter;
+VALUE librwx_Sizer;
+VALUE librwx_StaticText;
+VALUE librwx_TextCtrl;
+VALUE librwx_Toolbar;
+VALUE librwx_Button;
+VALUE librwx_Notebook;
+VALUE librwx_RadioBox;
+VALUE librwx_CheckBox;
+VALUE librwx_ListBox;
+VALUE librwx_ListCtrl;
+VALUE librwx_TreeList;
+VALUE librwx_TreeCtrl;
+VALUE librwx_Grid;
+VALUE librwx_AuiManager;
+VALUE librwx_ComboBox;
+VALUE librwx_Image;
+
+ 
+static VALUE
+librwx_canvas_initialize(int argc, VALUE *argv, VALUE self)
+{
+	if (argc == 1) {
+		 
+		ID method_def_id = rb_intern("new");
+		VALUE def_args[0];
+		VALUE dc = rb_class_new_instance(0,0, librwx_DC);
+		 
+		VALUE parent = argv[0];
+		rb_iv_set(self, "@parent", parent);
+		rb_iv_set(self, "@dc", dc);
+		 
+		global_app_callback_ptr(self,"init_canvas", argc, argv);
+		 
+	}
+}
+ 
 INITIALIZE(text_ctrl)
 INITIALIZE(static_text)
 INITIALIZE(toolbar)
@@ -103,16 +102,14 @@ INITIALIZE(button)
 INITIALIZE(radiobox)
 INITIALIZE(checkbox)
 INITIALIZE(notebook)
-	 
 INITIALIZE(listbox)
 INITIALIZE(listctrl)
 INITIALIZE(treelist)
 INITIALIZE(treectrl)
 INITIALIZE(auimanager)
 INITIALIZE(grid)
-INITIALIZE(image)
-
 INITIALIZE(combobox)
+INITIALIZE(image)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -124,26 +121,20 @@ GENERIC_CALL(sizer_call)
 GENERIC_CALL(notebook_call)
 GENERIC_CALL(canvas_call)
 GENERIC_CALL(checkbox_call)
-	 
 GENERIC_CALL(text_ctrl_call)
 GENERIC_CALL(radiobox_call)
-
 GENERIC_CALL(auimanager_call)
-
 GENERIC_CALL(treectrl_call)
 GENERIC_CALL(listctrl_call)
-	 
 GENERIC_CALL(grid_call)
 	 
 	 
 FUNC_TO_GENERIC(frame,set_size)
 FUNC_TO_GENERIC(frame,set_sizer)
-	 
 FUNC_TO_GENERIC(dc,set_brush)
 FUNC_TO_GENERIC(dc,set_pen)
 FUNC_TO_GENERIC(dc,draw_circle)
 FUNC_TO_GENERIC(dc,draw_image)
-	 
 FUNC_TO_GENERIC(toolbar,add_tool)
 FUNC_TO_GENERIC(splitter,split)
 FUNC_TO_GENERIC(panel,add_sizer)
@@ -152,28 +143,24 @@ FUNC_TO_GENERIC(sizer,add_spacer)
 FUNC_TO_GENERIC(notebook,add)
 FUNC_TO_GENERIC(canvas,refresh)
 FUNC_TO_GENERIC(canvas,set_size)
-	 
 FUNC_TO_GENERIC(checkbox,get_value)
 FUNC_TO_GENERIC(checkbox,set_value)
-	 
 FUNC_TO_GENERIC(text_ctrl,get_value)
 FUNC_TO_GENERIC(text_ctrl,set_value)
-	 
 FUNC_TO_GENERIC(treectrl,get_selection)
-
 FUNC_TO_GENERIC(radiobox,get_selection)
 FUNC_TO_GENERIC(radiobox,set_selection)
-	 
 FUNC_TO_GENERIC(auimanager,add_pane)
-
 FUNC_TO_GENERIC(listctrl,get_selection)
-
 FUNC_TO_GENERIC(grid,set_cell_value)
 FUNC_TO_GENERIC(grid,get_selection)
 FUNC_TO_GENERIC(grid,set_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,get_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,get_grid_size)
 FUNC_TO_GENERIC(grid,delete_cell_value_with_index_arr)
+
+
+
 
 
 void
