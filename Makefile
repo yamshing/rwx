@@ -80,3 +80,6 @@ clean:
 	rm rwx_omusubin.exe || true;
 	rm rwx.exe || true;
 	rm rwx.exe_omusubin.exe || true;
+clean_mod:
+	rm ./src/ruby/librwx/librwx.c
+	 
