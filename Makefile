@@ -1,4 +1,4 @@
-
+ 
 ifeq ($(OS),Windows_NT)
 	SYS = "win"
 else
@@ -39,18 +39,23 @@ else
 	make install -j 4 && rm -r ../../lib/rwx/lib/ruby
 endif
 
-MODDIRS := $(wildcard mod/*/.)
-$(MODDIRS): FORCE
-	$(MAKE) -C $@ 
+include ./mod/*/Makefile
+ 
+#MODDIRS := $(wildcard mod/*/.)
+#$(MODDIRS): FORCE
+#	$(MAKE) -C $@ 
+#	 
+#FORCE:
 	 
-FORCE:
-	 
-wx: $(MODDIRS)
+#wx: $(MODDIRS)
+ 
+wx: 
 ifeq ($(SYS),"win")
 	echo 'win'
 	rm $(RWX_BIN_NAME).exe || true 
 	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
 else
+	 
 	rm $(RWX_BIN_NAME) || true;
 	rm $(RWX_BIN_NAME)_omusubin.exe || true;
 	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 

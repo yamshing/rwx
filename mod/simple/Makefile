@@ -1,3 +1,4 @@
 
-all:
-	echo "this is simple mod"
+SOURCE:=$(SOURCE) ./mod/simple/simple.cpp 
+INCLUDE:=$(INCLUDE) -I./mod/simple 
+ 
