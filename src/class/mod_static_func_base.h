@@ -5,8 +5,6 @@
 #include "app.h"
 #include "static_func.h"
 
-struct StaticFunc;
- 
 /*DEFINE*/
  
 extern "C" VALUE rb_cFloat;

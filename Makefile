@@ -39,7 +39,13 @@ else
 	make install -j 4 && rm -r ../../lib/rwx/lib/ruby
 endif
 
-include ./mod/*/Makefile
+include_submake:
+ifneq ($(wildcard ./mod/*),)
+	echo $(wildcard ./mod/*)
+include ./mod/*/Makefile  
+else
+	echo "NO MODULE"
+endif
  
 #MODDIRS := $(wildcard mod/*/.)
 #$(MODDIRS): FORCE
@@ -49,7 +55,7 @@ include ./mod/*/Makefile
 	 
 #wx: $(MODDIRS)
  
-wx: 
+wx:  include_submake
 	./include_module.sh $(SYS);
 ifeq ($(SYS),"win")
 	echo 'win'
@@ -81,7 +87,7 @@ clean:
 	rm rwx_omusubin.exe || true;
 	rm rwx.exe || true;
 	rm rwx.exe_omusubin.exe || true;
-clean_mod:
-	rm ./src/ruby/librwx/librwx.c
-	rm ./src/class/mod_static_func.h
+clean_mod: 
+	rm ./src/ruby/librwx/librwx.c || true;
+	rm ./src/class/mod_static_func.h || true;
 	 
