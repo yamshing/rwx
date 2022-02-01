@@ -159,7 +159,7 @@ FUNC_TO_GENERIC(grid,get_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,get_grid_size)
 FUNC_TO_GENERIC(grid,delete_cell_value_with_index_arr)
 
-
+/*DEFINE*/
 
 
 
@@ -275,5 +275,8 @@ Init_LibRwx(void)
 	librwx_ComboBox  = rb_define_class_under(librwx_Namespace, "ComboBox", rb_cObject);
 	rb_define_method(librwx_ComboBox, "initialize", librwx_combobox_initialize, -1);
 	 
+	/*CALL*/
+	 
+
 }
 
