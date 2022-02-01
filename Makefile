@@ -30,6 +30,7 @@ WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./winlib/wxwidget/lib/
 WINLIB = 
  
 ruby_lib:
+	./include_module.sh $(SYS)
 ifeq ($(SYS),"win")
 	cd zip/ruby-3_0_2 &&\
 	make install -j 4;

@@ -6,4 +6,5 @@ winlib
 *.exe
 rwx_omusubin.exe
  
+src/ruby/librwx/librwx.c
  
