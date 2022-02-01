@@ -1,1 +1,10 @@
-if (check_class_name(target,"Rwx::Simple") \&\& func_name_str == "init_simple"){ Simple* simple_p = new Simple(nargs, args); app_p -> SetObjectToMap(target, simple_p); }  if (func_name_str == "simple_call" ) { Simple* simple_p = static_cast<Simple*>(app_p->GetObjectFromMap(target)); result = simple_p->Call(nargs, args);  }
+if (check_class_name(target,"Rwx::Simple") \&\& func_name_str == "init_simple")
+{ 
+	Simple* simple_p = new Simple(nargs, args); 
+	app_p -> SetObjectToMap(target, simple_p); 
+}  
+if (func_name_str == "simple_call" ) 
+{ 
+	Simple* simple_p = static_cast<Simple*>(app_p->GetObjectFromMap(target)); 
+	result = simple_p->Call(nargs, args);  
+}

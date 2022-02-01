@@ -17,10 +17,12 @@ if  test $1 = "linux" ; then
 	do
 		echo $(basename ${name})
 		filename=$(basename ${name})
-		rwx_define_str="${rwx_define_str}`cat ${name}/rwx_define` \n"
-		rwx_call_str="${rwx_call_str}`cat ${name}/rwx_call` \n"
-		static_define_str="${static_define_str}`cat ${name}/static_define` \n"
-		static_call_str="${static_call_str}`cat ${name}/static_call` \n"
+		rwx_define_str="${rwx_define_str}`cat ${name}/rwx_define | sed -z 's/\n/\\\n/g' ` \n"
+		rwx_call_str="${rwx_call_str}`cat ${name}/rwx_call | sed -z 's/\n/\\\n/g' ` \n"
+		echo ${rwx_call_str}
+		 
+		static_define_str="${static_define_str}`cat ${name}/static_define | sed -z 's/\n/\\\n/g' ` \n"
+		static_call_str="${static_call_str}`cat ${name}/static_call | sed -z 's/\n/\\\n/g' ` \n"
 	
 		 
 	done
