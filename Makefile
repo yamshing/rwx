@@ -29,6 +29,16 @@ WINRUBYLIB = -L./winlib/rwx/lib -lx64-msvcrt-ruby300-static -I./winlib/rwx/inclu
 WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./winlib/wxwidget/lib/wx/include/msw-unicode-static-3.1 -I./winlib/wxwidget/include/wx-3.1 
 WINLIB = 
  
+ruby_lib:
+ifeq ($(SYS),"win")
+	cd zip/ruby-3_0_2 &&\
+	make install -j 4;
+else
+	cd zip/ruby-3_0_2 &&\
+	make install -j 4 && rm -r ../../lib/rwx/lib/ruby
+endif
+
+
 wx:
 ifeq ($(SYS),"win")
 	echo 'win'
