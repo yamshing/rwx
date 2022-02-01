@@ -4,6 +4,8 @@
 #include <wx/wx.h> 
 #include "app.h"
 
+/*DEFINE*/
+ 
 extern "C" VALUE rb_cFloat;
 extern "C" VALUE rb_cInteger;
 extern "C" VALUE rb_cSymbol;
@@ -22,6 +24,8 @@ struct ModStaticFunc
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
 		std::cout << "func_name (in mod_static_func.h) " << func_name << std::endl;
+		 
+		/*CALL*/
 		 
 		return result;
 		 

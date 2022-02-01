@@ -82,4 +82,5 @@ clean:
 	rm rwx.exe_omusubin.exe || true;
 clean_mod:
 	rm ./src/ruby/librwx/librwx.c
+	rm ./src/class/mod_static_func.h
 	 

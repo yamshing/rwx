@@ -1,0 +1,1 @@
+if (check_class_name(target,"Rwx::Simple") && func_name_str == "init_simple"){ Simple* simple_p = new StaticText(nargs, args); app_p -> SetObjectToMap(target, simple_p); }

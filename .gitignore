@@ -7,4 +7,5 @@ winlib
 rwx_omusubin.exe
  
 src/ruby/librwx/librwx.c
+src/class/mod_static_func.h
  
