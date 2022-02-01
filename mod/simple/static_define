@@ -1,1 +1,1 @@
-#define "simple.h"
+#include "simple.h"

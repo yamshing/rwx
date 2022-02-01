@@ -3,7 +3,10 @@
 
 #include <wx/wx.h> 
 #include "app.h"
+#include "static_func.h"
 
+struct StaticFunc;
+ 
 /*DEFINE*/
  
 extern "C" VALUE rb_cFloat;
@@ -18,12 +21,19 @@ extern "C" VALUE rb_cNilClass;
 
 struct ModStaticFunc
 {
-	static VALUE mod_app_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
+	static bool check_class_name(VALUE target, std::string must_be_str)
+	{
+		
+		std::string class_str = std::string(rb_class2name(CLASS_OF(target)));
+		bool res = (class_str == must_be_str);
+		return res;
+		 
+	}
+	static VALUE mod_app_callback(VALUE target, char* func_name_str,  int nargs, VALUE *args)
 	{
 		VALUE result = Qtrue;
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		std::cout << "func_name (in mod_static_func.h) " << func_name << std::endl;
 		 
 		/*CALL*/
 		 
