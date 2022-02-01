@@ -1,0 +1,1 @@
+VALUE librwx_Simple; \nINITIALIZE(simple) \nGENERIC_CALL(simple_call)

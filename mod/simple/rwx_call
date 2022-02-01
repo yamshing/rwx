@@ -1,0 +1,1 @@
+librwx_Simple  = rb_define_class_under(librwx_Namespace, "Simple", rb_cObject); \n rb_define_method(librwx_Simple, "initialize", librwx_simple_initialize, -1);
