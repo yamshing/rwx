@@ -39,8 +39,13 @@ else
 	make install -j 4 && rm -r ../../lib/rwx/lib/ruby
 endif
 
-
-wx:
+MODDIRS := $(wildcard mod/*/.)
+$(MODDIRS): FORCE
+	$(MAKE) -C $@ 
+	 
+FORCE:
+	 
+wx: $(MODDIRS)
 ifeq ($(SYS),"win")
 	echo 'win'
 	rm $(RWX_BIN_NAME).exe || true 
