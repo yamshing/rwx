@@ -29,6 +29,7 @@ extern "C"{
 #include "grid.h"
 #include "image.h"
 #include "combo_box.h"
+#include "mod_static_func.h"
  
 #include <wx/wx.h> 
 
@@ -405,6 +406,7 @@ struct StaticFunc
 			Grid* grid_p = static_cast<Grid*>(app_p->GetObjectFromMap(target));
 			result = grid_p->Call(nargs, args);
 		}
+		result = ModStaticFunc::mod_app_callback(target, func_name, nargs, args);
 		 
 		return result;
 		 
