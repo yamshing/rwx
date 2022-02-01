@@ -1,1 +1,1 @@
-VALUE librwx_Simple; \nINITIALIZE(simple) \nGENERIC_CALL(simple_call)
+VALUE librwx_Simple; \nINITIALIZE(simple) \nGENERIC_CALL(simple_call) \nFUNC_TO_GENERIC(simple,hello)

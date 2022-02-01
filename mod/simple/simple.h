@@ -10,8 +10,9 @@ class Simple :public wxObject
 		Simple(int nargs, VALUE *args);
 		 
 		virtual ~Simple (){
-			 
 		};
+		 
+		VALUE Call(int nargs, VALUE *args);
 		 
 };
 #endif 

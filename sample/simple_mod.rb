@@ -11,7 +11,8 @@ module Rwx
 		def on_init
 			 
 			@simple = Simple.new
-			p @simple
+			res = @simple.hello()
+			p res
 			 
 			@frame = Frame.new
 			@frame.set_size(1000, 500)
