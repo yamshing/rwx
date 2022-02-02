@@ -21,6 +21,10 @@ Canvas::Canvas(wxWindow *parent, VALUE rwx_canvas, VALUE rwx_dc)
 {
 	this->Bind(wxEVT_PAINT, &Canvas::OnPaint, this, wxID_ANY);
 	 
+	this->DragAcceptFiles(true);
+	this->Connect(wxEVT_DROP_FILES, wxDropFilesEventHandler(Canvas::OnDropFiles), NULL, this);
+	 
+	 
 	m_rwx_canvas = rwx_canvas;
 	m_rwx_dc = rwx_dc;
 	 
@@ -38,6 +42,25 @@ Canvas::Canvas(wxWindow *parent, VALUE rwx_canvas, VALUE rwx_dc)
 	 
 	 
 }
+ 
+void Canvas::OnDropFiles(wxDropFilesEvent& event)
+{
+	if (event.GetNumberOfFiles() == 1) {
+		wxString* dropped = event.GetFiles();
+		wxASSERT(dropped);
+		 
+		wxImage image;
+		 
+		std::cout << "*dropped (in canvas.cpp) " << *dropped << std::endl;
+		 
+		/*if (image.LoadFile(*dropped, wxBITMAP_TYPE_ANY)) {
+			m_canvas->SetBackgroundImage(image, *dropped);
+			m_canvas->Refresh(true);
+			}
+			*/
+	}
+}
+
  
 bool Canvas::CheckMouseEventFlag(std::string method_name)
 {

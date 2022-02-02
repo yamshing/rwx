@@ -26,6 +26,7 @@ class Canvas: public wxScrolledWindow
 		void OnMouseEvent(wxMouseEvent& event);
 		void OnEraseBG(wxEraseEvent& evt);
 		bool CheckMouseEventFlag(std::string method_name);
+		void OnDropFiles(wxDropFilesEvent& event);
 		 
 		DC* m_dc;
 		bool m_use_on_mouse_down;
