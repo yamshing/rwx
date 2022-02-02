@@ -2,12 +2,25 @@ module Rwx
 	class Canvas
 		def on_init()
 		 
+			@image = nil
+			 
 			#@image = Image.new(embed_name:"test_jpg")
 			#@image = Image.new(file_name:"./asset/test.png")
 			 
 		end
 		def on_paint()
-			#@dc.draw_image(@image, @mouse_x, @mouse_y)
+			if @image
+				@dc.draw_image(@image, 0, 0)
+			end
+		end
+		 
+		def on_dropfile(file_path)
+			 
+			p "#{file_path} drop"
+			 
+			@image = Image.new(file_name:file_path)
+			refresh
+			 
 		end
 
 	end

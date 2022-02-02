@@ -4,6 +4,7 @@
 #include <wx/graphics.h>
  
 #include "static_func.h"
+#include "string_util.h"
  
 extern "C" VALUE librwx_Canvas;
 
@@ -52,6 +53,24 @@ void Canvas::OnDropFiles(wxDropFilesEvent& event)
 		wxImage image;
 		 
 		std::cout << "*dropped (in canvas.cpp) " << *dropped << std::endl;
+		 
+		std::string method_name = "on_dropfile";
+		bool defined = StaticFunc::CheckFuncExist(librwx_Canvas, method_name);
+		 
+		if (defined) {
+			VALUE args[1];
+			 
+			wxString wxstr = *dropped;
+			std::string str;
+			StringUtil::WxStringToStdString(wxstr, &str);
+			std::cout << "str (in canvas.cpp) " << str << std::endl;
+			VALUE str_val =  rb_utf8_str_new(str.c_str(),str.length());
+			 
+			args[0] = str_val;
+			 
+			StaticFunc::CallRwxFunc(m_rwx_canvas, method_name, 1, args);
+			 
+		}
 		 
 		/*if (image.LoadFile(*dropped, wxBITMAP_TYPE_ANY)) {
 			m_canvas->SetBackgroundImage(image, *dropped);
