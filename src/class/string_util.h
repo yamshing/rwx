@@ -13,7 +13,7 @@ struct StringUtil
 {
 	static void WxStringToStdString(const wxString& wx_str, std::string* str_p){
 #ifdef __WXMSW__
-		icu_68::UnicodeString us(wx_str.wc_str());
+		icu_69::UnicodeString us(wx_str.wc_str());
 		us.toUTF8String(*str_p);
 #else
 		std::wstring ws(wx_str.ToStdWstring());

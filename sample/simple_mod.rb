@@ -12,6 +12,7 @@ module Rwx
 			 
 			@simple = Simple.new
 			res = @simple.hello()
+			p @simple
 			p res
 			 
 			@frame = Frame.new

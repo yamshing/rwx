@@ -24,7 +24,7 @@ LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
  
 #-mwindows not work with ruby 
 
-WINWXLIB = -L./winlib/wxwidget/lib  -lwx_mswu_propgrid-3.1 -lwx_mswu_ribbon-3.1 -lwx_mswu_stc-3.1 -lwx_mswu_webview-3.1 -lwx_mswu_gl-3.1 -lwx_mswu_richtext-3.1  -lwx_mswu_xrc-3.1  -lwx_mswu_aui-3.1 -lwx_mswu_html-3.1  -lwx_mswu_adv-3.1 -lwx_mswu_core-3.1 -lwx_baseu_xml-3.1 -lwx_baseu_net-3.1 -lwx_baseu-3.1 -lwxscintilla-3.1  -lwxregexu-3.1  -lwx_mswu_media-3.1  -lwx_mswu_qa-3.1           -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio    -D__WXMSW__
+WINWXLIB = -L./winlib/wxwidget/lib  -lwx_mswu_propgrid-3.1 -lwx_mswu_ribbon-3.1 -lwx_mswu_stc-3.1 -lwx_mswu_webview-3.1 -lwx_mswu_gl-3.1 -lwx_mswu_richtext-3.1  -lwx_mswu_xrc-3.1  -lwx_mswu_aui-3.1 -lwx_mswu_html-3.1  -lwx_mswu_adv-3.1 -lwx_mswu_core-3.1 -lwx_baseu_xml-3.1 -lwx_baseu_net-3.1 -lwx_baseu-3.1 -lwxscintilla-3.1  -lwxregexu-3.1  -lwx_mswu_media-3.1  -lwx_mswu_qa-3.1           -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio  -llerc   -D__WXMSW__
 WINRUBYLIB = -L./winlib/rwx/lib -lx64-msvcrt-ruby300-static -I./winlib/rwx/include/ruby-3.0.0 -I./winlib/rwx/include/ruby-3.0.0/x64-mingw32   -lm -lgmp  -lz -lws2_32 -lshell32 -limagehlp -liphlpapi
 WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./winlib/wxwidget/lib/wx/include/msw-unicode-static-3.1 -I./winlib/wxwidget/include/wx-3.1 
 WINLIB = 
@@ -32,7 +32,7 @@ WINLIB =
 ruby_lib:
 	./include_module.sh $(SYS);
 ifeq ($(SYS),"win")
-	cd zip/ruby-3_0_2 &&\
+	cd winzip/ruby-3_0_2 &&\
 	make install -j 4;
 else
 	cd zip/ruby-3_0_2 &&\
