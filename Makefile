@@ -27,7 +27,7 @@ LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
 WINWXLIB = -L./winlib/wxwidget/lib  -lwx_mswu_propgrid-3.1 -lwx_mswu_ribbon-3.1 -lwx_mswu_stc-3.1 -lwx_mswu_webview-3.1\
 					 -lwx_mswu_gl-3.1 -lwx_mswu_richtext-3.1  -lwx_mswu_xrc-3.1  -lwx_mswu_aui-3.1 -lwx_mswu_html-3.1  -lwx_mswu_adv-3.1\
 					 -lwx_mswu_core-3.1 -lwx_baseu_xml-3.1 -lwx_baseu_net-3.1 -lwx_baseu-3.1 -lwxscintilla-3.1  -lwxregexu-3.1  -lwx_mswu_media-3.1  -lwx_mswu_qa-3.1\
-					 -lpng -lz -ljpeg -LC:/msys64/mingw64/lib -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme\
+					 -lpng -lz -ljpeg  -ltiff -llzma -ljbig  -lwxregexu-3.1  -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme\
 					 -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz\
 					 -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32\
 					 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio  -llerc   -D__WXMSW__
