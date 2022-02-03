@@ -173,6 +173,8 @@ void Canvas::Call(int nargs, VALUE *args)
 		int w = NUM2INT(args[1]);
 		int h = NUM2INT(args[2]);
 		SetSize(w, h);
+		SetVirtualSize(w, h);
+		SetScrollbars(20, 20, 50, 50);
 	}
 	 
 }
