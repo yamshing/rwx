@@ -147,6 +147,15 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 			
 		}
 		 
+		Canvas* canvas_p = dynamic_cast<Canvas*>(app_p->GetObjectFromMap(pane));
+
+		if (canvas_p) {
+			wxAuiPaneInfo pi = wxAuiPaneInfo();
+			GetPaneInfo(pi, option);
+			m_aui_manager->AddPane(canvas_p, pi);
+			m_aui_manager->Update();
+		}
+		 
 		 
 	}
 	return result;
