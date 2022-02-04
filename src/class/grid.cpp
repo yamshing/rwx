@@ -279,6 +279,8 @@ void Grid::GetSelectedCellInRubyArr(VALUE rhash)
 	 
 	SELECTED_BLOCK_LOOP_START(range)
 		 
+		std::cout << "top_row << ',' << bottom_row (in grid.cpp) " << top_row << ',' << bottom_row << std::endl;
+	 
 		for (int i = top_row; i < bottom_row + 1; ++i) {
 			 
 			VALUE row = rb_ary_new();

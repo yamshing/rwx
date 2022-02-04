@@ -405,8 +405,9 @@ struct StaticFunc
 		}else if (func_name_str == "grid_call" ) {
 			Grid* grid_p = static_cast<Grid*>(app_p->GetObjectFromMap(target));
 			result = grid_p->Call(nargs, args);
+		}else{
+			result = ModStaticFunc::mod_app_callback(target, func_name, nargs, args);
 		}
-		result = ModStaticFunc::mod_app_callback(target, func_name, nargs, args);
 		 
 		return result;
 		 
