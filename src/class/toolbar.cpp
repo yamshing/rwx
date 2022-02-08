@@ -41,6 +41,13 @@ void Toolbar::Call(int nargs, VALUE *args)
 			m_wx_toolbar_p-> Bind(wxEVT_MENU, &Toolbar::OnMenu, this, StaticFunc::ALL_EVENT_ID);
 			StaticFunc::ALL_EVENT_ID ++;
 			 
+		}else if(type_str == "text_ctrl"){
+			 
+			wxTextCtrl* text_ctrl = new wxTextCtrl(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID, "",  wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
+			m_wx_toolbar_p->AddControl(text_ctrl, "Text Control");
+			 
+			StaticFunc::ALL_EVENT_ID ++;
+			 
 		}else if(type_str == "combo"){
 			 
 			wxComboBox *combo = new wxComboBox(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID, wxEmptyString, wxDefaultPosition, wxDefaultSize ); 

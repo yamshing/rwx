@@ -8,6 +8,7 @@ module Rwx
 			@toolbar.add_tool(type:"drop", title:"ドロップ", label:"Drop", desc:"This is drop", cb_inst:self, cb_name:"on_drop",content:["ドロップ1","ドロップ2","ドロップ3"] )
 			@toolbar.add_tool(type:"check", title:"チェック", label:"Check", desc:"This is check", cb_inst:self, cb_name:"on_check",content:["チェック1","チェック2","チェック3"] )
 			@toolbar.add_tool(type:"radio", title:"ラジオ", label:"Radio", desc:"This is radio", cb_inst:self, cb_name:"on_radio",content:["ラジオ1","ラジオ2","ラジオ3"] )
+			@toolbar.add_tool(type:"text_ctrl", title:"テキスト", label:"text_ctrl", desc:"This is text control", cb_inst:self )
        
 		end
 		def on_button_1
