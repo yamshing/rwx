@@ -6,6 +6,9 @@ module Rwx
 			@toolbar.add_tool(type:"button", title:"ボタン２", label:"button2", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
 			@toolbar.add_tool(type:"combo", title:"コンボ", label:"Combo", desc:"This is combo", cb_inst:self, cb_name:"on_combo",content:["コンボ1","コンボ2","コンボ3"] )
 			@toolbar.add_tool(type:"drop", title:"ドロップ", label:"Drop", desc:"This is drop", cb_inst:self, cb_name:"on_drop",content:["ドロップ1","ドロップ2","ドロップ3"] )
+			@toolbar.add_tool(type:"check", title:"チェック", label:"Check", desc:"This is check", cb_inst:self, cb_name:"on_check",content:["チェック1","チェック2","チェック3"] )
+			@toolbar.add_tool(type:"radio", title:"ラジオ", label:"Radio", desc:"This is radio", cb_inst:self, cb_name:"on_radio",content:["ラジオ1","ラジオ2","ラジオ3"] )
+       
 		end
 		def on_button_1
 			p "button 1"
@@ -18,6 +21,12 @@ module Rwx
 		end
 		def on_drop(selected)
       p "drop", selected
+		end
+		def on_check(selected)
+      p "check", selected
+		end
+		def on_radio(selected)
+      p "radio", selected
 		end
 	end
 	 
