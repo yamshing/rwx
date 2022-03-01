@@ -16,14 +16,18 @@ module Rwx
 		 
 		def on_button_click
 			@sub_frame = SubFrame.new
+			#@sub_frame.set_fullscreen()
 			@sub_frame.set_size(1000,1000)
+			 
 			@canvas = Canvas.new(@sub_frame)
+			@canvas.parent = @sub_frame
 			@canvas.set_size(1000,1000)
 		end
 		 
 	end
 	 
 	class Canvas
+		attr_accessor :parent
 		def on_init()
 			@image = Image.new
 			@image.capture_desktop()
@@ -32,6 +36,11 @@ module Rwx
 		 
 		def on_paint()
 			@dc.draw_image(@image, 0, 0)
+		end
+		 
+		def on_mouse_down(event)
+			p "mouse down", @parent
+			@parent.close
 		end
 		 
 	end

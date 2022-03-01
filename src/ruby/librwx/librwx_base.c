@@ -133,6 +133,9 @@ GENERIC_CALL(image_call)
 	 
 FUNC_TO_GENERIC(frame,set_size)
 FUNC_TO_GENERIC(frame,set_sizer)
+FUNC_TO_GENERIC(frame,set_fullscreen)
+FUNC_TO_GENERIC(frame,close)
+	 
 FUNC_TO_GENERIC(dc,set_brush)
 FUNC_TO_GENERIC(dc,set_pen)
 FUNC_TO_GENERIC(dc,draw_circle)
@@ -181,6 +184,8 @@ Init_LibRwx(void)
 	rb_define_method(librwx_Frame, "initialize", librwx_frame_initialize, -1);
 	rb_define_method(librwx_Frame, "set_size", librwx_frame_set_size, -1);
 	rb_define_method(librwx_Frame, "set_sizer", librwx_frame_set_sizer, -1);
+	rb_define_method(librwx_Frame, "set_fullscreen", librwx_frame_set_fullscreen, -1);
+	rb_define_method(librwx_Frame, "close", librwx_frame_close, -1);
 	 
 	librwx_MenuBar  = rb_define_class_under(librwx_Namespace, "MenuBar", rb_cObject);
 	rb_define_method(librwx_MenuBar, "initialize", librwx_menubar_initialize, -1);

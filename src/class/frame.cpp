@@ -81,6 +81,14 @@ void Frame::Call(int nargs, VALUE *args)
 		int h = NUM2INT(args[2]);
 		SetSize(wxSize(w,h));
 		 
+	}else if (func_name_str == "close") {
+		 
+		Close(); 
+		 
+	}else if (func_name_str == "set_fullscreen") {
+		 
+		ShowFullScreen(true); 
+		 
 	}else if (func_name_str == "set_sizer") {
 		 
 		App* app_p = static_cast<App*>(wxTheApp);
