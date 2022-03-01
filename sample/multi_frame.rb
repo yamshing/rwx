@@ -16,16 +16,28 @@ module Rwx
 		 
 		def on_button_click
 			@sub_frame = SubFrame.new
-			@sub_frame.set_size(500,500)
+			@sub_frame.set_size(1000,1000)
+			@canvas = Canvas.new(@sub_frame)
+			@canvas.set_size(1000,1000)
+		end
+		 
+	end
+	 
+	class Canvas
+		def on_init()
+			@image = Image.new
+			@image.capture_desktop()
+			 
+		end
+		 
+		def on_paint()
+			@dc.draw_image(@image, 0, 0)
 		end
 		 
 	end
 	 
 	class SubFrame < Frame
 		def on_init 
-			@image = Image.new
-			@image.capture_desktop()
-			 
 		end
 	end
 	 

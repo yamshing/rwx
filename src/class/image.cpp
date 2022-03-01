@@ -80,12 +80,15 @@ VALUE Image::Call(int nargs, VALUE *args)
 		int screen_w = size.GetWidth();
 		int screen_h = size.GetHeight();
 		 
-		m_wx_image->Create(screen_w, screen_h);
+		//m_wx_image->Create(screen_w, screen_h);
 		 
-		wxBitmap bitmap = wxBitmap(*m_wx_image);
-		Capture(&bitmap, 0,0, screen_w, screen_h, 0);
+		m_wx_image->Destroy();
 		 
-		//bitmap.SaveFile("./test.png", wxBITMAP_TYPE_PNG);
+		wxBitmap* bitmap = new wxBitmap(screen_w, screen_h);
+		Capture(bitmap, 0,0, screen_w, screen_h, 0);
+		m_wx_image  = new wxImage(bitmap->ConvertToImage());
+		 
+		//bitmap->SaveFile("./test.png", wxBITMAP_TYPE_PNG);
 		 
 	}
 	return result;
