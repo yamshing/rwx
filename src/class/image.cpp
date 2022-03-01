@@ -75,8 +75,77 @@ VALUE Image::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "capture_desktop") {
 		 
-		std::cout << "capture desk call (in image.cpp) "  << std::endl;
+		wxScreenDC screen;
+		wxSize size = screen.GetSize();
+		int screen_w = size.GetWidth();
+		int screen_h = size.GetHeight();
+		 
+		m_wx_image->Create(screen_w, screen_h);
+		 
+		wxBitmap bitmap = wxBitmap(*m_wx_image);
+		Capture(&bitmap, 0,0, screen_w, screen_h, 0);
+		 
+		//bitmap.SaveFile("./test.png", wxBITMAP_TYPE_PNG);
 		 
 	}
 	return result;
+}
+ 
+bool Image::Capture(wxBitmap* bitmap, int x, int y, int width, int height, int delay)
+{
+	 
+#ifdef __WXMAC__
+
+    char captureCommand[80] =""; 
+    sprintf(captureCommand, "sleep %d;%s", delay, "screencapture -x /tmp/wx_screen_capture.png");
+    system(captureCommand);
+
+    if(delay) Delay(delay);
+
+    wxBitmap fullscreen;
+    do
+    {
+        fullscreen = wxBitmap(wxT("/tmp/wx_screen_capture.png"), wxBITMAP_TYPE_PNG);
+    }
+    while(!fullscreen.IsOk());
+
+    *bitmap = fullscreen.GetSubBitmap(wxRect(x, y, width, height));
+
+    system("rm /tmp/wx_screen_capture.png");
+
+    return true;
+
+#else // Under other paltforms, take a real screenshot
+
+    if(delay) Delay(delay);
+
+    wxScreenDC dcScreen;
+
+    bitmap->Create(width, height);
+
+    wxMemoryDC memDC;
+    memDC.SelectObject((*bitmap));
+    memDC.Clear();
+
+    memDC.Blit( 0, 
+                0, 
+                width, 
+                height, 
+                &dcScreen, 
+                x, 
+                y  
+              );
+
+    memDC.SelectObject(wxNullBitmap);
+		 
+#endif // #ifdef __WXMAC__
+
+    return true;
+}
+ 
+void Image::Delay(int seconds)
+{
+    clock_t start = clock();
+    while ( clock() - start < (clock_t)CLOCKS_PER_SEC * seconds)
+        wxYieldIfNeeded();
 }

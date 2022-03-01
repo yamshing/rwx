@@ -21,8 +21,10 @@ class Image: public wxObject
 		VALUE Call(int nargs, VALUE *args);
 		 
 	private:
-		wxImage* m_wx_image;
 		 
+		bool Capture(wxBitmap* bitmap, int x, int y, int width, int height, int delay);
+		void Delay(int seconds);
+		wxImage* m_wx_image;
 		 
 };
 #endif
