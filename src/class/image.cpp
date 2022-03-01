@@ -59,6 +59,8 @@ Image::Image(int nargs, VALUE *args)
 		}
 
 			//rb_p(option);
+	}else{
+		m_wx_image  = new wxImage();
 	}
 
 }
