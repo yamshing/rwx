@@ -127,6 +127,8 @@ GENERIC_CALL(auimanager_call)
 GENERIC_CALL(treectrl_call)
 GENERIC_CALL(listctrl_call)
 GENERIC_CALL(grid_call)
+GENERIC_CALL(image_call)
+	 
 	 
 	 
 FUNC_TO_GENERIC(frame,set_size)
@@ -158,6 +160,8 @@ FUNC_TO_GENERIC(grid,set_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,get_cell_value_with_index_arr)
 FUNC_TO_GENERIC(grid,get_grid_size)
 FUNC_TO_GENERIC(grid,delete_cell_value_with_index_arr)
+
+FUNC_TO_GENERIC(image,capture_desktop)
 
 /*DEFINE*/
 
@@ -271,6 +275,7 @@ Init_LibRwx(void)
 
 	librwx_Image  = rb_define_class_under(librwx_Namespace, "Image", rb_cObject);
 	rb_define_method(librwx_Image, "initialize", librwx_image_initialize, -1);
+	rb_define_method(librwx_Image, "capture_desktop", librwx_image_capture_desktop, -1);
 
 	librwx_ComboBox  = rb_define_class_under(librwx_Namespace, "ComboBox", rb_cObject);
 	rb_define_method(librwx_ComboBox, "initialize", librwx_combobox_initialize, -1);

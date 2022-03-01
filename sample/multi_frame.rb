@@ -16,13 +16,16 @@ module Rwx
 		 
 		def on_button_click
 			@sub_frame = SubFrame.new
-			@sub_frame.set_size(500,500);
+			@sub_frame.set_size(500,500)
 		end
 		 
 	end
 	 
 	class SubFrame < Frame
 		def on_init 
+			@image = Image.new
+			@image.capture_desktop()
+			 
 		end
 	end
 	 

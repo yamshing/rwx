@@ -62,3 +62,19 @@ Image::Image(int nargs, VALUE *args)
 	}
 
 }
+ 
+VALUE Image::Call(int nargs, VALUE *args)
+{
+	VALUE func_name = args[0];
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	App* app_p = static_cast<App*>(wxTheApp);
+
+	VALUE result = Qfalse;
+	 
+	if (func_name_str == "capture_desktop") {
+		 
+		std::cout << "capture desk call (in image.cpp) "  << std::endl;
+		 
+	}
+	return result;
+}
