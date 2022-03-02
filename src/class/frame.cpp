@@ -85,6 +85,14 @@ void Frame::Call(int nargs, VALUE *args)
 		 
 		Close(); 
 		 
+	}else if (func_name_str == "show") {
+		 
+		Show();
+		 
+	}else if (func_name_str == "hide") {
+		 
+		Hide();
+		 
 	}else if (func_name_str == "set_fullscreen") {
 		 
 		ShowFullScreen(true); 
