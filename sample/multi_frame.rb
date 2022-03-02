@@ -16,12 +16,14 @@ module Rwx
 		 
 		def on_button_click
 			@sub_frame = SubFrame.new
-			#@sub_frame.set_fullscreen()
-			@sub_frame.set_size(1000,1000)
+			 
 			 
 			@canvas = Canvas.new(@sub_frame)
 			@canvas.parent = @sub_frame
-			@canvas.set_size(1000,1000)
+			#@canvas.set_size(1000,1000)
+			 
+			@sub_frame.set_fullscreen()
+			 
 		end
 		 
 	end
@@ -32,6 +34,9 @@ module Rwx
 			@image = Image.new
 			@image.capture_desktop()
 			 
+			@mouse_down_x = 0
+			@mouse_down_y = 0
+			 
 		end
 		 
 		def on_paint()
@@ -39,8 +44,27 @@ module Rwx
 		end
 		 
 		def on_mouse_down(event)
-			p "mouse down", @parent
-			@parent.close
+			@mouse_down_x = event[:pos_x]
+			@mouse_down_y = event[:pos_y]
+		end
+		 
+		def on_mouse_up(event)
+			mouse_x = event[:pos_x]
+			mouse_y = event[:pos_y]
+			 
+			capture_w = mouse_x - @mouse_down_x
+			capture_h = mouse_y - @mouse_down_y
+			 
+			#p "#{@mouse_down_x}, #{@mouse_down_y} : #{capture_w}, #{capture_h}"
+			 
+			@ocr = Ocr.new
+			 
+			ocr_result = @ocr.get_ocr_result(@image, @mouse_down_x, @mouse_down_y, capture_w, capture_h)
+			 
+			p "ocr result #{ocr_result}"
+			 
+			@parent.close()
+			 
 		end
 		 
 	end
