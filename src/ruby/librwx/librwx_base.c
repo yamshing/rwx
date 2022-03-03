@@ -142,6 +142,8 @@ FUNC_TO_GENERIC(dc,set_brush)
 FUNC_TO_GENERIC(dc,set_pen)
 FUNC_TO_GENERIC(dc,draw_circle)
 FUNC_TO_GENERIC(dc,draw_image)
+FUNC_TO_GENERIC(dc,draw_line)
+	 
 FUNC_TO_GENERIC(toolbar,add_tool)
 FUNC_TO_GENERIC(splitter,split)
 FUNC_TO_GENERIC(panel,add_sizer)
@@ -211,6 +213,7 @@ Init_LibRwx(void)
 	rb_define_method(librwx_DC, "set_pen", librwx_dc_set_pen, -1);
 
 	rb_define_method(librwx_DC, "draw_image", librwx_dc_draw_image, -1);
+	rb_define_method(librwx_DC, "draw_line", librwx_dc_draw_line, -1);
 	 
 	librwx_Toolbar  = rb_define_class_under(librwx_Namespace, "Toolbar", rb_cObject);
 	rb_define_method(librwx_Toolbar, "initialize", librwx_toolbar_initialize, -1);
