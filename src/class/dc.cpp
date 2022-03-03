@@ -72,11 +72,13 @@ void DC::Call(int nargs, VALUE *args)
 		wxPen pen;
 		GetColorPen(args[1], pen);
 		 
-		if (nargs > 1) {
+		std::cout << "nargs (in dc.cpp) " << nargs << std::endl;
+		 
+		if (nargs > 2) {
 			int w = NUM2INT(args[2]);
 			pen.SetWidth(w);
 			 
-			if (nargs > 2) {
+			if (nargs > 3) {
 				 
 				std::string style_name_str;
 				StaticFunc::ValueToString(args[3], style_name_str);
@@ -103,7 +105,6 @@ void DC::Call(int nargs, VALUE *args)
 					pen.SetStyle(wxPENSTYLE_LONG_DASH);
 				}else if(style_name_str == "short_dash"){
 					pen.SetStyle(wxPENSTYLE_SHORT_DASH);
-				}else if(style_name_str == "hort_dash"){
 				}
 			}
 		}
