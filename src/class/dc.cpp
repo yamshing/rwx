@@ -35,12 +35,12 @@ void DC::Call(int nargs, VALUE *args)
 		m_wx_dc_p->DrawCircle(x, y, r);
 		 
 	}else if (func_name_str == "draw_line") {
-		std::cout << "draw line (in dc.cpp) "  << std::endl;
+		//std::cout << "draw line (in dc.cpp) "  << std::endl;
 		int x1 = NUM2INT(args[1]);
 		int y1 = NUM2INT(args[2]);
 		int x2 = NUM2INT(args[3]);
 		int y2 = NUM2INT(args[4]);
-		std::cout << "x1 << ',' << y1 << ',' << x2 << ',' << y2 (in dc.cpp) " << x1 << ',' << y1 << ',' << x2 << ',' << y2 << std::endl;
+		//std::cout << "x1 << ',' << y1 << ',' << x2 << ',' << y2 (in dc.cpp) " << x1 << ',' << y1 << ',' << x2 << ',' << y2 << std::endl;
 
 		m_wx_dc_p->DrawLine(x1, y1,  x2, y2);
 		 
@@ -72,7 +72,7 @@ void DC::Call(int nargs, VALUE *args)
 		wxPen pen;
 		GetColorPen(args[1], pen);
 		 
-		std::cout << "nargs (in dc.cpp) " << nargs << std::endl;
+		//std::cout << "nargs (in dc.cpp) " << nargs << std::endl;
 		 
 		if (nargs > 2) {
 			int w = NUM2INT(args[2]);
