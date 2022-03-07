@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
 	std::string file_name = std::string(argv[0]);
 #ifdef __MINGW64__
-	FreeConsole();
+	//FreeConsole();
 #endif
 	int wx_argc = 1;
 	char* wx_argv[] = {argv[0]};
