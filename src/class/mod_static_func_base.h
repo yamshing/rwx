@@ -27,10 +27,12 @@ struct ModStaticFunc
 		return res;
 		 
 	}
-	static VALUE mod_app_callback(VALUE target, char* func_name_str,  int nargs, VALUE *args)
+	static VALUE mod_app_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		VALUE result = Qtrue;
 		App* app_p = static_cast<App*>(wxTheApp);
+		std::string func_name_str = std::string(func_name);
+		 
 		 
 		 
 		/*CALL*/
