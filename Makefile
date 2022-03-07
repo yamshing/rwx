@@ -28,14 +28,24 @@ LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
 #-lwx_mswu_gl-3.1 -lwx_mswu_richtext-3.1  -lwx_mswu_xrc-3.1  -lwx_mswu_aui-3.1 -lwx_mswu_html-3.1  -lwx_mswu_adv-3.1\
 #-lwx_mswu_core-3.1 -lwx_baseu_xml-3.1 -lwx_baseu_net-3.1 -lwx_baseu-3.1 -lwxscintilla-3.1  -lwxregexu-3.1  -lwx_mswu_media-3.1  -lwx_mswu_qa-3.1  -lwxregexu-3.1
 
-WINWXLIB = -L./winlib/wxwidget/lib\
-					`./winlib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=msw  --version=3.1 --unicode=yes --cxxflags` \
-					 -lpng -lz -ljpeg  -ltiff -llzma -ljbig\
-				 	 -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme\
-					 -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz\
-					 -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32\
-					 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio  -llerc   -D__WXMSW__
+#WINWXLIB = -L./winlib/wxwidget/lib\
+#					`./winlib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=msw  --version=3.1 --unicode=yes --cxxflags` \
+#					 -lpng -lz -ljpeg  -ltiff -llzma -ljbig\
+#				 	 -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme\
+#					 -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp  -lz\
+#					 -lrpcrt4 -loleaut32 -lole32 -luuid -llzma -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32\
+#					 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio  -llerc   -D__WXMSW__
 	 
+WINWXLIB= -D_FILE_OFFSET_BITS=64 -D__WXMSW__  -mconsole  /z/source_code/git/shingo/rwx/winlib/wxwidget/lib/libwx_mswu_aui-3.1.a \
+							 /z/source_code/git/shingo/rwx/winlib/wxwidget/lib/libwx_mswu_core-3.1.a \
+							 /z/source_code/git/shingo/rwx/winlib/wxwidget/lib/libwx_baseu-3.1.a \
+							 -LC:/msys64/mingw64/lib -lwxregexu-3.1 -lwxscintilla-3.1 -lexpat -lpng -ljpeg \
+							 -ltiff -ljbig -lz -lrpcrt4 -loleaut32 -lole32 -luuid -llzma \
+							 -luxtheme -lwinspool -lwinmm -lshell32 -lshlwapi -lcomctl32 -lcomdlg32 -ladvapi32 -lversion -lwsock32 -lgdi32 -loleacc -lwinhttp -ldeflate -lwebp -lzstd -licuuc -licudt -licuio  -llerc
+	
+
+
+
 WINRUBYLIB = -L./winlib/rwx/lib -lx64-msvcrt-ruby300-static -I./winlib/rwx/include/ruby-3.0.0 -I./winlib/rwx/include/ruby-3.0.0/x64-mingw32 \
 					 	 -lm -lgmp  -lz -lws2_32 -lshell32 -limagehlp -liphlpapi
  
