@@ -13,6 +13,8 @@ Grid::Grid(int nargs, VALUE *args)
 	m_prev_selected_col = -1;
 	m_prev_selected_row = -1;
 	 
+	m_custom_delim = "";
+	 
 	std::cout << "grig ctor (in grid.cpp) " << std::endl;
 
 	App* app_p = static_cast<App*>(wxTheApp);
@@ -30,6 +32,16 @@ Grid::Grid(int nargs, VALUE *args)
 	m_grid->Bind(wxEVT_TEXT_CUT, &Grid::OnCut, this);
 	m_grid->Bind(wxEVT_KEY_DOWN, &Grid::OnKeyDown, this);
 	 
+
+	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("separator")))) {
+		 
+		std::cout << "custom delim set (in grid.cpp) "  << std::endl;
+		 
+		VALUE custom_delim_val = rb_hash_aref(option, ID2SYM(rb_intern("separator")));
+		std::string custom_delim_str = std::string(StringValuePtr(custom_delim_val));
+		m_custom_delim = custom_delim_str;
+		 
+	}
 	 
 	//m_grid->DisableDragRowSize();
 	//m_grid->DisableDragColSize();
@@ -322,6 +334,12 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 	wx_res_str.Clear();
 	 
 	wxGridBlocks range = m_grid->GetSelectedBlocks();
+	std::string  delim = ",";
+	 
+	if (m_custom_delim != "") {
+		delim = m_custom_delim;
+		std::cout << "delim (in grid.cpp)-->>" << delim << "<<--" << std::endl;
+	}
 	 
 	SELECTED_BLOCK_LOOP_START(range)
 		 
@@ -335,7 +353,7 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 				wx_res_str.Append(wx_cell_val);  
 				 
 				if (j < right_col) {
-					wx_res_str.Append(wxT(","));  
+					wx_res_str.Append(delim);  
 				}
 				 
 			}

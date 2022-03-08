@@ -11,6 +11,7 @@ private:
 	wxGrid* m_grid;
 	int m_prev_selected_col;
 	int m_prev_selected_row;
+	std::string m_custom_delim;
 	 
 	void GetSelectedCellInRubyArr(VALUE rarray);
 	void GetSelectedCellInString(std::string& out_str);
