@@ -346,9 +346,10 @@ void Grid::GetSelectedCellInString(std::string& out_str)
 		for (int i = top_row; i < bottom_row + 1; ++i) {
 			for (int j = left_col; j < right_col + 1; ++j) {
 				wxString wx_cell_val = m_grid->GetCellValue(i, j);
-				if (wx_cell_val == "") {
+				/*if (wx_cell_val == "") {
 					wx_cell_val = wxT(" ");
 				}
+				*/
 				 
 				wx_res_str.Append(wx_cell_val);  
 				 
