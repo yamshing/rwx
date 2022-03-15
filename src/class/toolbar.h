@@ -13,6 +13,7 @@ private:
 	void OnCombo(wxCommandEvent& event);
 	void OnDropMenu(wxCommandEvent& event);
 	void OnCheck(wxCommandEvent& event);
+	void OnSlider(wxCommandEvent& event);
 	 
 	//int m_toolbar_item_count;
 	 
@@ -20,6 +21,7 @@ private:
 	std::unordered_map<int, VALUE> g_menu_callback_name_map{};
 	std::unordered_map<int, wxComboBox*> m_combobox_map{};
 	std::unordered_map<int, int> m_drop_index_offset_map{};
+	std::unordered_map<int, wxSlider*> m_slider_map{};
 	 
 public: 
 	Toolbar(){

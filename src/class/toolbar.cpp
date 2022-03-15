@@ -41,6 +41,26 @@ void Toolbar::Call(int nargs, VALUE *args)
 			m_wx_toolbar_p-> Bind(wxEVT_MENU, &Toolbar::OnMenu, this, StaticFunc::ALL_EVENT_ID);
 			StaticFunc::ALL_EVENT_ID ++;
 			 
+		}else if(type_str == "slider"){
+			 
+			int flags = wxBORDER_DEFAULT;
+			flags |= wxSL_AUTOTICKS;
+			 
+			wxSlider* slider = new wxSlider(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID,
+					100, 0, 100,
+					wxDefaultPosition, wxSize(100,20),
+					flags); 
+			 
+			m_wx_toolbar_p->AddControl(slider, "Slider Label");
+			 
+			g_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
+			g_menu_callback_name_map[StaticFunc::ALL_EVENT_ID] = cb_name;
+			m_slider_map[StaticFunc::ALL_EVENT_ID] = slider;
+			 
+			m_wx_toolbar_p-> Bind(wxEVT_SLIDER, &Toolbar::OnSlider, this, StaticFunc::ALL_EVENT_ID);
+			 
+			StaticFunc::ALL_EVENT_ID ++;
+			 
 		}else if(type_str == "text_ctrl"){
 			 
 			wxTextCtrl* text_ctrl = new wxTextCtrl(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID, "",  wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
@@ -231,5 +251,12 @@ void Toolbar::OnCombo(wxCommandEvent& event)
 	VALUE arg[1];
 	arg[0] = INT2NUM(selected); 
 	rb_funcall2(callback_inst, callback_def_id,1,arg);
+}
+void Toolbar::OnSlider(wxCommandEvent& event)
+{
+	int slider_value = event.GetInt();
+	 
+	std::cout << "slider_value (in toolbar.cpp) " << slider_value << std::endl;
+	 
 }
 
