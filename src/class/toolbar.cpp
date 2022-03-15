@@ -46,7 +46,7 @@ void Toolbar::Call(int nargs, VALUE *args)
 			int flags = wxBORDER_DEFAULT;
 			flags |= wxSL_AUTOTICKS;
 			 
-			wxSlider* slider = new wxSlider(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID,
+			Slider* slider = new Slider(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID,
 					100, 0, 100,
 					wxDefaultPosition, wxSize(100,20),
 					flags); 
@@ -55,7 +55,8 @@ void Toolbar::Call(int nargs, VALUE *args)
 			 
 			g_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
 			g_menu_callback_name_map[StaticFunc::ALL_EVENT_ID] = cb_name;
-			m_slider_map[StaticFunc::ALL_EVENT_ID] = slider;
+			 
+			slider->MenuId = StaticFunc::ALL_EVENT_ID;
 			 
 			m_wx_toolbar_p-> Bind(wxEVT_SLIDER, &Toolbar::OnSlider, this, StaticFunc::ALL_EVENT_ID);
 			 
@@ -256,7 +257,24 @@ void Toolbar::OnSlider(wxCommandEvent& event)
 {
 	int slider_value = event.GetInt();
 	 
-	std::cout << "slider_value (in toolbar.cpp) " << slider_value << std::endl;
+	wxObject* obj = event.GetEventObject();
+	 
+	Slider* slider = dynamic_cast<Slider*>(obj);
+	 
+	int menu_id = slider->MenuId;
+	 
+	//std::cout << "menu_id (in toolbar.cpp) " << menu_id << std::endl;
+	 
+	VALUE callback_inst = g_menu_callback_inst_map[menu_id];
+	VALUE callback_name = g_menu_callback_name_map[menu_id];
+	 
+	std::string callback_name_str;
+	StaticFunc::ValueToString(callback_name, callback_name_str);
+	ID callback_def_id = rb_intern(callback_name_str.c_str());
+	 
+	VALUE arg[1];
+	arg[0] = INT2NUM(slider_value); 
+	rb_funcall2(callback_inst, callback_def_id,1,arg);
 	 
 }
 

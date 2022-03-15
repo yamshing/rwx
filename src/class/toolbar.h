@@ -4,6 +4,24 @@
 #include "wx/wx.h"
 #include "ruby.h"
 
+class Slider :public wxSlider{
+	public:
+		int MenuId;
+		Slider(	wxWindow *		parent,
+				wxWindowID		id,
+				int		value,
+				int		minValue,
+				int		maxValue,
+				const wxPoint &		pos = wxDefaultPosition,
+				const wxSize &		size = wxDefaultSize,
+				long		style = wxSL_HORIZONTAL,
+				const wxValidator &		validator = wxDefaultValidator,
+				const wxString &		name = wxSliderNameStr 
+				):wxSlider(parent,id,value, minValue,maxValue,pos,size, style,validator,name)
+		{
+		};
+		~Slider(){};
+};
 class Toolbar :public wxObject
 {
 private:

@@ -2,10 +2,13 @@ module Rwx
 	class Frame
 		def on_init 
 			@toolbar = Toolbar.new(self)
-			@toolbar.add_tool(type:"slider", title:"スライダー", label:"slider", desc:"This is slider", cb_inst:self )
+			@toolbar.add_tool(type:"slider", title:"スライダー", label:"slider", desc:"This is slider", cb_inst:self, cb_name:"on_slider_1" )
 			 
 			@toolbar.add_tool(type:"button", title:"ボタン１", label:"button1", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
 			@toolbar.add_tool(type:"button", title:"ボタン２", label:"button2", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
+			 
+			@toolbar.add_tool(type:"slider", title:"スライダー2", label:"slider2", desc:"This is slider2", cb_inst:self, cb_name:"on_slider_2" )
+			 
 			@toolbar.add_tool(type:"combo", title:"コンボ", label:"Combo", desc:"This is combo", cb_inst:self, cb_name:"on_combo",content:["コンボ1","コンボ2","コンボ3"] )
 			@toolbar.add_tool(type:"drop", title:"ドロップ", label:"Drop", desc:"This is drop", cb_inst:self, cb_name:"on_drop",content:["ドロップ1","ドロップ2","ドロップ3"] )
 			@toolbar.add_tool(type:"check", title:"チェック", label:"Check", desc:"This is check", cb_inst:self, cb_name:"on_check",content:["チェック1","チェック2","チェック3"] )
@@ -13,12 +16,21 @@ module Rwx
 			@toolbar.add_tool(type:"text_ctrl", title:"テキスト", label:"text_ctrl", desc:"This is text control", cb_inst:self )
        
 		end
+		 
 		def on_button_1
 			p "button 1"
 		end
 		def on_button_2
 			p "button 2"
 		end
+		def on_slider_1(slider_value)
+			#p "slider 1",slider_value
+		end
+		 
+		def on_slider_2(slider_value)
+			#p "slider 2", slider_value
+		end
+		 
 		def on_combo(selected)
       p "combo", selected
 		end
