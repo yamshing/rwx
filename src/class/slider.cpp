@@ -10,12 +10,12 @@ Slider::Slider(int nargs, VALUE *args)
 	 
 	wxWindow* parent_p = static_cast<wxWindow*>(app_p->GetObjectFromMap(parent));
 	wxPanel* panel = dynamic_cast<wxPanel*>(parent_p);
+	std::cout << "panel (in slider.cpp) " << panel << std::endl;
 	 
 	if (panel) {
 		 
-		wxBoxSizer *m_slider_sizer = new wxBoxSizer(wxVERTICAL);
 		 
-		wxFlexGridSizer *gs = new wxFlexGridSizer(4, 2, 10, 10);
+		m_slider_sizer = new wxFlexGridSizer(4, 2, 10, 10);
 		 
 		wxStaticBoxSizer *static_sizer = new wxStaticBoxSizer(wxVERTICAL, panel, "SetProgressValue");
 		 
@@ -29,10 +29,7 @@ Slider::Slider(int nargs, VALUE *args)
 		//m_slider->SetTickFreq(10);
 		 
 		static_sizer->Add(m_slider);
-		gs->Add(static_sizer, 0, wxEXPAND);
-		 
-		m_slider_sizer->Add(gs);
-		panel->SetSizer(m_slider_sizer);
+		m_slider_sizer->Add(static_sizer, 0, wxEXPAND);
 		 
 		 
 	}

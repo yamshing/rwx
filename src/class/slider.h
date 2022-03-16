@@ -9,7 +9,7 @@ class Slider :public wxObject
 {
 private:
 	wxSlider* m_slider;
-	wxBoxSizer* m_slider_sizer;
+	wxFlexGridSizer* m_slider_sizer;
 	 
 	 
 public:
@@ -23,7 +23,7 @@ public:
 		return m_slider;
 	};
 	 
-	wxBoxSizer* GetSliderSizer(){
+	wxFlexGridSizer* GetSliderSizer(){
 		return m_slider_sizer;
 	};
 	 

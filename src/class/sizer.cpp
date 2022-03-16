@@ -111,6 +111,19 @@ void Sizer::Call(int nargs, VALUE *args)
 			m_sizer -> Add(combo_box_child_p -> GetComboBox());
 			return;
 		}
+		Slider* slider_child_p = dynamic_cast<Slider*>(app_p->GetObjectFromMap(child));
+		 
+		if (slider_child_p) {
+			wxFlexGridSizer* gs =  slider_child_p->GetSliderSizer();
+			 
+			std::cout << "gs (in sizer.cpp) " << gs << std::endl;
+			 
+			m_sizer->Add(gs);
+			 
+			return;
+		}
+
+
 
 
 
