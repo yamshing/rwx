@@ -30,6 +30,7 @@ extern "C"{
 #include "image.h"
 #include "combo_box.h"
 #include "mod_static_func.h"
+#include "slider.h"
  
 #include <wx/wx.h> 
 
@@ -262,6 +263,11 @@ struct StaticFunc
 			ComboBox* combo_p = new ComboBox(nargs, args);
 			app_p -> SetObjectToMap(target, combo_p);
 			 
+		}else if (check_class_name(target,"Rwx::Slider") && func_name_str == "init_slider"){
+			 
+			Slider* slider_p = new Slider(nargs, args);
+			app_p -> SetObjectToMap(target, slider_p);
+	
 		}else if (check_class_name(target,"Rwx::CheckBox") && func_name_str == "init_checkbox"){
 			 
 			CheckBox* checkbox_p = new CheckBox(nargs, args);
@@ -379,6 +385,7 @@ struct StaticFunc
 				|| func_name_str == "init_sizer"
 				|| func_name_str == "init_splitter"
 				|| func_name_str == "init_grid"
+				|| func_name_str == "init_slider"
 				|| func_name_str == "init_listctrl"  ){
 			init_callback(target, func_name, nargs, args);
 			 

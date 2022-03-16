@@ -68,6 +68,7 @@ VALUE librwx_Grid;
 VALUE librwx_AuiManager;
 VALUE librwx_ComboBox;
 VALUE librwx_Image;
+VALUE librwx_Slider;
 
  
 static VALUE
@@ -110,6 +111,7 @@ INITIALIZE(auimanager)
 INITIALIZE(grid)
 INITIALIZE(combobox)
 INITIALIZE(image)
+INITIALIZE(slider)
 	 
 	 
 GENERIC_CALL(dc_call)
@@ -292,6 +294,9 @@ Init_LibRwx(void)
 
 	librwx_ComboBox  = rb_define_class_under(librwx_Namespace, "ComboBox", rb_cObject);
 	rb_define_method(librwx_ComboBox, "initialize", librwx_combobox_initialize, -1);
+
+	librwx_Slider  = rb_define_class_under(librwx_Namespace, "Slider", rb_cObject);
+	rb_define_method(librwx_Slider, "initialize", librwx_slider_initialize, -1);
 	 
 	/*CALL*/
 	 

@@ -46,7 +46,7 @@ void Toolbar::Call(int nargs, VALUE *args)
 			int flags = wxBORDER_DEFAULT;
 			flags |= wxSL_AUTOTICKS;
 			 
-			Slider* slider = new Slider(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID,
+			ToolbarSlider* slider = new ToolbarSlider(m_wx_toolbar_p, StaticFunc::ALL_EVENT_ID,
 					100, 0, 100,
 					wxDefaultPosition, wxSize(100,20),
 					flags); 
@@ -259,7 +259,7 @@ void Toolbar::OnSlider(wxCommandEvent& event)
 	 
 	wxObject* obj = event.GetEventObject();
 	 
-	Slider* slider = dynamic_cast<Slider*>(obj);
+	ToolbarSlider* slider = dynamic_cast<ToolbarSlider*>(obj);
 	 
 	int menu_id = slider->MenuId;
 	 
