@@ -9,6 +9,8 @@ class Slider :public wxObject
 {
 private:
 	wxSlider* m_slider;
+	wxBoxSizer* m_slider_sizer;
+	 
 	 
 public:
 	Slider (int nargs, VALUE *args);
@@ -21,9 +23,12 @@ public:
 		return m_slider;
 	};
 	 
+	wxBoxSizer* GetSliderSizer(){
+		return m_slider_sizer;
+	};
+	 
 	//VALUE Call(int nargs, VALUE *args);
-
-
+	 
 private:
 	/* data */
 };
