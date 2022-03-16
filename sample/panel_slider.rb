@@ -6,7 +6,7 @@ module Rwx
 			 
 			slider = Slider.new(self)
 			 
-			row_1_sizer.add(slider)
+			#row_1_sizer.add(slider)
 			 
 			out_sizer.add(row_1_sizer)
 			 
