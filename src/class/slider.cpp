@@ -15,23 +15,46 @@ Slider::Slider(int nargs, VALUE *args)
 	 
 	if (panel) {
 		 
-		m_slider_sizer = new wxFlexGridSizer(1, 1, 0, 0);
-		 
-		wxStaticBoxSizer *static_sizer = new wxStaticBoxSizer(wxVERTICAL, panel, "");
+		m_slider_sizer = new wxStaticBoxSizer(wxVERTICAL, panel, "");
 		 
 		int flags = 0;
+		int min_value = 0;
+		int max_value = 100;
+		int value = 50;
+		int width = 200;
+		int tick_freq = 50;
 		 
-		flags |= wxSL_MIN_MAX_LABELS;
-		flags |= wxSL_VALUE_LABEL;
 		flags |= wxSL_AUTOTICKS;
 		 
-		m_slider = new wxSlider(static_sizer->GetStaticBox(), 100, 0, 0, 100, wxDefaultPosition, wxSize(250, -1),flags);
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("with_tick_label")))) {
+			flags |= wxSL_VALUE_LABEL;
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("with_min_max_label")))) {
+			flags |= wxSL_MIN_MAX_LABELS;
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("value")))) {
+			value = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("value"))));
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("min_value")))) {
+			min_value = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("min_value"))));
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("max_value")))) {
+			max_value = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("max_value"))));
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("width")))) {
+			width = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("width"))));
+		}
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("tick_freq")))) {
+			tick_freq = NUM2INT(rb_hash_aref(option, ID2SYM(rb_intern("tick_freq"))));
+		}
 		 
-		//m_slider->SetTickFreq(10);
+		m_slider = new wxSlider(m_slider_sizer->GetStaticBox(), StaticFunc::ALL_EVENT_ID, value, min_value, max_value, wxDefaultPosition, wxSize(width, -1),flags);
 		 
-		static_sizer->Add(m_slider);
-		m_slider_sizer->Add(static_sizer, 0, wxEXPAND);
+		++ StaticFunc::ALL_EVENT_ID;
 		 
+		m_slider->SetTickFreq(tick_freq);
+		 
+		m_slider_sizer->Add(m_slider);
 		 
 	}
 

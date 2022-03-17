@@ -9,8 +9,7 @@ module Rwx
 			out_sizer.add(row_1_sizer)
 	
 			row_3_sizer = Sizer.new('box', 'horizontal')
-			slider = Slider.new(self)
-			 
+			slider = Slider.new(self, {with_tick_label:true, with_min_max_label:true, min_value:1, max_value:20, value:1, width:200, tick_freq:10 } )
 			row_3_sizer.add(slider)
 			 
 			out_sizer.add_spacer(50)

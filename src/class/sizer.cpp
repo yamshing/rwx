@@ -114,9 +114,7 @@ void Sizer::Call(int nargs, VALUE *args)
 		Slider* slider_child_p = dynamic_cast<Slider*>(app_p->GetObjectFromMap(child));
 		 
 		if (slider_child_p) {
-			wxFlexGridSizer* gs =  slider_child_p->GetSliderSizer();
-			 
-			std::cout << "gs (in sizer.cpp) " << gs << std::endl;
+			wxStaticBoxSizer* gs =  slider_child_p->GetSliderSizer();
 			 
 			m_sizer->Add(gs);
 			 
