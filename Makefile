@@ -1,8 +1,10 @@
  
 ifeq ($(OS),Windows_NT)
 	SYS = "win"
+	EMBED_OMUSUBIN_CONF_NAME = "./win_rwx_omusubin.conf"
 else
 	SYS = "linux"
+	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
 endif
  
 OMUSUBIN_DIR="omusubin/src/class"
@@ -98,10 +100,10 @@ endif
 
 embed:
 ifeq ($(SYS),"win")
-	./$(RWX_BIN_NAME).exe embed ./win_rwx_omusubin.conf
+	./$(RWX_BIN_NAME).exe embed $(EMBED_OMUSUBIN_CONF_NAME)
 	chmod +x rwx.exe_omusubin.exe
 else
-	./$(RWX_BIN_NAME) embed ./rwx_omusubin.conf
+	./$(RWX_BIN_NAME) embed $(EMBED_OMUSUBIN_CONF_NAME) 
 	chmod +x rwx_omusubin.exe
 endif
 
@@ -109,6 +111,10 @@ all:
 	$(MAKE) wx;
 	$(MAKE) embed;
 	 
+all_mod: include_submake
+	$(MAKE) wx;
+	$(MAKE) embed_mod;
+	
 clean:
 	rm rwx || true;
 	rm rwx_omusubin.exe || true;
