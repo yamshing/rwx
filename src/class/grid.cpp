@@ -219,7 +219,7 @@ void Grid::OnCellClick(wxGridEvent& event)
 	 
 	wxRect cell_rect = m_grid->CellToRect(row, col);
 	 
-	int edge_click_margin = 2;
+	int edge_click_margin = 3;
 	 
 	int cell_right = cell_rect.x + label_row + cell_rect.width;
 	int cell_left = cell_rect.x + label_row;
@@ -240,9 +240,12 @@ void Grid::OnCellClick(wxGridEvent& event)
 	//std::cout << "label_col << ',' << label_row (in grid.cpp) " << label_col << ',' << label_row << std::endl;
 	//std::cout << "cell_rect.x << ',' << cell_rect.y << ',' cell_rect.w << ',' << cell_rect.h (in grid.cpp) " << cell_rect.x << ',' << cell_rect.y << ',' << cell_rect.width << ',' << cell_rect.height << std::endl;
 	//std::cout << "cell_left << ',' << cell_right (in grid.cpp) " << cell_left << ',' << cell_right << std::endl;
-	//std::cout << "left_diff << ',' << right_diff (in grid.cpp) " << left_diff << ',' << right_diff << std::endl;
+	
+	std::cout << "left_diff << ',' << right_diff (in grid.cpp) " << left_diff << ',' << right_diff << std::endl;
+	std::cout << "top_diff << ',' << bottom_diff (in grid.cpp) " << top_diff << ',' << bottom_diff << std::endl;
 	 
 	if (left_diff < edge_click_margin || right_diff < edge_click_margin || top_diff < edge_click_margin || bottom_diff < edge_click_margin) {
+		std::cout << "skipping event (in grid.cpp) "  << std::endl;
 		event.Skip();
 	}else{
 		 

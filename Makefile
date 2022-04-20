@@ -107,13 +107,17 @@ else
 	chmod +x rwx_omusubin.exe
 endif
 
-all:
+all_embed:
 	$(MAKE) wx;
 	$(MAKE) embed;
 	 
 all_mod: include_submake
 	$(MAKE) wx;
 	$(MAKE) embed_mod;
+	 
+all:
+	$(MAKE) wx;
+	
 	
 clean:
 	rm rwx || true;
