@@ -42,7 +42,7 @@ LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
 #------------------------------
 # we cannot use wx-config because we must set mconsole option for ruby
 #  
-WINWXLIB= -D_FILE_OFFSET_BITS=64 -D__WXMSW__  -mconsole  ./winlib/wxwidget/lib/libwx_mswu_aui-3.1.a \
+WINWXLIB= -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=0  -D__WXMSW__  -mconsole  ./winlib/wxwidget/lib/libwx_mswu_aui-3.1.a \
 							 ./winlib/wxwidget/lib/libwx_mswu_core-3.1.a \
 							 ./winlib/wxwidget/lib/libwx_baseu-3.1.a \
 							 -LC:/msys64/mingw64/lib -lwxregexu-3.1 -lwxscintilla-3.1 -lexpat -lpng -ljpeg \
