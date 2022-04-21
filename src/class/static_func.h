@@ -72,114 +72,6 @@ struct StaticFunc
 		return res;
 		 
 	}
-	static void frame_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
-	{
-		std::string func_name_str = std::string(func_name);
-		App* app_p = static_cast<App*>(wxTheApp);
-		 
-		if (func_name_str == "init_frame"){
-			 
-			Frame* frame_p = new Frame("Minimal wxWidgets App");
-			app_p->SetFrameP(frame_p);
-			app_p -> SetObjectToMap(target, frame_p);
-			frame_p->m_rwx_frame = target;
-			frame_p->CallOnInit();
-			frame_p -> Show(true);
-			 
-		}else if (func_name_str == "frame_call"){
-			 
-			//std::cout << "framecall (in static_func.h) "  << std::endl;
-			Frame* frame_p = app_p->GetFrameP();
-			frame_p->Call(nargs, args);
-		}
-	}
-	static void menu_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
-	{
-		std::string func_name_str = std::string(func_name);
-		App* app_p = static_cast<App*>(wxTheApp);
-	
-		if (func_name_str == "init_menubar"){
-
-			VALUE parent = args[0];
-
-			if (!check_class_name(parent, "Rwx::Frame")) {
-				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR MENUBAR ! ***"  << std::endl;
-				return;
-			}
-
-			Menubar* menubar_p = new Menubar();
-
-			app_p -> SetObjectToMap(target, menubar_p);
-
-			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
-
-			frame_p->SetMenuBar(menubar_p);
-		}else if (func_name_str == "init_menu"){
-
-			VALUE parent = args[0];
-			if (!check_class_name(parent, "Rwx::MenuBar")) {
-				std::cerr << "*** PLEASE SET MENUBAR CLASS AS PARENT FOR MENU ! ***"  << std::endl;
-				return;
-			}
-
-			VALUE title = args[1];
-			VALUE content_arr = args[2];
-
-			Menubar* menubar_p = static_cast<Menubar*>(app_p->GetObjectFromMap(parent));
-			if (menubar_p) {
-				menubar_p->AddMenu(target, title, content_arr);
-			}
-		}else if (func_name_str == "init_toolbar"){
-			 
-			VALUE parent = args[0];
-			VALUE option = args[1];
-			 
-			//std::cout << "option (in static_func.h) " << option << std::endl;
-			 
-			if (!check_class_name(parent, "Rwx::Frame")) {
-				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
-				return;
-			}
-			 
-			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
-			 
-			Toolbar* toolbar_p = new Toolbar();
-			app_p -> SetObjectToMap(target, toolbar_p);
-			 
-			//long style = wxTB_FLAT | wxTB_DOCKABLE | wxTB_TEXT;
-			//style &= ~(wxTB_HORIZONTAL | wxTB_VERTICAL | wxTB_BOTTOM | wxTB_RIGHT | wxTB_HORZ_LAYOUT); 
-			//long style = wxTB_NOICONS | wxTB_TEXT | wxTB_VERTICAL | wxTB_DOCKABLE;
-			 
-			//VALUE option_type = rb_hash_aref(option, ID2SYM(rb_intern("type")));
-			wxToolBar* wx_toolbar_p;
-			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT | wxTB_NOICONS;
-			 
-			if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("type")))) {
-				 
-				VALUE type_val = rb_hash_aref(option, ID2SYM(rb_intern("type")));
-				std::string type_str; 
-				StaticFunc::ValueToString(type_val, type_str);
-				if (type_str == "aui") {
-					// for aui toolbar
-					//long style = wxTB_FLAT | wxTB_NODIVIDER;
-					wx_toolbar_p = new wxToolBar(frame_p,wxID_ANY,wxDefaultPosition,wxDefaultSize,style);
-				}
-	
-				 
-			}else{
-				//long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT;
-				wx_toolbar_p = frame_p->CreateToolBar(style, wxID_ANY);
-			}
-			 
-			toolbar_p->SetWxToolbarP(wx_toolbar_p);
-			 
-			 
-		}else if (func_name_str == "toolbar_call"){
-			 
-			Toolbar* toolbar_p = static_cast<Toolbar*>(app_p->GetObjectFromMap(target));
-			toolbar_p->Call(nargs, args);
-		}
-	}
 	 
 	static void canvas_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
@@ -215,30 +107,100 @@ struct StaticFunc
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		if (func_name_str == "splitter_call"){
-			Splitter* splitter_p = static_cast<Splitter*>(app_p->GetObjectFromMap(target));
-			splitter_p->Call(nargs, args);
-			 
-		}else if (func_name_str == "panel_call"){
-			Panel* panel_p = static_cast<Panel*>(app_p->GetObjectFromMap(target));
-			panel_p->Call(nargs, args);
-			 
-		}else if (func_name_str == "sizer_call"){
-			Sizer* sizer_p = static_cast<Sizer*>(app_p->GetObjectFromMap(target));
-			sizer_p->Call(nargs, args);
-			 
-		}else if (func_name_str == "notebook_call"){
-			Notebook* notebook_p = static_cast<Notebook*>(app_p->GetObjectFromMap(target));
-			notebook_p->Call(nargs, args);
-			 
-		}
+		
 	}
 	static void init_callback(VALUE target, char* func_name,  int nargs, VALUE *args)
 	{
 		std::string func_name_str = std::string(func_name);
 		App* app_p = static_cast<App*>(wxTheApp);
 		 
-		if (check_class_name(target,"Rwx::StaticText") && func_name_str == "init_static_text"){
+		if (func_name_str == "init_frame"){
+			 
+			Frame* frame_p = new Frame("Minimal wxWidgets App");
+			app_p->SetFrameP(frame_p);
+			app_p -> SetObjectToMap(target, frame_p);
+			frame_p->m_rwx_frame = target;
+			frame_p->CallOnInit();
+			frame_p -> Show(true);
+			 
+		}else if (func_name_str == "init_menubar"){
+
+			VALUE parent = args[0];
+
+			if (!check_class_name(parent, "Rwx::Frame")) {
+				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR MENUBAR ! ***"  << std::endl;
+				return;
+			}
+
+			Menubar* menubar_p = new Menubar();
+
+			app_p -> SetObjectToMap(target, menubar_p);
+
+			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
+
+			frame_p->SetMenuBar(menubar_p);
+			 
+		}else if (func_name_str == "init_menu"){
+
+			std::cout << "init menu refactor (in static_func.h) " << std::endl;
+			 
+			VALUE parent = args[0];
+			if (!check_class_name(parent, "Rwx::MenuBar")) {
+				std::cerr << "*** PLEASE SET MENUBAR CLASS AS PARENT FOR MENU ! ***"  << std::endl;
+				return;
+			}
+
+			VALUE title = args[1];
+			VALUE content_arr = args[2];
+
+			Menubar* menubar_p = static_cast<Menubar*>(app_p->GetObjectFromMap(parent));
+			if (menubar_p) {
+				menubar_p->AddMenu(target, title, content_arr);
+			}
+			 
+		}else if (func_name_str == "init_toolbar"){
+			 
+			VALUE parent = args[0];
+			VALUE option = args[1];
+			 
+			if (!check_class_name(parent, "Rwx::Frame")) {
+				std::cerr << "*** PLEASE SET FRAME CLASS AS PARENT FOR TOOLBAR ! ***"  << std::endl;
+				return;
+			}
+			 
+			Frame* frame_p = static_cast<Frame*>(app_p->GetObjectFromMap(parent));
+			 
+			Toolbar* toolbar_p = new Toolbar();
+			app_p -> SetObjectToMap(target, toolbar_p);
+			 
+			//long style = wxTB_FLAT | wxTB_DOCKABLE | wxTB_TEXT;
+			//style &= ~(wxTB_HORIZONTAL | wxTB_VERTICAL | wxTB_BOTTOM | wxTB_RIGHT | wxTB_HORZ_LAYOUT); 
+			//long style = wxTB_NOICONS | wxTB_TEXT | wxTB_VERTICAL | wxTB_DOCKABLE;
+			//VALUE option_type = rb_hash_aref(option, ID2SYM(rb_intern("type")));
+			 
+			wxToolBar* wx_toolbar_p;
+			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT | wxTB_NOICONS;
+			 
+			if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("type")))) {
+				 
+				VALUE type_val = rb_hash_aref(option, ID2SYM(rb_intern("type")));
+				std::string type_str; 
+				StaticFunc::ValueToString(type_val, type_str);
+				if (type_str == "aui") {
+					// for aui toolbar
+					//long style = wxTB_FLAT | wxTB_NODIVIDER;
+					wx_toolbar_p = new wxToolBar(frame_p,wxID_ANY,wxDefaultPosition,wxDefaultSize,style);
+				}
+	
+				 
+			}else{
+				//long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT;
+				wx_toolbar_p = frame_p->CreateToolBar(style, wxID_ANY);
+			}
+			 
+			toolbar_p->SetWxToolbarP(wx_toolbar_p);
+			 
+		}else if (check_class_name(target,"Rwx::StaticText") && func_name_str == "init_static_text"){
 			 
 			StaticText* static_text_p = new StaticText(nargs, args);
 			app_p -> SetObjectToMap(target, static_text_p);
@@ -361,15 +323,15 @@ struct StaticFunc
 		 
 		if (func_name_str == "init_app") {
 			app_p->SetRwxApp(target);
-		}else if (func_name_str == "init_frame" || func_name_str == "frame_call") {
-			frame_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "init_menubar" || func_name_str == "init_menu" || func_name_str == "init_toolbar" || func_name_str == "toolbar_call"){
-			menu_callback(target, func_name, nargs, args);
 		}else if (func_name_str == "init_canvas" || func_name_str == "dc_call" || func_name_str == "canvas_call"){
+			 
 			canvas_callback(target, func_name, nargs, args);
-		}else if (func_name_str == "notebook_call" || func_name_str == "splitter_call" ||   func_name_str == "panel_call"  || func_name_str == "sizer_call"){
-			panel_callback(target, func_name, nargs, args);
+			 
 		}else if (func_name_str == "init_static_text" 
+				|| func_name_str == "init_frame"  
+				|| func_name_str == "init_toolbar"
+				|| func_name_str == "init_menu" 
+				|| func_name_str == "init_menubar"  
 				|| func_name_str == "init_image" 
 				|| func_name_str == "init_text_ctrl" 
 				|| func_name_str == "init_button"  
@@ -389,36 +351,85 @@ struct StaticFunc
 				|| func_name_str == "init_listctrl"  ){
 			init_callback(target, func_name, nargs, args);
 			 
+		}else if (func_name_str == "frame_call"){
+			 
+			Frame* frame_p = app_p->GetFrameP();
+			frame_p->Call(nargs, args);
+			 
+		}else if (func_name_str == "toolbar_call"){
+			 
+			Toolbar* toolbar_p = static_cast<Toolbar*>(app_p->GetObjectFromMap(target));
+			toolbar_p->Call(nargs, args);
+			 
+		}else if (func_name_str == "splitter_call"){
+			 
+			std::cout << "splitter refactor (in static_func.h) " << std::endl;
+			Splitter* splitter_p = static_cast<Splitter*>(app_p->GetObjectFromMap(target));
+			splitter_p->Call(nargs, args);
+			 
+		}else if (func_name_str == "panel_call"){
+			 
+			std::cout << "panel refac (in static_func.h) "  << std::endl;
+			Panel* panel_p = static_cast<Panel*>(app_p->GetObjectFromMap(target));
+			panel_p->Call(nargs, args);
+			 
+		}else if (func_name_str == "sizer_call"){
+			 
+			std::cout << "sizer refac (in static_func.h) "  << std::endl;
+			Sizer* sizer_p = static_cast<Sizer*>(app_p->GetObjectFromMap(target));
+			sizer_p->Call(nargs, args);
+			 
+		}else if (func_name_str == "notebook_call"){
+			 
+			std::cout << "notebook refac (in static_func.h) "  << std::endl;
+			 
+			Notebook* notebook_p = static_cast<Notebook*>(app_p->GetObjectFromMap(target));
+			notebook_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "listctrl_call" ) {
+			 
 			ListCtrl* listctrl_p = static_cast<ListCtrl*>(app_p->GetObjectFromMap(target));
 			result = listctrl_p->Call(nargs, args);
 			 
 		}else if (func_name_str == "text_ctrl_call" ) {
+			 
 			TextCtrl* text_ctrl_p = static_cast<TextCtrl*>(app_p->GetObjectFromMap(target));
 			result = text_ctrl_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "treectrl_call" ) {
+			 
 			TreeCtrl* treectrl_p = static_cast<TreeCtrl*>(app_p->GetObjectFromMap(target));
 			result = treectrl_p->Call(nargs, args);
 			 
 		}else if (func_name_str == "checkbox_call" ) {
+			 
 			CheckBox* checkbox_p = static_cast<CheckBox*>(app_p->GetObjectFromMap(target));
 			result = checkbox_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "radiobox_call" ) {
+			 
 			RadioBox* radiobox_p = static_cast<RadioBox*>(app_p->GetObjectFromMap(target));
 			result = radiobox_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "auimanager_call" ) {
+			 
 			AuiManager* auimanager_p = static_cast<AuiManager*>(app_p->GetObjectFromMap(target));
 			result = auimanager_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "grid_call" ) {
+			 
 			Grid* grid_p = static_cast<Grid*>(app_p->GetObjectFromMap(target));
 			result = grid_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "image_call" ) {
 			 
 			Image* image_p = static_cast<Image*>(app_p->GetObjectFromMap(target));
 			result = image_p->Call(nargs, args);
 			 
 		}else{
+			 
 			result = ModStaticFunc::mod_app_callback(target, func_name, nargs, args);
+			 
 		}
 		 
 		return result;
