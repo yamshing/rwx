@@ -18,7 +18,7 @@ SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DI
 			 $(CLASS_DIR)/treectrl.cpp  $(CLASS_DIR)/grid.cpp $(CLASS_DIR)/image.cpp $(CLASS_DIR)/combo_box.cpp $(CLASS_DIR)/slider.cpp
 
 
-WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx
+WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0 
  
 RUBYLIB = -L./lib/rwx/lib -lruby-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x86_64-linux
 INCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/include/wx-3.1
