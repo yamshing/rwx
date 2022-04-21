@@ -6,10 +6,15 @@
 #include "frame.h"
 #include "menubar.h"
  
+#include <memory>
+#include <thread>
+ 
 class App : public wxApp
 {
 	private:
-		std::unordered_map<VALUE, wxObject*> m_object_map{};
+		 
+		std::unordered_map<VALUE, std::shared_ptr<wxObject>> m_shared_object_map{};
+		 
 		Frame* m_frame_p;
 		VALUE m_rwx_app;
 		std::string m_app_path;
@@ -45,14 +50,18 @@ class App : public wxApp
 		virtual bool OnInit() wxOVERRIDE;
 		void SetObjectToMap(VALUE value, wxObject* obj_p)
 		{
-			m_object_map[value] = obj_p;
+			m_shared_object_map[value] = std::shared_ptr<wxObject>(obj_p);
 		};
 		 
 		wxObject* GetObjectFromMap(VALUE value)
 		{
-			return m_object_map[value];
+			if (m_shared_object_map[value].use_count() > 0) {
+				 
+				return m_shared_object_map[value].get();
+				 
+			}
+			return nullptr;
 		};
-		 
 		void GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name);
 		 
 };
