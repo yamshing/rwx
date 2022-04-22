@@ -1,5 +1,6 @@
 #include "image.h"
 #include "static_func.h"
+#include "string_util.h"
 #include <wx/mstream.h>
  
 Image::Image(int nargs, VALUE *args)
@@ -55,6 +56,9 @@ Image::Image(int nargs, VALUE *args)
 						 
 					}
 				}
+			}else{
+				 
+				 
 			}
 			 
 		}else{
