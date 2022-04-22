@@ -58,7 +58,20 @@ Image::Image(int nargs, VALUE *args)
 				}
 			}else{
 				 
+				//------------------------------
+				// search in asset folder for debug
+				//  
+				std::string file_path_str = "./asset/";
+				file_path_str += file_name_str;
 				 
+				std::cout << "file_path (in image.cpp) " << file_path_str << std::endl;
+				 
+				wxString file_name_wxstr = wxString::FromUTF8(file_path_str);
+				m_wx_image  = new wxImage();
+
+				if (m_wx_image-> LoadFile(file_name_wxstr,  wxBITMAP_TYPE_ANY)) {
+					 
+				}
 			}
 			 
 		}else{

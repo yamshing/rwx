@@ -6,27 +6,27 @@ module Rwx
 			out_sizer = Sizer.new('box', 'vertical')
 			row_sizer = Sizer.new('box', 'horizontal')
 			 
-			@image = Image.new(embed_name:"test_png")
-			#@hover_image = Image.new(embed_name:"hover_image")
-			#@pressed_image = Image.new(embed_name:"pressed_image")
+			@image = Image.new(embed_name:"test.png")
+			@hover_image = Image.new(embed_name:"hover.png")
+			@pressed_image = Image.new(embed_name:"press.png")
 			 
 			#@image = Image.new(file_name:"./asset/test.png")
 			#@hover_image = Image.new(file_name:"./asset/hover.png")
 			#@pressed_image = Image.new(file_name:"./asset/press.png")
 			# 
-			#button = Button.new(self, {label:'クリック' ,
-			#											cb_inst:self, cb_name:'on_button_click', 
-			#											image: @image, hover_image:@hover_image, pressed_image:@pressed_image ,
-			#											width: 70, height: 25 
-			#									})
-			# 
-			#row_sizer.add_spacer(20)
-			#row_sizer.add(button)
-			# 
-			#out_sizer.add_spacer(20)
-			#out_sizer.add(row_sizer)
-			# 
-			#add_sizer(out_sizer)
+			button = Button.new(self, {label:'クリック' ,
+														cb_inst:self, cb_name:'on_button_click', 
+														image: @image, hover_image:@hover_image, pressed_image:@pressed_image ,
+														width: 70, height: 25 
+												})
+			 
+			row_sizer.add_spacer(20)
+			row_sizer.add(button)
+			 
+			out_sizer.add_spacer(20)
+			out_sizer.add(row_sizer)
+			 
+			add_sizer(out_sizer)
 			 
 		end
 		 
