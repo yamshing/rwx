@@ -62,7 +62,7 @@ class App : public wxApp
 			}
 			return nullptr;
 		};
-		void GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name);
+		bool GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name);
 		 
 };
  

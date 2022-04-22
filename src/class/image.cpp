@@ -29,31 +29,34 @@ Image::Image(int nargs, VALUE *args)
 			std::string file_name_str = std::string(StringValuePtr(file_name));
 			 
 			std::vector<unsigned char> out_bin{};
-			app_p -> GetEmbedBinObject(out_bin, file_name_str);
+			 
+			if (app_p -> GetEmbedBinObject(out_bin, file_name_str)) {
+				 
+				m_wx_image  = new wxImage();
 
-			m_wx_image  = new wxImage();
+				if (out_bin.size() > 0) {
 
-			if (out_bin.size() > 0) {
+					std::cout << "out_bin.size() (in image.cpp) " << out_bin.size() << std::endl;
 
-				std::cout << "out_bin.size() (in image.cpp) " << out_bin.size() << std::endl;
+					char val_char_arr[out_bin.size()];
+					int cnt = 0;
+					for (unsigned char v : out_bin) {
+						val_char_arr[cnt] = v;
+						printf("%x ", v);
+						++cnt;
+					}
+					wxMemoryInputStream image_stream(val_char_arr, cnt);
+					if (m_wx_image-> LoadFile(image_stream,  wxBITMAP_TYPE_ANY)) {
 
-				char val_char_arr[out_bin.size()];
-				int cnt = 0;
-				for (unsigned char v : out_bin) {
-					val_char_arr[cnt] = v;
-					printf("%x ", v);
-					++cnt;
-				}
-				wxMemoryInputStream image_stream(val_char_arr, cnt);
-				if (m_wx_image-> LoadFile(image_stream,  wxBITMAP_TYPE_ANY)) {
+						std::cout << "load ok (in image.cpp) " << std::endl;
 
-					std::cout << "load ok (in image.cpp) " << std::endl;
-
-				}else{
-					std::cout << "no load (in image.cpp) " << std::endl;
+					}else{
+						std::cout << "no load (in image.cpp) " << std::endl;
+						 
+					}
 				}
 			}
-
+			 
 		}else{
 
 		}
