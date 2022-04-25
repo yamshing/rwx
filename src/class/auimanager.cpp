@@ -50,9 +50,65 @@ void AuiManager::GetPaneInfo(wxAuiPaneInfo& pi, VALUE option)
 		VALUE direction_val = rb_hash_aref(option, ID2SYM(rb_intern("direction")));
 		direction = std::string(StringValuePtr(direction_val));
 	}
+	bool dockable = true;
 	 
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("dockable")))) {
+		 
+		VALUE dockable_val = rb_hash_aref(option, ID2SYM(rb_intern("dockable")));
+		dockable = RTEST(dockable_val);
+		 
+	}
+	 
+	bool resizable = true;
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("resizable")))) {
+		 
+		VALUE resizable_val = rb_hash_aref(option, ID2SYM(rb_intern("resizable")));
+		resizable = RTEST(resizable_val);
+	}
+
+	bool close_button = true;
+
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("close_button")))) {
+		VALUE close_button_val = rb_hash_aref(option, ID2SYM(rb_intern("close_button")));
+		close_button = RTEST(close_button_val);
+	}
+	bool maximize_button = true;
+
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("maximize_button")))) {
+		VALUE maximize_button_val = rb_hash_aref(option, ID2SYM(rb_intern("maximize_button")));
+		maximize_button = RTEST(maximize_button_val);
+	}
+	bool minimize_button = true;
+
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("minimize_button")))) {
+		VALUE minimize_button_val = rb_hash_aref(option, ID2SYM(rb_intern("minimize_button")));
+		minimize_button = RTEST(minimize_button_val);
+	}
+	 
+
+	int min_w = 200;
+	int min_h = 200;
+
+	if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("min_size")))) {
+		VALUE min_size_val = rb_hash_aref(option, ID2SYM(rb_intern("min_size")));
+		VALUE min_w_val = rb_ary_entry(min_size_val,0);
+		VALUE min_h_val = rb_ary_entry(min_size_val,1);
+		min_w = NUM2INT(min_w_val);
+		min_h = NUM2INT(min_h_val);
+	}
 	 
 	pi.Name(name);
+	pi.LeftDockable(dockable);
+	pi.TopDockable(dockable);
+	pi.RightDockable(dockable);
+	pi.Floatable(dockable);
+	pi.Resizable(resizable);
+	pi.CloseButton(close_button);
+	pi.MaximizeButton(maximize_button);
+	pi.MinimizeButton(minimize_button);
+	 
+	pi.MinSize(min_w,min_h);
+	 
 	if (direction == "center") {
 		pi.CenterPane().Show();
 	}else if (direction == "left") {
@@ -83,18 +139,15 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		if (toolbar_pane_p) {
 			 
 			wxToolBar* m_tb = toolbar_pane_p->GetWxToolbarP();
+			
+			//------------------------------
+			// Floatable no, gripper no, top right left dockable no
+			//  
+			wxAuiPaneInfo pi = wxAuiPaneInfo().Name(wxT("toolbar")).Caption(wxT("toolbar")).ToolbarPane()
+				.Gripper(false).Floatable(false).Top().TopDockable(false).RightDockable(false).LeftDockable(false);
 			 
-			wxAuiPaneInfo pi = wxAuiPaneInfo()  .Name(wxT("toolbar"))
-				.Caption(wxT("toolbar"))
-				.ToolbarPane().Top().Floatable().Direction(wxAUI_DOCK_TOP).LeftDockable(false).RightDockable(false);
+			m_aui_manager->AddPane(m_tb, pi);
 			 
-			m_aui_manager->AddPane(m_tb,pi);
-			 
-			/*m_aui_manager->AddPane(CreateSizeReportCtrl(), wxAuiPaneInfo().
-					Name("test3").Caption("Client Size Reporter").
-					Bottom());
-					*/
-		
 			m_aui_manager->Update();
 			 
 		}
