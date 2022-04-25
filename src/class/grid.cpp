@@ -32,14 +32,14 @@ Grid::Grid(int nargs, VALUE *args)
 	m_grid->Bind(wxEVT_TEXT_CUT, &Grid::OnCut, this);
 	m_grid->Bind(wxEVT_KEY_DOWN, &Grid::OnKeyDown, this);
 	 
-
-	if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("separator")))) {
+	if (nargs > 1) {
 		 
-		std::cout << "custom delim set (in grid.cpp) "  << std::endl;
-		 
-		VALUE custom_delim_val = rb_hash_aref(option, ID2SYM(rb_intern("separator")));
-		std::string custom_delim_str = std::string(StringValuePtr(custom_delim_val));
-		m_custom_delim = custom_delim_str;
+		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("separator")))) {
+			std::cout << "custom delim set (in grid.cpp) "  << std::endl;
+			VALUE custom_delim_val = rb_hash_aref(option, ID2SYM(rb_intern("separator")));
+			std::string custom_delim_str = std::string(StringValuePtr(custom_delim_val));
+			m_custom_delim = custom_delim_str;
+		}	
 		 
 	}
 	 
