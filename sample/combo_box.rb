@@ -13,9 +13,9 @@ module Rwx
 			row_sizer.add_spacer(20)
 			row_sizer.add(button)
 	
-			@image = Image.new(embed_name:"test_png")
-			@hover_image = Image.new(embed_name:"hover_image")
-			@pressed_image = Image.new(embed_name:"pressed_image")
+			@image = Image.new(embed_name:"test.png")
+			@hover_image = Image.new(embed_name:"hover.png")
+			@pressed_image = Image.new(embed_name:"press.png")
 			 
 			combo = ComboBox.new(self, { image: @image, 
 															hover_image:@hover_image, 
