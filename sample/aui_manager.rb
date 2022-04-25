@@ -49,7 +49,8 @@ module Rwx
 			@auimanager = AuiManager.new(self)
 			 
 			@toolbar = Toolbar.new(self, {type:'aui'})
-			@toolbar.add_tool(type:"button", title:"button1", label:"button1", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
+			@toolbar.add_tool(type:"button", title:"show", label:"button1", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
+			@toolbar.add_tool(type:"button", title:"hide", label:"button2", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
 			 
 			@auimanager.add_pane(pane:@toolbar)
 			 
@@ -62,7 +63,7 @@ module Rwx
 			@panel2 = Panel.new(self)
 			@notebook.add(@panel2, "第２")
 			 
-			@auimanager.add_pane(pane:@notebook, name:"notebook pane", direction:"left", dockable:true, resizable:false)
+			@auimanager.add_pane(pane:@notebook, name:"notebook_pane", direction:"left", dockable:true, resizable:false)
 			 
 			tree_content = [
 				['ABC',
@@ -81,7 +82,7 @@ module Rwx
 			 
 			@treectrl = TreeCtrl.new(self, 'content':tree_content)
 			 
-			@auimanager.add_pane(pane:@treectrl, name:"tree pane", direction:"right", dockable:true)
+			@auimanager.add_pane(pane:@treectrl, name:"tree_pane", direction:"right", dockable:true)
 			 
 			@grid = Grid.new(self)
 			 
@@ -109,6 +110,7 @@ module Rwx
 		end
 		 
 		def on_button_1
+			@auimanager.show_pane()
 			#selected = @treectrl.get_selection
 			#list_selected = @panel.list_ctrl.get_selection
 			#p list_selected
@@ -117,13 +119,14 @@ module Rwx
 			#p grid_value
 
 			#@grid.set_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
-			@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
+			#@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
 			 
 			 
 		end
 		 
 		def on_button_2
-			p "button 2"
+			p "hide"
+			@auimanager.hide_pane()
 		end
 		 
 	end

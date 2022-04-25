@@ -162,6 +162,9 @@ FUNC_TO_GENERIC(treectrl,get_selection)
 FUNC_TO_GENERIC(radiobox,get_selection)
 FUNC_TO_GENERIC(radiobox,set_selection)
 FUNC_TO_GENERIC(auimanager,add_pane)
+FUNC_TO_GENERIC(auimanager,show_pane)
+FUNC_TO_GENERIC(auimanager,hide_pane)
+	 
 FUNC_TO_GENERIC(listctrl,get_selection)
 FUNC_TO_GENERIC(grid,set_cell_value)
 FUNC_TO_GENERIC(grid,get_selection)
@@ -274,6 +277,8 @@ Init_LibRwx(void)
 	librwx_AuiManager  = rb_define_class_under(librwx_Namespace, "AuiManager", rb_cObject);
 	rb_define_method(librwx_AuiManager, "initialize", librwx_auimanager_initialize, -1);
 	rb_define_method(librwx_AuiManager, "add_pane", librwx_auimanager_add_pane, -1);
+	rb_define_method(librwx_AuiManager, "show_pane", librwx_auimanager_show_pane, -1);
+	rb_define_method(librwx_AuiManager, "hide_pane", librwx_auimanager_hide_pane, -1);
 	 
 	librwx_TreeCtrl  = rb_define_class_under(librwx_Namespace, "TreeCtrl", rb_cObject);
 	rb_define_method(librwx_TreeCtrl, "initialize", librwx_treectrl_initialize, -1);
