@@ -54,7 +54,10 @@ WINWXLIB= -D_FILE_OFFSET_BITS=64 -DwxDEBUG_LEVEL=0  -D__WXMSW__  -mconsole  ./wi
 WINRUBYLIB = -L./winlib/rwx/lib -lx64-msvcrt-ruby300-static -I./winlib/rwx/include/ruby-3.0.0 -I./winlib/rwx/include/ruby-3.0.0/x64-mingw32 \
 						 -lm -lgmp  -lz -lws2_32 -lshell32 -limagehlp -liphlpapi
 						
-WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./winlib/wxwidget/lib/wx/include/msw-unicode-static-3.1 -I./winlib/wxwidget/include/wx-3.1 
+WIN_WX_INCLUDE_DIR = ./winlib/wxwidget/include/wx-3.1
+WININCLUDE = -I.  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR)  -I./winlib/wxwidget/lib/wx/include/msw-unicode-static-3.1 -I$(WIN_WX_INCLUDE_DIR)
+WIN_RC_NAME = rwx
+WIN_RC_DIR = asset/
  
 WINLIB = 
  
@@ -89,7 +92,8 @@ wx:  include_submake
 ifeq ($(SYS),"win")
 	echo 'win'
 	rm $(RWX_BIN_NAME).exe || true 
-	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
+	windres -i./$(WIN_RC_DIR)$(WIN_RC_NAME).rc -o$(WIN_RC_NAME)_rc.o --include-dir $(WIN_WX_INCLUDE_DIR) 
+	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
 else
 	 
 	rm $(RWX_BIN_NAME) || true;

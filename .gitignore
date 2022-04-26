@@ -11,3 +11,4 @@ src/class/mod_static_func.h
 mod/*
  
 *.traineddata
+*.o
