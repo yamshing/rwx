@@ -22,7 +22,8 @@ class Frame : public wxFrame
 		 
 	private:
 		 
-		//wxDECLARE_EVENT_TABLE();
+		void OnContextMenu(wxEvent& event);
+		void OnContextMenuSelected(wxCommandEvent& event);
 		 
 };
 

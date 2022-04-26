@@ -18,9 +18,45 @@ Frame::Frame(const wxString& title)
 	
 	this -> Bind(wxEVT_TEXT_COPY, &Frame::OnCopy, this);
 	this -> Bind(wxEVT_TEXT_PASTE, &Frame::OnPaste, this);
+	this -> Bind(wxEVT_CONTEXT_MENU, &Frame::OnContextMenu, this);
+	this -> Bind(wxEVT_COMMAND_MENU_SELECTED, &Frame::OnContextMenuSelected, this);
 	 
 }
  
+void Frame::OnContextMenuSelected(wxCommandEvent& event)
+{
+	 
+	wxString str;
+	 
+	switch (event.GetId()) {
+		case 0:
+			str = "Context Menu command 1";
+			break;
+		case 1:
+			str = "Context Menu command 2";
+			break;
+		case 2:
+			str = "Context Menu command 3";
+			break;
+		default:
+			str = "Uknown command?!";
+	}
+	std::cout << "str (in frame.cpp) " << str << std::endl;
+
+}
+ 
+void Frame::OnContextMenu(wxEvent& event)
+{
+
+	wxMenu menu;
+
+	menu.Append(0, "Context Menu command 1");
+	menu.Append(1, "Context Menu command 2");
+	menu.Append(2, "Context Menu command 3");
+
+	PopupMenu(&menu); 
+	 
+}
 void Frame::OnCopy(wxEvent& event)
 {
 	//wxWindow *foc = wxWindow::FindFocus();
