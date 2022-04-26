@@ -179,7 +179,20 @@ struct StaticFunc
 			//VALUE option_type = rb_hash_aref(option, ID2SYM(rb_intern("type")));
 			 
 			wxToolBar* wx_toolbar_p;
-			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT | wxTB_NOICONS;
+			long style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT | wxTB_NOICONS; 
+
+			if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("style")))) {
+				 
+				VALUE style_val = rb_hash_aref(option, ID2SYM(rb_intern("style")));
+				std::string style_str = std::string(StringValuePtr(style_val));
+				if (style_str == "icon") {
+					style = wxTB_HORIZONTAL |  wxTB_HORZ_LAYOUT ;
+				}else if (style_str == "icon_text") {
+					style = wxTB_HORIZONTAL | wxTB_TEXT | wxTB_HORZ_LAYOUT ;
+				}
+				 
+			}
+			 
 			 
 			if (rb_obj_is_kind_of(option, rb_cHash) && rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("type")))) {
 				 

@@ -5,6 +5,7 @@ void Toolbar::Call(int nargs, VALUE *args)
 {
 	VALUE func_name = args[0];
 	std::string func_name_str = std::string(StringValuePtr(func_name));
+	App* app_p = static_cast<App*>(wxTheApp);
 	 
 	if (func_name_str == "add_tool") {
 		 
@@ -20,6 +21,19 @@ void Toolbar::Call(int nargs, VALUE *args)
 		VALUE desc = rb_hash_aref(hash, ID2SYM(rb_intern("desc")));
 		VALUE cb_inst = rb_hash_aref(hash, ID2SYM(rb_intern("cb_inst")));
 		VALUE cb_name = rb_hash_aref(hash, ID2SYM(rb_intern("cb_name")));
+		 
+		if (rb_obj_is_kind_of(hash, rb_cHash) && rb_funcall(hash, rb_intern("has_key?"),1,ID2SYM(rb_intern("image")))) {
+			std::cout << "image found (in toolbar.cpp) "  << std::endl;
+			 
+			VALUE image = rb_hash_aref(hash, ID2SYM(rb_intern("image")));
+			Image* image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(image));
+			 
+			if (image_p) {
+				wxImage* wx_image_p = image_p -> GetWxImage();
+				icon = wxBitmap(*wx_image_p);
+			}
+		}
+		 
 		 
 		 
 		std::string type_str;
