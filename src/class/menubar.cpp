@@ -31,14 +31,32 @@ void Menubar::AddMenu(VALUE menu, VALUE title, VALUE content_arr)
 		VALUE label = rb_hash_aref(menu_content, ID2SYM(rb_intern("label")));
 		VALUE cb_inst = rb_hash_aref(menu_content, ID2SYM(rb_intern("cb_inst")));
 		VALUE cb_name = rb_hash_aref(menu_content, ID2SYM(rb_intern("cb_name")));
+
 		 
 		std::string title_str;
 		StaticFunc::ValueToString(title, title_str);
 		 
 		std::string label_str;
 		StaticFunc::ValueToString(label, label_str);
-	
-		menu_ptr->Append(StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), wxString::FromUTF8(label_str));
+		 
+		if (rb_obj_is_kind_of(menu_content, rb_cHash) && rb_funcall(menu_content, rb_intern("has_key?"),1,ID2SYM(rb_intern("image")))) {
+			 
+			VALUE image = rb_hash_aref(menu_content, ID2SYM(rb_intern("image")));
+			Image* image_p = dynamic_cast<Image*>(app_p->GetObjectFromMap(image));
+			 
+			if (image_p) {
+				wxImage* wx_image_p = image_p -> GetWxImage();
+				wxBitmap menu_icon = wxBitmap(*wx_image_p);
+				wxMenuItem *item = new wxMenuItem(menu_ptr, StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str));
+				item->SetBitmap(menu_icon);
+				menu_ptr->Append(item);
+			}
+			 
+		}else{
+			 
+			menu_ptr->Append(StaticFunc::ALL_EVENT_ID, wxString::FromUTF8(title_str), wxString::FromUTF8(label_str));
+			 
+		}
 		 
 		g_menu_callback_inst_map[StaticFunc::ALL_EVENT_ID] = cb_inst;
 		g_menu_callback_name_map[StaticFunc::ALL_EVENT_ID] = cb_name;
