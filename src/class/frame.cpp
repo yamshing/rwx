@@ -15,7 +15,14 @@ extern "C" VALUE librwx_Frame;
 Frame::Frame(const wxString& title)
 	: wxFrame(NULL, wxID_ANY, title)
 {
-	
+	wxString os_name =  wxPlatformInfo::Get().GetOperatingSystemFamilyName(); 
+	static const char *const rwx_xpm[] = {};
+	 
+	if (os_name == _T("Windows")) {
+		SetIcon(wxICON(rwx));
+	}
+
+	 
 	this -> Bind(wxEVT_TEXT_COPY, &Frame::OnCopy, this);
 	this -> Bind(wxEVT_TEXT_PASTE, &Frame::OnPaste, this);
 	this -> Bind(wxEVT_CONTEXT_MENU, &Frame::OnContextMenu, this);
