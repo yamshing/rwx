@@ -48,9 +48,13 @@ module Rwx
 		def on_init 
 			@auimanager = AuiManager.new(self)
 			 
-			@toolbar = Toolbar.new(self, {type:'aui'})
-			@toolbar.add_tool(type:"button", title:"show", label:"button1", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
-			@toolbar.add_tool(type:"button", title:"hide", label:"button2", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
+			@toolbar = Toolbar.new(self, {type:'aui',style:'icon'})
+			 
+			@image = Image.new(embed_name:"test.png")
+			@image2 = Image.new(embed_name:"hover.png")
+			 
+			@toolbar.add_tool(type:"button", title:"show", image:@image, label:"button1", desc:"This is button 1", cb_inst:self, cb_name:"on_button_1" )
+			@toolbar.add_tool(type:"button", title:"hide", image:@image2, label:"button2", desc:"This is button 2", cb_inst:self, cb_name:"on_button_2" )
 			 
 			@auimanager.add_pane(pane:@toolbar)
 			 
