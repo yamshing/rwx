@@ -210,21 +210,20 @@ VALUE AuiManager::Call(int nargs, VALUE *args)
 		}
 		 
 		 
-	}else if (func_name_str == "show_pane") {
+	}else if (func_name_str == "show_pane" || func_name_str == "hide_pane") {
 		 
-		std::cout << "showpane (in auimanager.cpp) "  << std::endl;
+		VALUE pane_name_val = args[1];
+		std::string pane_name = std::string(StringValuePtr(pane_name_val));
 		 
-		m_aui_manager->GetPane("tree_pane").Show();
-		m_aui_manager->Update();
-		 
-		 
-	}else if (func_name_str == "hide_pane") {
-		 
-		std::cout << "hidepane (in auimanager.cpp) "  << std::endl;
-		 
-		m_aui_manager->GetPane("tree_pane").Hide();
+		if (func_name_str == "show_pane") {
+			m_aui_manager->GetPane(pane_name).Show();
+		}else{
+			m_aui_manager->GetPane(pane_name).Hide();
+		}
 		m_aui_manager->Update();
 		 
 	}
+	 
 	return result;
+	 
 }

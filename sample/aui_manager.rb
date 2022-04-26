@@ -110,23 +110,21 @@ module Rwx
 		end
 		 
 		def on_button_1
-			@auimanager.show_pane()
+			 
+			@auimanager.show_pane("tree_pane")
+			 
 			#selected = @treectrl.get_selection
 			#list_selected = @panel.list_ctrl.get_selection
 			#p list_selected
-			
 			#grid_value = @grid.get_selection
 			#p grid_value
-
 			#@grid.set_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
 			#@grid.delete_cell_value_with_index_arr(content_arr:[["hello","world"],["hello","world"],["hello","world"]],index_arr:[[[0,0],[0,1]],[[1,0],[1,1]],[[2,0],[2,1]]])
-			 
 			 
 		end
 		 
 		def on_button_2
-			p "hide"
-			@auimanager.hide_pane()
+			@auimanager.hide_pane("tree_pane")
 		end
 		 
 	end
