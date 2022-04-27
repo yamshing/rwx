@@ -12,3 +12,6 @@ mod/*
  
 *.traineddata
 *.o
+ 
+playground
+./playground/*
