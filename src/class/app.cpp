@@ -26,9 +26,41 @@ bool App::OnInit()
 	if (m_start_type == "with_file") {
 		 
 		std::cout << "with file in app (in app.cpp) "  << m_start_file_name <<  std::endl;
+		std::vector<std::string> file_split_vec;
+		std::istringstream f(m_start_file_name);
+		std::string s;
+
+		while (getline(f, s, ',')) {
+			file_split_vec.push_back(s);
+		}
+
+		std::stringstream ss;
+		ss << "-e ";
 		 
-		char* start_file_name_c = const_cast<char*>(m_start_file_name.c_str());
-		char* options[] = { "-v", start_file_name_c};
+		for (std::string file_path : file_split_vec) {
+			 
+			std::ifstream is( file_path, std::ios::in );
+			std::string line;
+			 
+			if (is.is_open()) {
+				while(getline (is, line)){
+					 
+					//std::cout << "line (in app.cpp) " << line << std::endl;
+					ss << line << std::endl;
+					 
+				}
+				 
+			}
+			//std::cout << "file_path (in app.cpp) " << file_path << std::endl;
+			 
+		}
+		 
+		std::string script = ss.str();
+		char* script_c = const_cast<char*>(script.c_str());
+		 
+		//std::cout << "script_c (in app.cpp) " << script_c << std::endl;
+		 
+		char* options[] = { "-v", script_c};
 		 
 		node = ruby_options(2, options);
 		state;
@@ -40,7 +72,7 @@ bool App::OnInit()
 		
 	}else{
 		 
-		std::cout << "with embed!!!! (in app.cpp) " << std::endl;
+		//std::cout << "with embed!!!! (in app.cpp) " << std::endl;
 		Omusubin omusubin;
 		 
 		std::string target_name = m_app_path;
@@ -64,7 +96,7 @@ bool App::OnInit()
 		}
 		 
 		std::string script = ss.str();
-		std::cout << "script (in app.cpp) " << script << std::endl;
+		//std::cout << "script (in app.cpp) " << script << std::endl;
 		 
 		char* script_c = const_cast<char*>(script.c_str());
 		 
