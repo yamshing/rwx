@@ -7,6 +7,7 @@ else
 	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
 endif
  
+  
 OMUSUBIN_DIR="omusubin/src/class"
 CLASS_DIR="src/class"
 RWX_BIN_NAME = "rwx"
