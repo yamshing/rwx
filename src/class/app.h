@@ -6,6 +6,7 @@
 #include "frame.h"
 #include "menubar.h"
  
+#include <unordered_map> 
 #include <memory>
 #include <thread>
  

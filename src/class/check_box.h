@@ -3,6 +3,7 @@
  
 #include "wx/wx.h"
 #include "ruby.h"
+#include <unordered_map> 
 
 class CheckBox :public wxObject
 {

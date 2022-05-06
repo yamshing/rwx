@@ -2,11 +2,15 @@
 ifeq ($(OS),Windows_NT)
 	SYS = "win"
 	EMBED_OMUSUBIN_CONF_NAME = "./win_rwx_omusubin.conf"
-else ifeq ($(OS),Darwin)
-	SYS = "mac"
-	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
+	 
 else
-	SYS = "linux"
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		SYS = "linux"
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		SYS = "mac"
+	endif
 	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
 endif
  
@@ -24,10 +28,17 @@ SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DI
 
 WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0 
  
+MACWXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui   --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0
+ 
 RUBYLIB = -L./lib/rwx/lib -lruby-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x86_64-linux
 INCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/include/wx-3.1
  
+MACRUBYLIB = -L./lib/rwx/lib -lruby.3.0-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x86_64-darwin21  -fdeclspec
+MACINCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/lib/wx/include/osx_cocoa-unicode-static-3.1 -I./lib/wxwidget/include/wx-3.1 
+ 
 LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
+ 
+MACLIB = -lpthread -ldl -lm -lgmp -lz -pthread
  
 #-mwindows not work with ruby 
 
@@ -98,6 +109,12 @@ ifeq ($(SYS),"win")
 	rm $(RWX_BIN_NAME).exe || true 
 	windres -i./$(WIN_RC_DIR)$(WIN_RC_NAME).rc -o$(WIN_RC_NAME)_rc.o --include-dir $(WIN_WX_INCLUDE_DIR) 
 	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
+	 
+else ifeq ($(SYS),"mac")
+	rm $(RWX_BIN_NAME) || true;
+	rm $(RWX_BIN_NAME)_omusubin.exe || true;
+	g++ -g0 -O3 -s --std=c++17 -o $(RWX_BIN_NAME) $(SOURCE) $(MACWXLIB) $(MACRUBYLIB) $(MACINCLUDE) $(MACLIB); 
+	 
 else
 	 
 	rm $(RWX_BIN_NAME) || true;
