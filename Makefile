@@ -28,7 +28,25 @@ SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DI
 
 WXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui  --toolkit=gtk3 --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0 
  
-MACWXLIB = `./lib/wxwidget/bin/wx-config --static=yes  --libs base,core,aui   --version=3.1 --unicode=yes --cxxflags`  -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0
+#------------------------------
+# in mac os we must link directly static lib
+# because there is no option -static option to force static linking
+# check with otool -L rwx to not link dynamic version of library
+# ------------------------------
+
+MACWXLIB = -I/Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/lib/wx/include/osx_cocoa-unicode-static-3.1\
+					 -I/Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/include/wx-3.1 -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX__ -D__WXOSX_COCOA__ \
+					 -L/Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/lib   -framework IOKit -framework Carbon -framework Cocoa -framework QuartzCore -framework AudioToolbox -framework System -framework OpenGL\
+					 /Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/lib/libwx_osx_cocoau_aui-3.1.a\
+					 /Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/lib/libwx_osx_cocoau_core-3.1.a\
+					 /Users/shingo/source_code/git/shingo/rwx/lib/wxwidget/lib/libwx_baseu-3.1.a\
+					 -framework WebKit -lwxregexu-3.1 -lwxscintilla-3.1 -lexpat\
+					 /usr/local/opt/jpeg/lib/libjpeg.a\
+					 /usr/local/Cellar/libpng/1.6.37/lib/libpng.a\
+					 /usr/local/Cellar/libtiff/4.3.0/lib/libtiff.a\
+					 /usr/local/opt/gmp/lib/libgmp.a\
+					 /usr/local/opt/xz/lib/liblzma.a\
+					 -lz -framework Security -lpthread -liconv -lcurl   -L./lib/wxwidget/lib/wx -DwxDEBUG_LEVEL=0
  
 RUBYLIB = -L./lib/rwx/lib -lruby-static -I./lib/rwx/include/ruby-3.0.0 -I./lib/rwx/include/ruby-3.0.0/x86_64-linux
 INCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/include/wx-3.1
@@ -38,7 +56,7 @@ MACINCLUDE =  -I./$(CLASS_DIR) -I./$(OMUSUBIN_DIR) -I./lib/wxwidget/lib/wx/inclu
  
 LIB = -lpthread -ldl -lm -lgmp -lcrypt -lrt -lz -pthread
  
-MACLIB = -lpthread -ldl -lm -lgmp -lz -pthread
+MACLIB = -lpthread -ldl -lm  -lz -pthread
  
 #-mwindows not work with ruby 
 
