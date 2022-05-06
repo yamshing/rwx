@@ -2,6 +2,9 @@
 ifeq ($(OS),Windows_NT)
 	SYS = "win"
 	EMBED_OMUSUBIN_CONF_NAME = "./win_rwx_omusubin.conf"
+else ifeq ($(OS),Darwin)
+	SYS = "mac"
+	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
 else
 	SYS = "linux"
 	EMBED_OMUSUBIN_CONF_NAME = "./rwx_omusubin.conf"
