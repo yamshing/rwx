@@ -148,8 +148,10 @@ bool App::GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string emb
 	Omusubin omusubin;
 	bool omusubi_found = omusubin.Load(m_app_path);
 	if (omusubi_found) {
-		omusubin.GetBinDataByKey(embed_name, out_bin);
-		return true;
+		if(omusubin.GetBinDataByKey(embed_name, out_bin)){
+			return true;
+		}
+		return false;
 	}
 	return false;
 	 
