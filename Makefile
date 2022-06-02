@@ -173,3 +173,10 @@ clean_mod:
 	rm ./src/ruby/librwx/librwx.c || true;
 	rm ./src/class/mod_static_func.h || true;
 	 
+recompile_mod:
+	$(MAKE) clean_mod;
+	$(MAKE) ruby_lib;
+	$(MAKE) wx;
+	 
+	 
+
