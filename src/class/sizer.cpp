@@ -59,7 +59,7 @@ void Sizer::Call(int nargs, VALUE *args)
 		 
 		if (text_ctrl_child_p) {
 			if (m_dir == "horizontal") {
-				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP(), 0, wxALIGN_CENTER_VERTICAL);
+				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP());
 			}else{
 				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP());
 			}
