@@ -24,12 +24,14 @@ TextCtrl::TextCtrl(int nargs, VALUE *args)
 	 
 	if (option != 0) {
 		 
+		wxSize ctrl_size = wxDefaultSize;
+		 
 		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("style")))) {
 
 			VALUE style = rb_hash_aref(option, ID2SYM(rb_intern("style")));
 			std::string style_str = std::string(StringValuePtr(style));
-			int w = 150;
-			int h = 200;
+			int w = 0;
+			int h = 0;
 
 			if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("w")))) {
 				VALUE w_val = rb_hash_aref(option, ID2SYM(rb_intern("w")));
@@ -40,8 +42,12 @@ TextCtrl::TextCtrl(int nargs, VALUE *args)
 				h = NUM2INT(h_val);
 			}
 			 
+			if(w!=0 && h!=0){
+				ctrl_size = wxSize(w, h);
+			}
+
 			if (style_str == "multi_line") {
-				m_text_ctrl_p = new wxTextCtrl(parent_p, wxID_ANY, wxString::FromUTF8(content_str), wxDefaultPosition,wxSize(w, h), wxTE_MULTILINE);
+				m_text_ctrl_p = new wxTextCtrl(parent_p, wxID_ANY, wxString::FromUTF8(content_str), wxDefaultPosition,ctrl_size, wxTE_MULTILINE);
 			}
 			 
 		}
