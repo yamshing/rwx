@@ -16,17 +16,18 @@ Sizer::Sizer(int nargs, VALUE *args)
 	m_type = type_str;
 	m_dir = dir_str;
 	 
-	VALUE option = 0;
+	//VALUE option = 0;
 	 
-	m_expand_priority = 0;
+	//m_expand_priority = 0;
 	 
-	if (nargs > 2) {
+	/*if (nargs > 2) {
 		option = args[2];
 		if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("expand")))) {
 				VALUE expand_val = rb_hash_aref(option, ID2SYM(rb_intern("expand")));
 				m_expand_priority = NUM2INT(expand_val);
 		}
 	}
+	*/
 	
 	 
 	//std::cout << "m_type (in sizer.cpp) " << m_type << std::endl;
@@ -48,16 +49,25 @@ void Sizer::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "add") {
 		VALUE child = args[1];
+		VALUE option = 0;
+		int expand_priority = 0;
+		if (nargs > 2) {
+			option = args[2];
+			if (rb_funcall(option, rb_intern("has_key?"),1,ID2SYM(rb_intern("expand")))) {
+				VALUE expand_val = rb_hash_aref(option, ID2SYM(rb_intern("expand")));
+				expand_priority = NUM2INT(expand_val);
+			}
+		}
 		 
 		//std::cout << "sizer add (in sizer.cpp) "  << std::endl;
-		rb_p(child);
+		//rb_p(child);
 		//std::cout << "-------- (in sizer.cpp) "  << std::endl;
 		 
 		Sizer* sizer_child_p = dynamic_cast<Sizer*>(app_p->GetObjectFromMap(child));
 		 
 		if (sizer_child_p) {
 			wxSizer* wxchild_p = sizer_child_p->GetSizer();
-			m_sizer -> Add(wxchild_p, wxSizerFlags(m_expand_priority).Expand());
+			m_sizer -> Add(wxchild_p, wxSizerFlags(expand_priority).Expand());
 			return;
 		}
 		 
@@ -73,9 +83,9 @@ void Sizer::Call(int nargs, VALUE *args)
 		 
 		if (text_ctrl_child_p) {
 			if (m_dir == "horizontal") {
-				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP(),wxSizerFlags(m_expand_priority).Expand());
+				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP(),wxSizerFlags(expand_priority).Expand());
 			}else{
-				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP(),wxSizerFlags(m_expand_priority).Expand());
+				m_sizer -> Add(text_ctrl_child_p->GetTextCtrlP(),wxSizerFlags(expand_priority).Expand());
 			}
 			return;
 		}
