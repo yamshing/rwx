@@ -25,6 +25,7 @@ class Sizer :public wxObject
 		std::string m_dir;
 		 
 		wxSizer* m_sizer;
+		int m_expand_priority;
 		 
 };
 
