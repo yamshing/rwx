@@ -19,6 +19,8 @@ OMUSUBIN_DIR="omusubin/src/class"
 CLASS_DIR="src/class"
 RWX_BIN_NAME = "rwx"
  
+LANG=-DLANG=jp
+ 
 SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DIR)/notebook.cpp $(CLASS_DIR)/radio_box.cpp\
 			 $(CLASS_DIR)/check_box.cpp $(CLASS_DIR)/button.cpp $(CLASS_DIR)/text_ctrl.cpp $(CLASS_DIR)/static_text.cpp $(CLASS_DIR)/sizer.cpp\
 			 $(CLASS_DIR)/panel.cpp $(CLASS_DIR)/splitter.cpp $(CLASS_DIR)/toolbar.cpp $(CLASS_DIR)/dc.cpp $(CLASS_DIR)/canvas.cpp $(CLASS_DIR)/frame.cpp\
@@ -126,18 +128,18 @@ ifeq ($(SYS),"win")
 	echo 'win'
 	rm $(RWX_BIN_NAME).exe || true 
 	windres -i./$(WIN_RC_DIR)$(WIN_RC_NAME).rc -o$(WIN_RC_NAME)_rc.o --include-dir $(WIN_WX_INCLUDE_DIR) 
-	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB)
+	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB) $(LANG)
 	 
 else ifeq ($(SYS),"mac")
 	rm $(RWX_BIN_NAME) || true;
 	rm $(RWX_BIN_NAME)_omusubin.exe || true;
-	g++ -g0 -O3 -s --std=c++17 -o $(RWX_BIN_NAME) $(SOURCE) $(MACWXLIB) $(MACRUBYLIB) $(MACINCLUDE) $(MACLIB); 
+	g++ -g0 -O3 -s --std=c++17 -o $(RWX_BIN_NAME) $(SOURCE) $(MACWXLIB) $(MACRUBYLIB) $(MACINCLUDE) $(MACLIB) $(LANG); 
 	 
 else
 	 
 	rm $(RWX_BIN_NAME) || true;
 	rm $(RWX_BIN_NAME)_omusubin.exe || true;
-	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB); 
+	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB) $(LANG); 
 	 
 endif
 
