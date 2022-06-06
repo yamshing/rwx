@@ -364,6 +364,9 @@ struct StaticFunc
 				|| func_name_str == "init_listctrl"  ){
 			init_callback(target, func_name, nargs, args);
 			 
+		}else if (func_name_str == "app_call"){
+			result = app_p->Call(nargs, args);
+			 
 		}else if (func_name_str == "frame_call"){
 			 
 			Frame* frame_p = app_p->GetFrameP();

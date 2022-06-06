@@ -130,6 +130,7 @@ GENERIC_CALL(treectrl_call)
 GENERIC_CALL(listctrl_call)
 GENERIC_CALL(grid_call)
 GENERIC_CALL(image_call)
+GENERIC_CALL(app_call)
 	 
 	 
 	 
@@ -174,6 +175,7 @@ FUNC_TO_GENERIC(grid,get_grid_size)
 FUNC_TO_GENERIC(grid,delete_cell_value_with_index_arr)
 
 FUNC_TO_GENERIC(image,capture_desktop)
+FUNC_TO_GENERIC(app,get_lang)
 
 /*DEFINE*/
 
@@ -302,6 +304,8 @@ Init_LibRwx(void)
 
 	librwx_Slider  = rb_define_class_under(librwx_Namespace, "Slider", rb_cObject);
 	rb_define_method(librwx_Slider, "initialize", librwx_slider_initialize, -1);
+
+	rb_define_method(librwx_App, "get_lang", librwx_app_get_lang, -1);
 	 
 	/*CALL*/
 	 

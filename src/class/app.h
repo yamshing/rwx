@@ -65,6 +65,8 @@ class App : public wxApp
 		};
 		bool GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string embed_name);
 		 
+		VALUE Call(int nargs, VALUE *args);
+		 
 };
  
  

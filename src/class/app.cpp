@@ -156,5 +156,21 @@ bool App::GetEmbedBinObject(std::vector<unsigned char>& out_bin, std::string emb
 	return false;
 	 
 }
+VALUE App::Call(int nargs, VALUE *args)
+{
+	VALUE func_name = args[0];
+	std::string func_name_str = std::string(StringValuePtr(func_name));
+	//App* app_p = static_cast<App*>(wxTheApp);
+
+	VALUE result = INT2NUM(100);
+	 
+	if (func_name_str == "get_lang") {
+		 
+		std::string lang = "jp";
+		result = rb_str_new_cstr(lang.c_str());
+		 
+	}
+	return result;
+}
  
  
