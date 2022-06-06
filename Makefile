@@ -19,7 +19,8 @@ OMUSUBIN_DIR="omusubin/src/class"
 CLASS_DIR="src/class"
 RWX_BIN_NAME = "rwx"
  
-LANG=-DLANG=jp
+LANG=jp
+LANGOPT=-DLANG=$(LANG)
  
 SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DIR)/notebook.cpp $(CLASS_DIR)/radio_box.cpp\
 			 $(CLASS_DIR)/check_box.cpp $(CLASS_DIR)/button.cpp $(CLASS_DIR)/text_ctrl.cpp $(CLASS_DIR)/static_text.cpp $(CLASS_DIR)/sizer.cpp\
@@ -128,18 +129,18 @@ ifeq ($(SYS),"win")
 	echo 'win'
 	rm $(RWX_BIN_NAME).exe || true 
 	windres -i./$(WIN_RC_DIR)$(WIN_RC_NAME).rc -o$(WIN_RC_NAME)_rc.o --include-dir $(WIN_WX_INCLUDE_DIR) 
-	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB) $(LANG)
+	g++ -g0 -O3 -s -o $(RWX_BIN_NAME).exe --std=c++17 -static $(SOURCE) $(WIN_RC_NAME)_rc.o $(WINWXLIB) $(WININCLUDE) $(WINRUBYLIB) $(WINLIB) $(LANGOPT)
 	 
 else ifeq ($(SYS),"mac")
 	rm $(RWX_BIN_NAME) || true;
 	rm $(RWX_BIN_NAME)_omusubin.exe || true;
-	g++ -g0 -O3 -s --std=c++17 -o $(RWX_BIN_NAME) $(SOURCE) $(MACWXLIB) $(MACRUBYLIB) $(MACINCLUDE) $(MACLIB) $(LANG); 
+	g++ -g0 -O3 -s --std=c++17 -o $(RWX_BIN_NAME) $(SOURCE) $(MACWXLIB) $(MACRUBYLIB) $(MACINCLUDE) $(MACLIB) $(LANGOPT); 
 	 
 else
 	 
 	rm $(RWX_BIN_NAME) || true;
 	rm $(RWX_BIN_NAME)_omusubin.exe || true;
-	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB) $(LANG); 
+	g++ -g0 -O3 -s --std=c++17 -static-libgcc -o $(RWX_BIN_NAME) $(SOURCE) $(WXLIB) $(RUBYLIB) $(INCLUDE) $(LIB) $(LANGOPT); 
 	 
 endif
 
