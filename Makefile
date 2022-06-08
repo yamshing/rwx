@@ -19,8 +19,13 @@ OMUSUBIN_DIR="omusubin/src/class"
 CLASS_DIR="src/class"
 RWX_BIN_NAME = "rwx"
  
-LANG=jpn
-LANGOPT=-DLANG=$(LANG)
+LANG_ENG=0
+LANG_JPN=1
+LANG_FRA=2
+ 
+LANG=LANG_FRA
+LANG_STR=fra
+LANGOPT=-DLANG=$(LANG) -DLANG_ENG=$(LANG_ENG) -DLANG_JPN=$(LANG_JPN) -DLANG_FRA=$(LANG_FRA)
  
 SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DIR)/notebook.cpp $(CLASS_DIR)/radio_box.cpp\
 			 $(CLASS_DIR)/check_box.cpp $(CLASS_DIR)/button.cpp $(CLASS_DIR)/text_ctrl.cpp $(CLASS_DIR)/static_text.cpp $(CLASS_DIR)/sizer.cpp\

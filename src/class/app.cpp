@@ -166,13 +166,15 @@ VALUE App::Call(int nargs, VALUE *args)
 	 
 	if (func_name_str == "get_lang") {
 		 
-#if LANG==jpn
+#if LANG==LANG_JPN
 		std::string lang = "jpn";
-#elif LANG==fra
+#elif LANG==LANG_FRA
 		std::string lang = "fra";
 #else
 		std::string lang = "eng";
 #endif
+		 
+		std::cout << "lang (in app.cpp) " << lang << std::endl;
 		 
 		result = rb_str_new_cstr(lang.c_str());
 		 
