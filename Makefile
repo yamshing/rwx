@@ -24,7 +24,7 @@ LANG_JPN=1
 LANG_FRA=2
  
 LANG=LANG_JPN
-LANG_STR=jpn
+LANG_STR=
 LANGOPT=-DLANG=$(LANG) -DLANG_ENG=$(LANG_ENG) -DLANG_JPN=$(LANG_JPN) -DLANG_FRA=$(LANG_FRA)
  
 SOURCE=src/main.cpp $(CLASS_DIR)/app.cpp $(OMUSUBIN_DIR)/omusubin.cpp $(CLASS_DIR)/notebook.cpp $(CLASS_DIR)/radio_box.cpp\
